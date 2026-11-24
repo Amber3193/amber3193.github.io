@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!-- 16型人格测试 © 2026 Amber（XU YUEHONG）. All rights reserved. 欢迎分享；商用或改编须事先取得书面授权。 -->
+<meta name="author" content="Amber">
+<meta name="copyright" content="© 2026 Amber（XU YUEHONG）. All rights reserved.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FBF7F2">
+<title>16型人格 · 荣格八维测试</title>
+<style>
+:root{
+  --bg:#FBF7F2; --card:#FFFFFF; --ink:#2A2622; --sub:#7A726A; --line:#ECE5DC;
+  --accent:#7B61FF; --accent-soft:#EFEBFF; --radius:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;line-height:1.6;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:28px 20px 60px}
+.screen{display:none;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-size:30px;line-height:1.25;letter-spacing:.5px}
+h2{font-size:20px;margin-bottom:10px}
+h3{font-size:16px;margin-bottom:6px}
+p{color:var(--sub);font-size:15px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:var(--accent);font-weight:700;margin-bottom:10px}
+.card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:0 2px 14px rgba(60,40,20,.05);margin-top:16px}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s,opacity .15s;font-family:inherit}
+.btn:active{transform:scale(.98)}
+.btn-main{background:var(--ink);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn+.btn{margin-top:10px}
+.dims{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.dim{background:#F6F2EC;border-radius:14px;padding:12px}
+.dim b{font-size:14px}.dim span{display:block;font-size:12px;color:var(--sub)}
+.note{font-size:12px;color:var(--sub);margin-top:14px;line-height:1.7}
+details{margin-top:12px}
+summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none}
+summary::after{content:" ＋";color:var(--sub)}
+details[open] summary::after{content:" －"}
+details p,details li{font-size:13px}
+details ul{padding-left:18px;margin-top:6px;color:var(--sub)}
+
+/* quiz */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.back{border:0;background:none;font-size:14px;color:var(--sub);cursor:pointer;padding:6px 0;font-family:inherit}
+.back:disabled{opacity:.3}
+.count{font-size:13px;color:var(--sub);font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:6px;transition:width .3s}
+.qbox{min-height:170px;display:flex;align-items:center;justify-content:center;text-align:center;padding:36px 8px 26px}
+.qtext{font-size:21px;font-weight:700;line-height:1.55}
+.scale{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 2px}
+.dot{border-radius:50%;border:2.5px solid;background:#fff;cursor:pointer;transition:transform .15s,background .15s;flex:none}
+.dot:active{transform:scale(.9)}
+.dot.s3{width:50px;height:50px}.dot.s2{width:42px;height:42px}.dot.s1{width:35px;height:35px}.dot.s0{width:28px;height:28px}
+.dot.dis{border-color:#C9B8A8}.dot.agr{border-color:#2A2622}.dot.neu{border-color:#D8D0C6}
+.dot.dis.sel{background:#C9B8A8}.dot.agr.sel{background:#2A2622}.dot.neu.sel{background:#D8D0C6}
+.ends{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-top:12px;font-weight:600}
+.hint{text-align:center;font-size:12px;color:#B5ACA2;margin-top:34px}
+
+/* result */
+.hero{text-align:center;padding:30px 20px}
+.code{font-size:64px;font-weight:900;letter-spacing:6px;line-height:1.1;color:var(--accent)}
+.nick{font-size:22px;font-weight:800;margin-top:6px}
+.tag{font-size:14px;color:var(--sub);margin-top:6px}
+.badge{display:inline-block;font-size:12px;padding:4px 12px;border-radius:20px;background:var(--accent-soft);color:var(--accent);font-weight:700;margin-top:12px}
+.axis{margin-top:16px}
+.axis:first-of-type{margin-top:4px}
+.axis-h{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px}
+.axis-h .w{color:var(--accent)}
+.track{position:relative;height:10px;background:#F1ECE5;border-radius:10px}
+.fill{position:absolute;top:0;height:100%;border-radius:10px;background:var(--accent)}
+.mid{position:absolute;left:50%;top:-3px;width:2px;height:16px;background:#D8D0C6}
+.axis-f{font-size:12px;color:var(--sub);margin-top:4px;text-align:center}
+.facet{display:grid;grid-template-columns:70px 1fr 70px;align-items:center;gap:8px;font-size:12px;margin-top:9px}
+.facet span:first-child{text-align:right}
+.facet .on{color:var(--ink);font-weight:700}
+.facet span{color:#B5ACA2}
+.ftrack{position:relative;height:6px;background:#F1ECE5;border-radius:6px}
+.fdot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%)}
+.ftext{font-size:12.5px;color:var(--sub);line-height:1.6;margin:3px 0 2px;padding-left:2px}
+.ftext.fmid{color:#9A9189}
+.fn{display:grid;grid-template-columns:54px 1fr;gap:12px;align-items:start;margin-top:14px}
+.fn:first-of-type{margin-top:6px}
+.fn .tagc{width:54px;height:54px;border-radius:16px;background:var(--accent-soft);color:var(--accent);font-weight:900;font-size:19px;display:flex;align-items:center;justify-content:center}
+.fn.inf .tagc{background:#F1ECE5;color:#8A8178}
+.fn b{font-size:15px}
+.fn .role{display:block;font-size:12px;color:var(--sub);font-weight:400;margin-top:1px}
+.fn p{font-size:13.5px;color:var(--ink);margin-top:2px}
+.fn p.sub{color:var(--sub);font-size:12.5px}
+.fbar{display:grid;grid-template-columns:34px 1fr 34px;gap:10px;align-items:center;margin-top:10px;font-size:13px}
+.fbar b{font-size:14px}
+.fbar .t{height:10px;background:#F1ECE5;border-radius:10px;overflow:hidden}
+.fbar .t i{display:block;height:100%;background:var(--accent);border-radius:10px}
+.fbar span{color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+.fbar.low .t i{background:#CFC6BB}
+.fbar-d{font-size:12.5px;color:var(--sub);margin:2px 0 0 44px}
+.fit{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;margin-top:10px;font-size:13px}
+.fit .t{height:8px;background:#F1ECE5;border-radius:8px;overflow:hidden}
+.fit .t i{display:block;height:100%;background:var(--ink);border-radius:8px}
+.scene{margin-top:16px}
+.scene:first-of-type{margin-top:4px}
+.scene h3{font-size:15px;margin-bottom:4px}
+.scene p{color:var(--ink);font-size:14px}
+.scene .try{color:var(--sub);font-size:13px;margin-top:4px}
+.alt{background:#F6F2EC;border-radius:14px;padding:14px;margin-top:12px}
+.alt b{font-size:15px}
+.alt p{font-size:13px;margin-top:4px}
+.fgroup{margin-top:18px}
+.fgroup h3{font-size:13px;color:var(--sub);font-weight:700}
+.list{padding-left:18px;margin-top:6px}
+.list li{font-size:14px;color:var(--ink);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{font-size:13px;padding:6px 12px;border-radius:20px;background:#F6F2EC}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:30px;font-size:14px;opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.resume{display:none;margin-top:10px}
+
+/* 详细报告 v9 */
+.meta{font-size:12px;color:var(--sub);margin-top:14px}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:6px;background:var(--bg);padding:12px 0 8px;margin-top:8px}
+.tabs button{flex:1;border:0;border-radius:12px;padding:11px 0;font-size:14px;font-weight:700;background:#F1ECE5;color:var(--sub);font-family:inherit;cursor:pointer;transition:.2s}
+.tabs button.on{background:var(--ink);color:#fff}
+.pane{display:none}
+.pane.on{display:block;animation:fade .3s ease}
+.pane>.card:first-child{margin-top:8px}
+.big{font-size:40px;font-weight:900;color:var(--accent);line-height:1.1}
+.big small{font-size:13px;color:var(--sub);font-weight:600;margin-left:8px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tri button{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:10px 4px;font-family:inherit;cursor:pointer;color:var(--ink)}
+.tri button b{display:block;font-size:22px;font-weight:900}
+.tri button span{font-size:11px;color:var(--sub)}
+.tri button.on{border-color:var(--accent);background:var(--accent-soft)}
+.tri button.on b{color:var(--accent)}
+.pop{display:grid;grid-template-columns:44px 1fr 46px;gap:8px;align-items:center;font-size:12px;margin-top:6px;color:var(--sub)}
+.pop .t{height:8px;background:#F1ECE5;border-radius:8px;overflow:hidden}
+.pop .t i{display:block;height:100%;background:#CFC6BB;border-radius:8px}
+.pop.me{color:var(--ink);font-weight:800}
+.pop.me .t i{background:var(--accent)}
+.pop span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.edge{margin-top:16px}
+.edge:first-of-type{margin-top:6px}
+.edge h3{font-size:15px;margin-bottom:2px}
+.edge h3 span{font-size:12px;color:var(--accent);font-weight:700;margin-left:6px}
+.edge p,.row p{font-size:14px;color:var(--ink)}
+.edge p.cost,.row p.cost{font-size:13px;color:var(--sub);margin-top:2px}
+.row{margin-top:14px}
+.row h3{font-size:13px;color:var(--sub);font-weight:700;margin-bottom:2px}
+.pick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.pick button{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:9px 0;font-size:13px;font-weight:700;font-family:inherit;color:var(--ink);cursor:pointer}
+.pick button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.gen{text-align:center;padding:60px 10px 20px}
+.gstep{text-align:left;margin-top:18px;font-size:14px;color:var(--sub)}
+.gstep .bar{margin-top:6px}
+.gstep .bar i{width:0;transition:width .4s linear}
+.ad{background:var(--ink)}
+.ad h2{color:#fff}
+.ad p{color:#D8D0C6;font-size:14px}
+.ad a{display:block;background:rgba(255,255,255,.09);border-radius:14px;padding:12px 14px;margin-top:10px;color:#fff;text-decoration:none}
+.ad a b{display:block;font-size:15px}
+.ad a span{font-size:12px;color:#B5ACA2}
+.ad .btn{background:#fff;color:var(--ink);margin-top:14px}
+
+/* ===== v12 视觉与互动 ===== */
+:root{--serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC",Georgia,serif;--ease:cubic-bezier(.2,.8,.2,1)}
+html{-webkit-text-size-adjust:100%}
+body{background:radial-gradient(900px 380px at 50% -120px,var(--accent-soft),transparent 72%) no-repeat,var(--bg)}
+button,a,summary{touch-action:manipulation}
+summary::-webkit-details-marker{display:none}
+h1{font-family:var(--serif);font-size:34px;font-weight:900;letter-spacing:0;line-height:1.22}
+.nick{font-family:var(--serif)}
+.card{box-shadow:none;border:1px solid var(--line);transition:border-color .2s}
+.btn{transition:transform .15s var(--ease),box-shadow .2s,background .2s}
+.btn:focus-visible,.dot:focus-visible,.tabs button:focus-visible,.pick button:focus-visible,.tri button:focus-visible,.tgrid button:focus-visible,.code button:focus-visible,.back:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.hero{background:linear-gradient(180deg,var(--accent-soft) 0%,var(--card) 62%);border-color:transparent}
+.ad{border-color:transparent}
+
+/* 首页：十六型格子 */
+.tlead{font-size:12px;color:var(--sub);margin-top:22px;font-weight:700;letter-spacing:1px}
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.tgrid button{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:11px 0;font-family:inherit;font-size:13px;font-weight:800;letter-spacing:1px;color:var(--sub);cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s}
+.tgrid button:active{transform:scale(.95)}
+.tpeek{min-height:66px;margin-top:10px;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.tpeek b{font-size:15px}.tpeek b i{font-style:normal}
+.tpeek span{display:block;font-size:13px;color:var(--sub);margin-top:2px}
+
+/* 答题 */
+.steps{display:flex;gap:6px;margin-bottom:8px}
+.steps i{height:4px;border-radius:4px;background:var(--line);transition:background .3s}
+.steps i.done{background:var(--ink)}
+.steps i.now{background:var(--accent)}
+.qtext{font-family:var(--serif);font-size:22px}
+.qtext.qin{animation:qin .32s var(--ease)}
+.qtext.qback{animation:qback .32s var(--ease)}
+@keyframes qin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes qback{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.dot.sel{animation:pop .32s var(--ease)}
+@keyframes pop{0%{transform:scale(.82);box-shadow:0 0 0 0 rgba(42,38,34,.28)}60%{transform:scale(1.12)}100%{transform:scale(1);box-shadow:0 0 0 14px rgba(42,38,34,0)}}
+.picked{text-align:center;height:22px;line-height:22px;font-size:14px;font-weight:700;color:var(--ink);margin-top:14px}
+.hint{margin-top:22px}
+.kbd{display:none;text-align:center;font-size:12px;color:#B5ACA2;margin-top:8px}
+
+/* 结果：字母逐个出现，可点 */
+.code span,.code button{display:inline-block;animation:rise .55s var(--ease) backwards;animation-delay:calc(var(--i)*90ms + 120ms)}
+.code button{all:unset;display:inline-block;cursor:pointer;transition:transform .15s var(--ease);animation:rise .55s var(--ease) backwards;animation-delay:calc(var(--i)*90ms + 120ms)}
+.code button:active{transform:scale(.9)}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
+.tapnote{font-size:12px;color:var(--sub);margin-top:10px}
+.axis{border-radius:10px}
+.axis.flash{animation:flash 1.4s ease}
+@keyframes flash{0%,55%{background:var(--accent-soft);box-shadow:0 0 0 8px var(--accent-soft)}100%{background:transparent;box-shadow:0 0 0 8px transparent}}
+
+/* 滚动到才出现；条形从零长出来 */
+.rvl{transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.rvl.pre{opacity:0;transform:translateY(10px)}
+.fill,.t i{transition:transform .9s var(--ease) .12s}
+.t i{transform-origin:left}
+.fill[style*="right:50%"]{transform-origin:right}
+.fill[style*="left:50%"]{transform-origin:left}
+.pre .fill,.pre .t i{transform:scaleX(0)}
+.fdot{transition:left .9s var(--ease) .12s}
+.pre .fdot{left:50%!important}
+
+.tabs button{transition:background .25s,color .25s,transform .15s}
+.tabs button:active{transform:scale(.96)}
+.pick button,.tri button{transition:background .2s,color .2s,border-color .2s,transform .15s}
+.pick button:active,.tri button:active{transform:scale(.95)}
+.pick button.me{border-color:var(--accent);color:var(--accent)}
+.pick button.me.on{color:#fff}
+
+@media(hover:hover) and (pointer:fine){
+ .kbd{display:block}
+ .dot:hover{transform:scale(1.08)}
+ .card:hover{border-color:#DDD3C6}
+ .hero:hover,.ad:hover{border-color:transparent}
+ .btn-main:hover{box-shadow:0 6px 18px rgba(42,38,34,.18)}
+ .btn-ghost:hover{border-color:var(--ink)}
+ .tgrid button:hover{border-color:var(--c);color:var(--c)}
+ .pick button:hover,.tri button:hover{border-color:var(--accent)}
+}
+.tgrid button.on,.tgrid button.on:hover{color:#fff;background:var(--c);border-color:var(--c);transform:translateY(-2px)}
+/* v13 八维加长版 */
+.rel{display:grid;grid-template-columns:34px 1fr 40px;gap:10px;align-items:center;margin-top:12px;font-size:13px}
+.rel b{font-size:14px}
+.rel span{color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+.fill.neg{background:#CFC6BB}
+.fd{border-top:1px solid var(--line);margin-top:0;padding:12px 0}
+.fd:first-of-type{border-top:0}
+.fd summary{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;font-size:15px}
+.fd summary::after{content:"＋";color:var(--sub);font-weight:400}
+.fd[open] summary::after{content:"－"}
+.fd summary .k{width:44px;height:44px;border-radius:13px;background:var(--accent-soft);color:var(--accent);font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center}
+.fd.lo summary .k{background:#F1ECE5;color:#8A8178}
+.fd summary small{display:block;font-size:12px;color:var(--sub);font-weight:400}
+.fd .row:first-of-type{margin-top:12px}
+.fd .row p{font-size:14px}
+.pos{display:grid;grid-template-columns:22px 44px 1fr 34px;gap:10px;align-items:center;margin-top:12px;font-size:13px}
+.pos i{font-style:normal;color:#B5ACA2;font-variant-numeric:tabular-nums}
+.pos b{font-size:15px}
+.pos em{font-style:normal;color:var(--ink);font-weight:700}
+.pos small{display:block;color:var(--sub);font-size:12px}
+.pos span{text-align:right;color:var(--sub);font-variant-numeric:tabular-nums}
+.pos.sh b{color:#8A8178}
+.posh{font-size:12px;color:var(--sub);font-weight:700;margin-top:18px}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stat3 div{background:#F6F2EC;border-radius:14px;padding:12px 8px;text-align:center}
+.stat3 b{display:block;font-size:22px;font-weight:900}
+.stat3 span{font-size:11px;color:var(--sub)}
+/* v14 设计审查后的修正：对比度、点按区域、动效收敛 */
+:root{--sub:#6B635B;--accent-ink:#5B3FE0}
+.hint,.kbd,.facet span,.ftext.fmid,.pos i{color:var(--sub)}
+.facet .on{color:var(--ink)}
+.eyebrow,.axis-h .w,.badge,.tri button.on b,.edge h3 span,.fn .tagc,.fd summary .k,.big{color:var(--accent-ink)}
+.fn.inf .tagc,.fd.lo summary .k{color:var(--sub)}
+.pick button.on,.pick button.me.on{background:var(--accent-ink);border-color:var(--accent-ink)}
+.pick button.me{border-color:var(--accent-ink);color:var(--accent-ink)}
+.dot{position:relative}
+.dot::after{content:"";position:absolute;inset:-6px;border-radius:50%}
+.dot.s0{width:32px;height:32px}
+.dot.dis{border-color:#9E8872}.dot.neu{border-color:#968D84}
+.dot.dis.sel{background:#9E8872}.dot.neu.sel{background:#968D84}
+.tri button span,.stat3 span{font-size:12px}
+h1,h2,.nick,.qtext{text-wrap:balance}
+#result .card,#fnres .card,#result .axis,#result button,#fnres button,#fnres summary{scroll-margin-top:72px}
+::selection{background:var(--accent-soft);color:var(--ink)}
+.rvl.pre{opacity:1;transform:none}
+.quit{display:block;margin:26px auto 0;padding:10px 14px;text-decoration:underline;text-underline-offset:3px;color:var(--sub)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HOME -->
+<section class="screen on" id="home">
+  <div class="eyebrow">PERSONALITY · 16 TYPES</div>
+  <h1>16型人格测试<br>荣格八维测试</h1>
+  <p style="margin-top:12px">这里有两套测试，可以只做一套，也可以都做。16型看四个字母和 20 个细分侧面；八维直接给八种心理功能各打一个分。</p>
+  <p class="tlead">十六种类型，点一个看看</p>
+  <div class="tgrid" id="tgrid"></div>
+  <div class="tpeek" id="tpeek" aria-live="polite"></div>
+
+  <div class="card">
+    <h3>① 16型人格 · 四维二十面</h3>
+    <p style="font-size:13px;margin-bottom:10px">告诉你是哪四个字母，并拆开看 20 个侧面：为什么同样是 I，有人社恐、有人只是慢热。</p>
+    <div class="dims" style="grid-template-columns:1fr 1fr 1fr;margin-top:4px">
+      <div class="dim"><b>13 题</b><span>第一阶段<br>初步轮廓</span></div>
+      <div class="dim"><b>四个字母</b><span>第二阶段<br>定出类型</span></div>
+      <div class="dim"><b>完整报告</b><span>第三阶段<br>二十个侧面</span></div>
+    </div>
+    <button class="btn btn-main" style="margin-top:16px" onclick="start()">开始 · 先答 13 题</button>
+    <p class="note" style="margin-top:10px">分三个阶段，每个阶段结束都能看到结果，进度自动保存，随时可以停下。</p>
+    <button class="btn btn-ghost resume" id="resumeBtn" onclick="resume()">继续上次的测试</button>
+    <button class="btn btn-ghost resume" id="lastBtn" onclick="lastReport()">查看上次的报告</button>
+    <p class="note" style="margin-top:10px">做完会得到一份四部分的详细报告：人格分析、情感分析、职业性格、成长建议。全部免费，不用解锁。</p>
+  </div>
+
+  <div class="card">
+    <h3>② 荣格八维 · 96 题</h3>
+    <p style="font-size:13px">八个功能（Ne Ni Se Si Te Ti Fe Fi）各 12 题，五档作答，约 12 分钟。做完给出八个功能的分数，和三种算法各自判出的类型。</p>
+    <button class="btn btn-ghost" style="margin-top:14px" onclick="startFn()">开始八维测试</button>
+  </div>
+
+  <div class="card">
+    <h3>测的是什么</h3>
+    <div class="dims">
+      <div class="dim"><b>E 外向 / I 内向</b><span>能量从哪里来</span></div>
+      <div class="dim"><b>S 实感 / N 直觉</b><span>怎样接收信息</span></div>
+      <div class="dim"><b>T 思考 / F 情感</b><span>怎样做决定</span></div>
+      <div class="dim"><b>J 判断 / P 感知</b><span>怎样安排生活</span></div>
+    </div>
+    <details>
+      <summary>题目是怎么设计的</summary>
+      <p style="margin-top:8px">四个维度来自荣格《心理类型》及之后 Myers 与 Briggs 的类型理论。参考类型研究中"每个维度可拆成 5 个侧面"的结构，本测试为每个侧面原创 4 道情境题，共 80 题：</p>
+      <ul>
+        <li>每个侧面正反向题各半，减少"一路点同意"带来的偏差</li>
+        <li>采用 7 级同意程度，而不是二选一，能看出你离中间有多远</li>
+        <li>题目打乱维度顺序出现，避免猜题</li>
+      </ul>
+    </details>
+    <p class="note">说明：本测试为原创题库，不是 Myers-Briggs 公司的官方 MBTI® 量表。结果适合用于自我觉察和交流讨论，不能作为招聘、诊断等正式判断依据。人格倾向会随情境和成长变化，偏好不等于能力。</p>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="quiz">
+  <div class="topbar">
+    <button class="back" id="backBtn" onclick="prev()">← 上一题</button>
+    <span class="count" id="count">1 / 80</span>
+  </div>
+  <div class="steps" id="steps"></div>
+  <div class="bar"><i id="prog" style="width:0"></i></div>
+  <div class="qbox"><div class="qtext" id="qtext"></div></div>
+  <div class="scale" id="scale"></div>
+  <div class="ends"><span id="endL">不同意</span><span id="endR">同意</span></div>
+  <div class="picked" id="picked" aria-live="polite"></div>
+  <div class="hint">凭第一反应作答，没有对错。想想"平时真实的你"，而不是"理想中的你"。</div>
+  <div class="kbd" id="kbd"></div>
+  <button class="back quit" id="quitBtn" onclick="quit()"></button>
+</section>
+
+<!-- 八维结果 -->
+<section class="screen" id="fnres">
+  <div class="card hero">
+    <div class="eyebrow">你的荣格八维</div>
+    <div class="code" id="fTop" style="font-size:44px;letter-spacing:3px"></div>
+    <div class="tag" id="fTopTag"></div>
+  </div>
+
+  <div class="tabs" id="ftabs" role="tablist" aria-label="八维结果的四个部分">
+    <button class="on" onclick="ftab(0)">分数</button>
+    <button onclick="ftab(1)">解读</button>
+    <button onclick="ftab(2)">类型</button>
+    <button onclick="ftab(3)">成长</button>
+  </div>
+
+  <!-- ① 分数 -->
+  <div class="pane on">
+    <div class="card">
+      <h2>先看这次答得怎么样</h2>
+      <div id="rFnStyle"></div>
+    </div>
+    <div class="card">
+      <h2>八个功能的分数</h2>
+      <p style="font-size:13px">每个功能 12 题，分数为 0–100。分数越高，说明你越认同、越常用这种方式。紫色是高于你自己平均分的，灰色是低于的。</p>
+      <div id="rFnBars"></div>
+    </div>
+    <div class="card">
+      <h2>和你自己比</h2>
+      <p style="font-size:13px">有人习惯打高分，有人习惯打低分。这里把每个功能减去你自己的平均分，只看"在你身上，哪个更突出"。</p>
+      <div id="rFnRel"></div>
+    </div>
+    <div class="card">
+      <h2>四组对照</h2>
+      <p style="font-size:13px">把八个功能两两归堆，看你整体往哪边偏。</p>
+      <div id="rFnBal"></div>
+    </div>
+  </div>
+
+  <!-- ② 解读 -->
+  <div class="pane">
+    <div class="card">
+      <h2>专项解读</h2>
+      <p style="font-size:13px">先读你分数最高的两个和最低的一个。</p>
+      <div id="rFnRead"></div>
+    </div>
+    <div class="card">
+      <h2>最高的两个放在一起看</h2>
+      <div id="rFnPair"></div>
+    </div>
+    <div class="card">
+      <h2>你走的两条轴</h2>
+      <p style="font-size:13px">八个功能两两成对，一头高，另一头通常也跟着被用到。每个人主要走其中两条：一条管"怎么看事情"，一条管"怎么下判断"。</p>
+      <div id="rFnAxis"></div>
+    </div>
+    <div class="card">
+      <h2>八个功能逐个看</h2>
+      <p style="font-size:13px">按你的分数从高到低排。点开任意一个，看它在日常、工作、关系里的样子，别人容易误会的地方，以及怎么练。</p>
+      <div id="rFnAll"></div>
+    </div>
+  </div>
+
+  <!-- ③ 类型 -->
+  <div class="pane">
+    <div class="card">
+      <h2>三种算法判出的类型</h2>
+      <div id="rFnFit"></div>
+      <p id="rFnCmp" style="color:var(--ink);font-size:14px;margin-top:14px"></p>
+    </div>
+    <div class="card">
+      <h2>八个位置</h2>
+      <div id="rFnPos"></div>
+    </div>
+    <div class="card">
+      <h2>卡住和失控的时候</h2>
+      <div id="rFnLoop"></div>
+    </div>
+  </div>
+
+  <!-- ④ 成长 -->
+  <div class="pane">
+    <div class="card">
+      <h2>这一周可以练的一件事</h2>
+      <div id="rFnGrow"></div>
+    </div>
+    <div class="card">
+      <h2>这套理论靠不靠谱</h2>
+      <p style="color:var(--ink);font-size:14px">八种功能出自荣格 1921 年的《心理类型》。"主导、辅助、第三、劣势"这套固定排序，以及"八个位置"，是后来的人一步步加上去的。</p>
+      <p style="color:var(--ink);font-size:14px;margin-top:8px">它的问题是证据少。2008 年起，研究者 James Reynierse 在类型学自己的期刊上连续发文，认为找不到数据支持"每个类型有固定的功能顺序"。实际测下来，很多人的八个分数也排不成理论里的样子，你这份可能就是。</p>
+      <p style="color:var(--ink);font-size:14px;margin-top:8px">所以怎么用：把上面的分数当成一面镜子，看"我常用哪种方式、少用哪种方式"。类型标签和八个位置只当一种说法，不要当成诊断，也不要拿来给别人下结论。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="btn btn-main" id="fnNext" onclick="fnNext()"></button>
+    <button class="btn btn-ghost" onclick="copyFn()">复制我的八维结果</button>
+    <button class="btn btn-ghost" onclick="startFn()">重新测八维</button>
+    <button class="btn btn-ghost" onclick="restart()">回到首页</button>
+    <p class="note">题量、作答方式和三种判型思路参照 Sakinorva 认知功能测试的公开说明；题目为原创，具体算分公式为自行实现，不是该测试的官方版本，也不是 MBTI® 官方量表。结果用于自我了解，不是精确科学。</p>
+  </div>
+</section>
+
+<!-- 阶段结果 -->
+<section class="screen" id="stage">
+  <div class="card hero" id="stTop"></div>
+  <div class="card" id="stNext"></div>
+</section>
+
+<!-- 生成报告 -->
+<section class="screen" id="gen">
+  <div class="gen">
+    <div class="eyebrow">REPORT</div>
+    <h2>正在生成你的报告</h2>
+    <div id="gSteps"></div>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="result">
+  <div class="card hero">
+    <div class="eyebrow">你的人格类型</div>
+    <div class="code" id="rCode"></div>
+    <div class="nick" id="rNick"></div>
+    <div class="tag" id="rTag"></div>
+    <div class="badge" id="rGroup"></div>
+    <div class="tapnote">点任意一个字母，跳到对应的维度</div>
+    <div class="meta" id="rMeta"></div>
+  </div>
+
+  <div class="tabs" id="tabs" role="tablist" aria-label="报告的四个部分">
+    <button class="on" onclick="tab(0)">人格分析</button>
+    <button onclick="tab(1)">情感分析</button>
+    <button onclick="tab(2)">职业性格</button>
+    <button onclick="tab(3)">成长建议</button>
+  </div>
+
+  <!-- ① 人格分析 -->
+  <div class="pane on">
+    <div class="card">
+      <h2>四个维度</h2>
+      <div id="rAxes"></div>
+    </div>
+
+    <div class="card">
+      <h2>画像</h2>
+      <p id="rDesc" style="color:var(--ink)"></p>
+      <div class="fgroup"><h3>你的优势</h3><ul class="list" id="rStr"></ul></div>
+      <div class="fgroup"><h3>可能的盲点</h3><ul class="list" id="rWeak"></ul></div>
+    </div>
+
+    <div class="card">
+      <h2>这个类型有多常见</h2>
+      <div id="rPop"></div>
+    </div>
+
+    <div class="card">
+      <h2>你最突出的侧面</h2>
+      <p style="font-size:13px">这一段不是按类型写的，是从你二十个侧面里挑出偏得最明显的几项。同样的类型，两个人这一段可以完全不同。每一项都写了它给你的好处，和你为它付的代价。</p>
+      <div id="rEdge"></div>
+    </div>
+
+    <div class="card">
+      <h2>二十个侧面</h2>
+      <p style="font-size:13px">圆点越靠近哪一边，代表你在这个细分方面越偏向那一侧。圆点在中间不是"没测出来"，而是两边你都会用，看场合。和主类型不一致的侧面，往往就是你"不像典型 ××"的地方。</p>
+      <div id="rFacets"></div>
+    </div>
+
+    <div class="card">
+      <h2>四个场景里的你</h2>
+      <p style="font-size:13px">下面不是按四个字母套的模板，是根据你在对应侧面上的作答拼出来的。</p>
+      <div id="rScenes"></div>
+    </div>
+
+    <div class="card" id="fnDerived">
+      <h2>荣格八维测试</h2>
+      <p style="font-size:13px">上面的四个字母测不出八维，八维要单独测。这套题按专业八维测试的规格做：96 题，八个功能各 12 题，五档作答，约 12 分钟。做完给出八个功能的分数、专项解读，以及三种算法各自判出的类型。</p>
+      <button class="btn btn-main" id="fnBtn" style="margin-top:14px" onclick="fnGo()">开始八维测试 · 96 题</button>
+      <p class="note" style="margin-top:8px">这是独立的一套题。做完可以再回来看这一页。中途退出不会保存进度。</p>
+    </div>
+
+    <div class="card">
+      <h2>如果觉得不像你</h2>
+      <div id="rFit"></div>
+    </div>
+  </div>
+
+  <!-- ② 情感分析 -->
+  <div class="pane">
+    <div class="card">
+      <h2>关系里的你</h2>
+      <p id="rLove" style="color:var(--ink);font-size:14px"></p>
+      <div class="row"><h3>你需要对方给你的</h3><p id="rNeed"></p></div>
+      <div class="row"><h3>你容易卡住的地方</h3><p id="rPit"></p></div>
+    </div>
+
+    <div class="card">
+      <h2>你在关系里的四个习惯</h2>
+      <p style="font-size:13px">根据你在对应侧面上的作答生成，不是按类型套的。</p>
+      <div id="rLv"></div>
+    </div>
+
+    <div class="card">
+      <h2>和 TA 的相处推演</h2>
+      <p style="font-size:13px">点一下对方的类型，看你们在四个维度上哪里同频、哪里要磨合。不知道对方类型，就把这个测试发给 TA。</p>
+      <div class="pick" id="rPick"></div>
+      <div id="rMatch"></div>
+    </div>
+  </div>
+
+  <!-- ③ 职业性格 -->
+  <div class="pane">
+    <div class="card">
+      <h2>适合的方向</h2>
+      <div class="chips" id="rCareer"></div>
+      <div class="row"><h3>你在团队里的角色</h3><p id="rRole"></p></div>
+      <p class="note">方向是按偏好给的参考，不是能力判断。任何类型都能把任何工作做好，只是费的劲不一样。</p>
+    </div>
+
+    <div class="card">
+      <h2>适合你的环境，和消耗你的环境</h2>
+      <p style="font-size:13px">按你四个维度的实际百分比生成。靠近中间的维度，会给出两边都照顾到的说法。</p>
+      <div id="rWork"></div>
+    </div>
+
+    <div class="card">
+      <h2>给合作者的使用说明</h2>
+      <p style="font-size:13px">可以直接复制，发给上司、同事或新搭档。</p>
+      <ul class="list" id="rTips"></ul>
+      <button class="btn btn-ghost" style="margin-top:14px" onclick="copyTips()">复制这份使用说明</button>
+    </div>
+  </div>
+
+  <!-- ④ 成长建议 -->
+  <div class="pane">
+    <div class="card">
+      <h2>压力大的时候</h2>
+      <p id="rSt" style="color:var(--ink);font-size:14px"></p>
+      <p class="note">发现自己出现这些状态，不是你变差了，是该休息了。先睡够、吃好，再处理事情。</p>
+    </div>
+
+    <div class="card">
+      <h2>两条长期建议</h2>
+      <ul class="list" id="rGrow"></ul>
+    </div>
+
+    <div class="card">
+      <h2>这一周可以练的一件事</h2>
+      <div id="rFlip"></div>
+    </div>
+  </div>
+
+  <div class="card ad" id="adCard"></div>
+
+  <div class="card">
+    <button class="btn btn-main" onclick="copyResult()">复制我的结果</button>
+    <button class="btn btn-ghost" onclick="restart()">重新测试</button>
+    <p class="note">原创题库，非官方 MBTI® 量表，结果仅供自我探索参考。</p>
+  </div>
+</section>
+<p class="note" id="copyNote" style="text-align:center;margin-top:28px;opacity:.85">© 2026 Amber · 保留所有权利<br>欢迎分享；如需商用或改编，请先取得书面授权。</p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DIMS=[
+ {a:'E',b:'I',an:'外向',bn:'内向',name:'能量来源',facets:[['主动发起','被动回应'],['外露表达','内敛克制'],['广泛社交','深度交往'],['边做边想','先想后做'],['热情活跃','安静平和']]},
+ {a:'S',b:'N',an:'实感',bn:'直觉',name:'接收信息',facets:[['具体细节','抽象联想'],['眼见为实','想象未来'],['实用导向','概念导向'],['依靠经验','质疑惯例'],['按部就班','跳跃发散']]},
+ {a:'T',b:'F',an:'思考',bn:'情感',name:'做出决定',facets:[['逻辑分析','共情体察'],['讲求公平','照顾处境'],['质疑求证','包容接纳'],['直接坦率','委婉体贴'],['坚定立场','温和随和']]},
+ {a:'J',b:'P',an:'判断',bn:'感知',name:'生活方式',facets:[['系统整理','随性自在'],['提前计划','保持开放'],['尽早启动','临近冲刺'],['规律日程','随机应变'],['先做后玩','跟着状态']]}
+];
+// [题目, 维度, 侧面, 方向(1=同意偏向左侧字母)]
+const Q=[
+ ['在新环境里，我通常会先开口和陌生人打招呼。',0,0,1],
+ ['聚会上，我更习惯等别人来找我聊天。',0,0,-1],
+ ['我常常是朋友里那个张罗约饭、组局的人。',0,0,1],
+ ['认识新朋友时，我更喜欢由熟人介绍，而不是自己主动去认识。',0,0,-1],
+ ['开心或不爽，身边的人通常一眼就能看出来。',0,1,1],
+ ['我的真实想法，一般只告诉很少的几个人。',0,1,-1],
+ ['遇到问题时，我喜欢边说边想，说着说着就理清了。',0,1,1],
+ ['我习惯先在心里想清楚，再决定要不要说出来。',0,1,-1],
+ ['我喜欢认识各种圈子的人，朋友越多越有意思。',0,2,1],
+ ['比起一大群朋友，我更珍惜两三个真正懂我的人。',0,2,-1],
+ ['在热闹的活动里待一整天，我会越待越兴奋。',0,2,1],
+ ['人多的场合待久了，我需要一个人待一会儿来"回血"。',0,2,-1],
+ ['学新东西时，我更喜欢直接上手试，而不是先看说明。',0,3,1],
+ ['做决定前，我需要一些安静的时间独自想一想。',0,3,-1],
+ ['我宁可在现场边做边调整，也不想事先想太多。',0,3,1],
+ ['事情过去以后，我常会反复回想当时的细节。',0,3,-1],
+ ['别人常说我很有感染力，能把气氛带起来。',0,4,1],
+ ['别人对我的第一印象往往是"安静""慢热"。',0,4,-1],
+ ['一个人在家待满整个周末，我会觉得闷得慌。',0,4,1],
+ ['一个没有任何社交安排的周末，对我来说是理想的休息。',0,4,-1],
+
+ ['描述一件事时，我习惯讲清楚具体的时间、地点和细节。',1,0,1],
+ ['我常常从一件小事联想到很多看似无关的东西。',1,0,-1],
+ ['比起讨论"以后可能会怎样"，我更关注"现在实际是怎样"。',1,0,1],
+ ['我喜欢用比喻和类比来解释事情。',1,0,-1],
+ ['我更相信亲眼看到、亲手验证过的东西。',1,1,1],
+ ['我经常沉浸在对未来的各种设想里。',1,1,-1],
+ ['看电影时，我更喜欢贴近现实生活的故事。',1,1,1],
+ ['我对科幻、奇幻、平行世界这类题材特别着迷。',1,1,-1],
+ ['学一样东西，我最关心的是"它能拿来干什么"。',1,2,1],
+ ['就算暂时用不上，我也会因为一个理论有意思而去研究它。',1,2,-1],
+ ['我更喜欢写明步骤的操作指南，而不是讲原理的长文章。',1,2,1],
+ ['我喜欢琢磨事物背后的规律和本质。',1,2,-1],
+ ['遇到问题，我会先想想以前是怎么解决类似问题的。',1,3,1],
+ ['我常常对"大家一直都这么做"的方法产生怀疑。',1,3,-1],
+ ['我信任前人积累的经验，觉得没必要什么都重新发明。',1,3,1],
+ ['我喜欢提出别人没想过的新思路，哪怕还不成熟。',1,3,-1],
+ ['一个方法好用，我会一直沿用下去。',1,4,1],
+ ['重复做同一件事，哪怕很顺手，我也很快会觉得无聊。',1,4,-1],
+ ['我做事喜欢一步一步来，先完成上一步再做下一步。',1,4,1],
+ ['我的脑子里经常同时冒出好几个想法，思路跳来跳去。',1,4,-1],
+
+ ['做重要决定时，我会先列出利弊，用逻辑来判断。',2,0,1],
+ ['做决定时，我很在意这件事会让身边的人有什么感受。',2,0,-1],
+ ['我认为"对事不对人"是处理问题最好的方式。',2,0,1],
+ ['就算道理上说得通，如果会伤害到别人，我也很难去做。',2,0,-1],
+ ['朋友找我倾诉时，我的第一反应常常是帮他分析、给办法。',2,1,1],
+ ['朋友找我倾诉时，我更想先安慰他、陪着他。',2,1,-1],
+ ['我觉得规则对所有人一视同仁，比照顾个别人的情绪更重要。',2,1,1],
+ ['我认为规则应该灵活一点，考虑每个人的具体处境。',2,1,-1],
+ ['听到一个观点，我会本能地先找它的漏洞。',2,2,1],
+ ['我倾向于先相信别人，除非有明显的理由怀疑。',2,2,-1],
+ ['为了弄清谁对谁错，我愿意和别人争论一番。',2,2,1],
+ ['为了维持和谐的气氛，我经常把不同意见咽回去。',2,2,-1],
+ ['给别人提意见时，我比较直接，觉得这样效率更高。',2,3,1],
+ ['批评别人之前，我会先想好怎么说才不让对方难受。',2,3,-1],
+ ['对我来说，被认为"能力强"比被认为"人很好"更重要。',2,3,1],
+ ['别人一句冷淡的评价，我可能会在意好几天。',2,3,-1],
+ ['只要我认为是对的，就算别人不高兴我也会坚持。',2,4,1],
+ ['我很难拒绝别人的请求，哪怕自己并不情愿。',2,4,-1],
+ ['我能比较容易地把工作关系和私人感情分开。',2,4,1],
+ ['看到别人难过，我自己的情绪也会跟着低落。',2,4,-1],
+
+ ['我的桌面、文件夹和手机相册通常整理得井井有条。',3,0,1],
+ ['东西放得有点乱我也不在意，反正我知道在哪儿。',3,0,-1],
+ ['我喜欢用清单、表格或日程 App 来管理生活。',3,0,1],
+ ['我觉得规划做得太细，反而很束缚人。',3,0,-1],
+ ['出去旅行前，我会提前把行程大致安排好。',3,1,1],
+ ['旅行时，我更享受走到哪儿算哪儿的感觉。',3,1,-1],
+ ['一件事悬而未决，会让我心里很不踏实。',3,1,1],
+ ['我喜欢保留多个选项，不急着做最终决定。',3,1,-1],
+ ['接到任务后，我习惯尽早开始，给自己留出余量。',3,2,1],
+ ['截止日期前的压力，反而能激发出我的最佳状态。',3,2,-1],
+ ['我很少把事情拖到最后一刻才做。',3,2,1],
+ ['我常常同时开好几件事，然后在最后关头一起收尾。',3,2,-1],
+ ['计划被临时打乱时，我会明显感到烦躁。',3,3,1],
+ ['有人临时约我出去，我通常很乐意说走就走。',3,3,-1],
+ ['我每天的作息和习惯相对固定。',3,3,1],
+ ['我喜欢生活中有些意料之外的变化和惊喜。',3,3,-1],
+ ['我做事讲究"正事做完再玩"。',3,4,1],
+ ['我做事更跟着状态走，有感觉的时候效率最高。',3,4,-1],
+ ['我倾向于尽快做出决定，然后坚定地执行。',3,4,1],
+ ['出现新信息时，我愿意随时推翻原来的计划。',3,4,-1]
+];
+
+const TYPES={
+ INTJ:{n:'远见架构师',t:'先看清十步之后，再走第一步',d:'你习惯在脑中搭建一个完整的系统，再去现实里验证它。你对低效和混乱的容忍度很低，相信好的结构能解决大部分问题。外表冷静，内心其实有一张很长的人生规划图。',s:['长线思考，能看到别人忽略的趋势','独立判断，不容易被情绪和舆论带跑','对目标有很强的执行意志'],w:['容易显得高冷，让人觉得难以接近','对别人的"不够聪明"缺乏耐心'],c:['战略规划','产品架构','研究分析','投资','系统设计'],l:'你在关系里慢热但认真，一旦认定就很长情。记得把"我在为我们规划"说出口——对方未必看得见你心里的那张图。'},
+ INTP:{n:'逻辑探索家',t:'万物皆可拆解，再重新组装',d:'你对"为什么"有近乎执着的好奇，喜欢把复杂的问题拆到最底层。你享受思考本身胜过结论，常常在脑中进行一场无人知晓的辩论。',s:['分析能力强，能发现逻辑漏洞','思维开放，乐于接受新理论','能独立钻研很久而不觉得累'],w:['想得多、落地少，容易拖延','不太擅长处理别人的情绪需求'],c:['科研','软件开发','数据分析','哲学/学术','技术顾问'],l:'你表达爱的方式常常是"分享一个有趣的发现"。对方需要的有时不是答案，而是一句"我懂你的感受"。'},
+ ENTJ:{n:'果断统帅',t:'目标在前，路由我来开',d:'你天生带着推进力，看到问题就想组织资源去解决它。你重视效率和结果，擅长在混乱中迅速定下方向，并让一群人跟着跑起来。',s:['决策快，敢于承担责任','擅长组织团队和分配资源','目标感强，抗压能力好'],w:['推进太快，容易忽视他人感受','对"慢"和"犹豫"缺乏耐心'],c:['管理者','创业','咨询','项目统筹','商业拓展'],l:'你习惯在关系里也"带节奏"。偶尔把方向盘交给对方，你会发现被照顾的感觉也不错。'},
+ ENTP:{n:'创意辩手',t:'规则是用来被重新想象的',d:'你脑子转得飞快，喜欢挑战默认答案，总能从别人没注意的角度切进去。你享受思想碰撞，一场好辩论比一顿大餐更让你兴奋。',s:['点子多，善于跨界联想','反应快，口才好','面对变化很有弹性'],w:['开头热情、收尾乏力','有时为了辩而辩，让人有压力'],c:['创业','营销策划','产品创新','媒体/内容','咨询'],l:'你需要一个能接住你脑洞的伴侣。记得：对方不是辩论对手，有时候"你说得对"比赢更重要。'},
+ INFJ:{n:'深度洞察者',t:'看见人心底那句没说出口的话',d:'你有很强的直觉，常常比别人自己更早察觉到他们的情绪和需要。你内心有一套清晰的价值观，希望自己做的事对世界真正有意义。',s:['洞察力强，善于理解他人','有理想，也有把理想做成的耐心','写作和一对一沟通很有力量'],w:['容易过度消耗自己去照顾别人','对冲突非常敏感，会憋着不说'],c:['心理咨询','教育','写作','用户研究','公益/组织发展'],l:'你渴望深层连接，但常常先替对方想好一切。试着把自己的需要也说出来，被理解是双向的。'},
+ INFP:{n:'理想守护者',t:'温柔，但有不肯让步的地方',d:'你的内心世界丰富而细腻，非常在意真诚和意义。你看起来随和，但在触碰到价值观的事情上会异常坚定。你常用创作来安放情绪。',s:['共情力强，能真诚地接纳他人','想象力丰富，有创作天赋','忠于内心，不随波逐流'],w:['容易理想化，现实落差会让你失落','面对琐事和硬性规则容易拖延'],c:['写作/编剧','设计','心理相关','内容创作','公益'],l:'你会在关系里投入全部真心。别害怕表达不满——温和地说出边界，反而能让关系更长久。'},
+ ENFJ:{n:'温暖引领者',t:'让每个人都变成更好的自己',d:'你天然关注他人的成长，擅长凝聚人心，常常是团队里的情绪中枢。你有说服力，也真心希望身边的人过得好。',s:['沟通和感染力出色','善于发现并激发他人潜力','组织协调能力强'],w:['容易把别人的问题背在自己身上','过于在意他人评价'],c:['培训/教育','主持与公关','人力资源','社群运营','团队管理'],l:'你很会照顾人，却不太会被照顾。允许自己偶尔"不完美、不在线"，真正爱你的人不会因此离开。'},
+ ENFP:{n:'灵感火花',t:'世界太有趣，不想只活一种可能',d:'你热情、好奇、点子多，总能在平凡的事里发现可能性。你喜欢和人建立真诚的连接，身上有种让人放松的生命力。',s:['创意丰富，善于激励他人','适应力强，能快速融入新环境','真诚热情，人缘好'],w:['兴趣转换太快，难以长期坚持','容易被情绪和新鲜感左右'],c:['内容创作','市场/品牌','主持/演艺','创业','咨询与培训'],l:'你爱得热烈，也需要新鲜感。和伴侣一起不断尝试新事物，是你们关系保鲜的秘诀。'},
+ ISTJ:{n:'可靠执行者',t:'说到的，就一定做到',d:'你踏实、守信、注重细节，是别人眼中"靠得住"的那个人。你尊重规则和流程，相信稳定和积累的力量。',s:['责任心强，执行力稳定','注重细节，很少出错','做事有条理，值得信赖'],w:['面对突发变化适应较慢','不太习惯表达情感'],c:['财务/审计','法务','运营管理','质量控制','行政'],l:'你的爱藏在行动里：按时出现、记得小事。偶尔把心意说出口，对方会更安心。'},
+ ISFJ:{n:'细心守护者',t:'默默记住你的每一个小习惯',d:'你温和体贴，总能注意到别人没说出口的需要，并默默照顾好。你重视传统和关系里的承诺，是身边人最安心的存在。',s:['细心周到，善于照顾人','可靠有耐心','记忆力好，重视细节'],w:['不擅长拒绝，容易委屈自己','面对冲突倾向于回避'],c:['医护','教育','行政与人事','客户服务','社工'],l:'你总在付出，却很少要求回报。学会说"我也需要被照顾"，这不是自私，是让关系更平衡。'},
+ ESTJ:{n:'高效组织者',t:'有秩序，事情才能做成',d:'你务实、果断，擅长把混乱变成清单，把清单变成结果。你重视规则和责任，常常自然而然地成为负责人。',s:['组织和执行力强','决断明确，不拖泥带水','重视承诺和责任'],w:['有时过于强调规则，显得强硬','对不同做事方式包容度不高'],c:['运营管理','项目经理','行政管理','销售管理','公共事务'],l:'你给伴侣满满的安全感。记得关系不是项目，偶尔放下计划，享受没有目的的相处。'},
+ ESFJ:{n:'贴心协调者',t:'让每个人都被好好照顾',d:'你热心、周到，擅长营造和谐的氛围，是聚会和团队里的黏合剂。你很在意别人是否开心，也愿意为此付出努力。',s:['人际敏感度高，善于协调','热心助人，有服务精神','执行稳定，做事周全'],w:['过于在意他人看法','难以面对批评和冲突'],c:['人力资源','活动策划','客户关系','教育','医护'],l:'你很会经营关系，也需要被肯定。告诉伴侣你喜欢被怎样感谢，会让你们都更轻松。'},
+ ISTP:{n:'冷静工匠',t:'少说话，多动手，把问题修好',d:'你冷静、务实，喜欢弄清东西"是怎么运作的"。面对突发状况你往往最淡定，能快速找到解决办法。你需要自由空间，不喜欢被过多约束。',s:['动手能力和应变能力强','冷静理性，危机中稳得住','高效务实，不做无用功'],w:['不太表达情绪，容易被误会冷淡','对长期规划兴趣不大'],c:['工程技术','设计/制作','数据与安全','急救/应急','技术操作'],l:'你用行动解决问题来表达关心。但有时候对方只想被倾听，先别急着"修好"。'},
+ ISFP:{n:'自在艺术家',t:'用感受生活，用审美表达自己',d:'你温柔、敏感，对美和氛围有天然的直觉。你活在当下，重视自己的感受和自由，不喜欢被评判，也不爱评判别人。',s:['审美好，富有艺术感','温和包容，相处舒服','真诚，活在当下'],w:['不擅长长期规划','遇到冲突容易退缩'],c:['设计','摄影/影像','手作/艺术','时尚','康复与疗愈'],l:'你用陪伴和小惊喜表达爱。给自己一点空间，也让对方知道你的沉默不是冷淡。'},
+ ESTP:{n:'行动冒险家',t:'想到就去做，边跑边看路',d:'你精力充沛、反应敏捷，喜欢刺激和挑战。你擅长读懂现场、随机应变，在压力环境下反而如鱼得水。',s:['行动力强，执行迅速','善于临场应变和谈判','乐观外向，感染力强'],w:['容易冲动，忽视长期后果','对理论和重复性工作没耐心'],c:['销售','创业','运动/户外','危机处理','商务谈判'],l:'和你在一起很有趣。记得在新鲜刺激之外，也给对方一些稳定和承诺感。'},
+ ESFP:{n:'快乐表演者',t:'生活是舞台，快乐要分享',d:'你热情、有趣、充满活力，走到哪里都能把气氛点亮。你享受当下的美好，也真心希望身边的人都开心。',s:['亲和力强，人缘极好','活在当下，乐观开朗','表达和表现力出色'],w:['容易回避困难和长期规划','冲动消费、冲动决定'],c:['主持/表演','活动策划','销售与公关','旅游/服务','内容创作'],l:'你让关系充满欢笑。遇到问题时别急着用开心盖过去，愿意认真聊一聊，会让对方更信任你。'}
+};
+// ===== 底部推广位：想换文案、换链接，只改这里 =====
+const AD={
+ title:'这份完整报告，免费',
+ text:'同类的详细报告通常要付费才能解锁。这里的题目、算分和整份报告全部开放，不收钱。觉得有用，就转给一个你想更了解的人。',
+ links:[
+  ['恋爱安全感说明书','看看你在亲密关系里的安全感类型','//amber319.gicp.fun'],
+  ['心境实验室','情绪和心理状态自测','//ambermirror.gicp.fun'],
+  ['Nocturne 夜曲塔罗','带着一个问题，抽一张牌','//amberveil.gicp.fun']
+ ],
+ foot:'更多免费测试和 AI 小工具：Amber不按剧本'
+};
+// 各类型占比（%），三组来源。要更新数字只改这里
+const POPS=[
+ {k:'中国 · 网上测试',s:'16Personalities 中国区，2025 年 10 月到 2026 年 9 月，约 3431 万份测试结果',
+  d:{ISFP:14.4,INFP:12.4,ENFP:11.1,ENFJ:8.1,INFJ:7.3,ISFJ:7.1,INTJ:6.2,ESFP:6.1,INTP:5.2,ENTJ:5.0,ISTJ:4.1,ESFJ:3.5,ISTP:3.4,ENTP:3.2,ESTJ:1.6,ESTP:1.1}},
+ {k:'中国 · 抽样调查',s:'MBTI 官方简体中文样本，2018 年发布，按中国大陆人口结构抽样，521 人',
+  d:{ISTJ:18.4,ESTJ:18.0,ESTP:8.6,ISTP:7.9,ISFP:5.8,INTP:4.8,INTJ:4.4,ENTJ:4.4,ESFJ:4.4,ENFJ:4.2,ISFJ:4.0,ENTP:4.0,INFP:3.3,ENFP:3.3,ESFP:2.9,INFJ:1.5}},
+ {k:'全球样本',s:'MBTI 官方全球样本，2018 年发布，20 个国家共 16,773 人',
+  d:{ISTJ:15.9,ISTP:9.8,ESTJ:9.0,ISFJ:8.4,ENFP:8.2,ISFP:6.6,INFP:6.3,ESTP:6.1,ESFP:6.0,ESFJ:5.7,INTP:4.8,ENTP:4.3,INTJ:2.6,INFJ:2.3,ENFJ:2.2,ENTJ:1.8}}
+];
+function popRender(i){
+ const c=lastCode,P=POPS[i],d=P.d,ps=Object.keys(d).sort((x,y)=>d[y]-d[x]),rk=ps.indexOf(c)+1;
+ const a=POPS[0].d[c],b=POPS[1].d[c],lo=Math.min(a,b),hi=Math.max(a,b);
+ const why=a>=b*1.5?`网上主动来做测试的人里，${c} 明显更多；按人口抽样去找，就少了。这类人更爱琢磨自己，所以在网上显得多。`
+  :b>=a*1.5?`按人口抽样时 ${c} 不少，但网上主动来做测试的人里偏少。这类人不太爱做这种测试，你身边的同类，其实比网上看到的多。`
+  :`两组数字接近，这个比例比较靠得住。`;
+ $('rPop').innerHTML=`<div class="tri">`+POPS.map((p,j)=>`<button class="${j===i?'on':''}" onclick="popRender(${j})"><b>${p.d[c]}%</b><span>${p.k}</span></button>`).join('')+`</div>`
+  +`<p style="color:var(--ink);font-size:14px;margin:12px 0">在中国，${c} 大约占 ${lo}% 到 ${hi}%。${why}</p>`
+  +ps.map(t=>`<div class="pop${t===c?' me':''}"><span>${t}</span><div class="t"><i style="width:${d[t]/d[ps[0]]*100}%"></i></div><span>${d[t]}%</span></div>`).join('')
+  +`<p class="note">上面这张图：${P.s}。${c} 排第 ${rk} / 16。点上面三个数字可以切换。</p>`
+  +`<p class="note">三组数字差得多，是因为找的人不一样，用的题也不是同一套。网上测试是想测的人自己来，爱琢磨自己的类型会偏多；抽样调查是按人口比例找人来答，但只有 521 人，单个类型会有一两个点的误差；全球样本混了 20 个国家。没有哪一组是标准答案，所以三组都给你看。</p>`;
+ watch($('rPop'));
+}
+// 每个类型的补充内容：need=关系里需要的 pit=关系里容易卡住的 role=团队角色 g=两条成长建议 st=压力下的样子
+const X={
+ INTJ:{need:'需要对方尊重你的独处和节奏，也愿意和你聊长远的事。',pit:'容易把关系当成要优化的系统：指出问题多，说喜欢少。',role:'定方向的人：把模糊的目标变成能执行的路线图。',g:['每周找一件事，不求最优解，做到七分就交出去。','表达不同意见前，先说一句你认同对方的哪一点。'],st:'你会更封闭，一个人硬扛；或者突然靠吃喝、刷手机来放空。'},
+ INTP:{need:'需要对方给你想事情的空间，不催你立刻表态。',pit:'心里在乎，嘴上不说，对方容易以为你无所谓。',role:'找漏洞的人：在方案上线前发现逻辑问题。',g:['给每个想法定一个"先做出最小版本"的期限。','对方讲感受时，先复述一遍，再决定要不要分析。'],st:'你会拖着不动；或者情绪突然上来，觉得没人在乎你。'},
+ ENTJ:{need:'需要一个有自己主见、跟得上你节奏的人。',pit:'习惯替两个人做决定，对方会觉得没被问过。',role:'推进的人：定目标、分工、盯结果。',g:['开会时最后一个发言，先听完别人的。','每周留半天，什么都不安排。'],st:'你会更强硬、更急；事后又为没照顾到的人心里不安。'},
+ ENTP:{need:'需要一个接得住你的脑洞、也敢反驳你的人。',pit:'你把争论当乐趣，对方却可能当成被否定。',role:'出新点子的人：大家卡住时，你换一个角度。',g:['同时进行的事不超过三件，做完一件再开新的。','争赢之前先问自己：这次是要赢，还是要解决问题。'],st:'你会到处开新坑来躲；或者突然纠结某个小细节、身体的小毛病。'},
+ INFJ:{need:'需要深聊，也需要对方主动问一句"那你呢"。',pit:'什么都替对方想好，自己的需要却不说，攒到最后直接冷掉。',role:'看人的人：察觉团队里没说出口的情绪和问题。',g:['不舒服的当下就说出来，不用等想清楚才开口。','每天留一段不为任何人负责的时间。'],st:'你会越想越悲观；或者突然靠吃、买、刷剧来麻木自己。'},
+ INFP:{need:'需要感受被认真对待，不被说"你想太多"。',pit:'把对方想得太好，现实有落差时默默失望，不说。',role:'守住初心的人：提醒团队这件事为什么值得做。',g:['把大目标拆成今天二十分钟能做完的一小步。','不满意时用"我希望"开头说出来，不要等对方猜。'],st:'你会自我否定；或者突然变得挑剔、强硬，看谁都不顺眼。'},
+ ENFJ:{need:'需要对方也反过来照顾你，记得问你累不累。',pit:'付出很多，又不说自己要什么，最后觉得委屈。',role:'带人的人：把一群人拧成一股劲。',g:['帮别人之前先问一句：他需要我帮吗。','每周拒绝一件不想做的事。'],st:'你会过度操心别人；或者突然冷下来，挑别人话里的毛病。'},
+ ENFP:{need:'需要新鲜感，也需要对方在你低落时稳稳接住你。',pit:'热得快。日常变平淡时，容易以为感情出了问题。',role:'点火的人：让大家对一件事重新有兴趣。',g:['选一件事做满三十天，再决定要不要继续。','做重要决定前睡一觉，第二天再确认一次。'],st:'你会用新计划、新社交来躲；或者卡在某个细节上反复担心。'},
+ ISTJ:{need:'需要说话算话、情绪稳定的人。',pit:'用做事表达在乎，很少说出口，对方感受不到。',role:'兜底的人：保证事情按时、按标准做完。',g:['每个月试一个没试过的做法，哪怕很小。','把"辛苦了""我很在意你"这类话说出口。'],st:'你会往最坏的方向想，脑子里全是"万一"。'},
+ ISFJ:{need:'需要你的付出被看见，被明确地感谢。',pit:'不会拒绝，委屈攒多了才一次爆发。',role:'照顾细节的人：记得每个人的需要，让事情不出岔子。',g:['别人请你帮忙时，先说"我看一下时间"，不要马上答应。','每天做一件只为自己的小事。'],st:'你会反复担心还没发生的坏事，越想越多。'},
+ ESTJ:{need:'需要对方靠谱、守约，有事直接说。',pit:'把关系也管成了项目，对方觉得被安排。',role:'管事的人：把目标拆成清单，让每个人知道该做什么。',g:['听到不同的做法时，先问"你是怎么想的"，再评价。','安排一段不设目标的相处时间。'],st:'你会更想控制一切；或者突然觉得没人理解自己，很委屈。'},
+ ESFJ:{need:'需要被肯定，需要对方把感谢说出来。',pit:'太在意对方开不开心，自己有不满也憋着。',role:'黏合的人：让团队气氛好、消息通。',g:['做决定时先问自己想要什么，再问别人怎么看。','把一次批评当成对这件事的意见，不是对你这个人。'],st:'你会特别在意别人的看法；或者突然变冷、挑刺。'},
+ ISTP:{need:'需要自由空间，不被追着问"你在想什么"。',pit:'遇到情绪问题就想躲，或者直接给方案，对方觉得你冷。',role:'救火的人：出状况时你最冷静，动手最快。',g:['每天主动说一句自己的感受，哪怕只是"今天有点累"。','给自己定一个半年后的目标，写下来。'],st:'你会闷着不说，憋久了情绪一下子爆出来。'},
+ ISFP:{need:'需要被温柔对待，不被评判，有自己的空间。',pit:'不舒服时选择沉默或消失，问题一直没解决。',role:'把东西做好看、做舒服的人：你对质感和氛围最敏感。',g:['遇到冲突先说"我需要想一下，晚点回你"，然后真的回。','给喜欢的事定一个固定时间，每周都做。'],st:'你会变得急躁、挑剔，急着把事情一口气解决掉。'},
+ ESTP:{need:'需要一个玩得起来、又不黏人的伴。',pit:'回避沉重的话题，对方感觉不到承诺。',role:'冲在前面的人：谈判、应急、现场解决问题。',g:['做大决定前，写下三个月后可能出现的后果。','认真听完对方一整段话再接，不打断。'],st:'你会疑神疑鬼，钻进一个不好的预感里出不来。'},
+ ESFP:{need:'需要一起玩、一起笑，也需要被认真当回事。',pit:'一有矛盾就用玩笑带过去，问题没解决。',role:'带气氛的人：让大家愿意参与、愿意开口。',g:['每个月花一小时，看一次自己的钱和计划。','难聊的事约一个时间认真聊，聊完再去玩。'],st:'你会突然对未来很悲观，觉得做什么都没意义。'}
+};
+// 每个侧面两端各自的 [好处, 代价]：FS[维度][侧面][0偏左|1偏右]
+const FS=[
+ [[['你能很快打开局面，很多机会是你自己聊出来的。','有时太快，对方还没准备好就被你推着走。'],['你不打扰人，别人和你相处没有压力。','好机会、合适的人，可能因为你没开口就错过了。']],
+  [['别人不用猜你，和你沟通很省事。','情绪上头时话出口太快，收不回来。'],['你嘴严、稳，别人愿意把重要的事告诉你。','你不说，别人就当你没意见，你的需要常被忽略。']],
+  [['你认识各路人，消息和资源来得快。','关系铺得广，真正能托底的人可能不多。'],['你的关系少而深，朋友很信任你。','圈子小，换了环境要重新认识人，会比较慢。']],
+  [['你启动快，在试错里学得比别人快。','没想清就动手，容易返工。'],['你想得周全，出手时很少犯低级错误。','想得太久，时机可能就过去了。']],
+  [['你有感染力，一个场子会因为你热起来。','独处久了会没电，也容易用热闹躲开该面对的事。'],['你沉得住气，能长时间专注做一件事。','别人容易把你的安静读成冷淡或不感兴趣。']]],
+ [[['你说话有时间、有数字，别人拿来就能用。','盯着细节时，容易看不到整件事在往哪走。'],['你能把不相干的东西连起来，常有别人想不到的角度。','讲得太跳，别人跟不上，细节也容易漏。']],
+  [['你不容易被画大饼，判断贴着现实。','对还没发生的机会，反应可能慢半拍。'],['你看得到还没出现的可能，方向感强。','容易活在设想里，眼前该做的事被搁下。']],
+  [['你学的东西都用得上，不白花力气。','"暂时没用"的知识被你跳过，时间长了眼界会变窄。'],['你愿意钻研原理，理解得比别人深。','研究了很多，真正用出来的偏少。']],
+  [['你不重复造轮子，做事稳、少踩坑。','环境变了、老办法失效时，你调整得慢。'],['你敢质疑"一直都这样"，常能找到更好的做法。','有时为了新而新，把还好用的东西也推翻了。']],
+  [['你一步一步来，交付稳定，不烂尾。','流程被打断、要临时跳步时，你会不舒服。'],['你同时想好几件事，点子多、转得快。','开的头多、收的尾少，重复的事撑不久。']]],
+ [[['你能把情绪和事情分开，关键时刻判断不乱。','只讲道理时，对方会觉得你不在乎他。'],['你先看到人，别人在你面前觉得被理解。','太顾及感受，该做的难决定会一拖再拖。']],
+  [['你一视同仁，别人相信你不偏心。','只按规则来，有时显得不近人情。'],['你会看每个人的难处，做法有温度。','通融多了，规则立不住，你自己也累。']],
+  [['你不轻信，能提前发现方案里的坑。','习惯先挑毛病，别人会不太敢和你分享想法。'],['你愿意先相信人，别人和你在一起很放松。','不同意也不说，问题被和气盖住了。']],
+  [['你有话直说，省时间，别人知道你的真实态度。','话太直。内容是对的，人却被你说伤了。'],['你说话让人舒服，坏消息由你来讲，对方也接得住。','包装太多，对方可能没听出你其实在提意见。']],
+  [['你守得住底线，不会被人情压着改主意。','太硬的时候，没给别人留台阶。'],['你好商量，和谁都能合作。','很难说不，别人的事和情绪都压到你身上。']]],
+ [[['你的东西和信息都有地方放，要用时马上找得到。','环境一乱你就分心，整理本身也吃掉不少时间。'],['你不被形式绑住，乱一点也照样干活。','东西和信息散着，关键时刻可能找不到。']],
+  [['你早做决定，别人能围着你的安排行动。','定得太早，后来出现更好的选项也不想改。'],['你留着余地，能等信息更全了再出手。','一直不定，自己和身边的人都悬着。']],
+  [['你留了余量，很少被截止日期逼到墙角。','开始得太早，有时做了后来用不上的活。'],['你在压力下爆发力强，短时间能出活。','每次都押最后一刻，一出意外就没有退路。']],
+  [['你的节奏稳定，状态可预期，长期产出高。','计划一被打乱，情绪和效率都受影响。'],['你接得住临时变化，别人慌的时候你不慌。','生活没有固定节奏，长期的事很难坚持。']],
+  [['你自律，说了要做的事基本都做完。','很难真正放松，玩的时候也惦记着没做完的事。'],['你顺着状态做事，有感觉时效率很高。','状态不来就一直等，重要但无聊的事被拖着。']]]
+];
+// 关系里的四个习惯：f=[维度,侧面]，v=[偏左,中间,偏右]
+const LV=[
+ {n:'怎么表达在意',f:[0,1],v:['你喜欢就会说、会表现出来，对方不用猜。','对认定的人你话多，刚开始会收着。','你的在乎多半放在心里和行动里，很少挂在嘴上。']},
+ {n:'有矛盾的时候',f:[2,2],v:['你想当场说清楚，谁对谁错要有个结论。','你会说出不满，但会挑时候。','你容易先忍着，想等气氛好了再说，结果常常就没再说。']},
+ {n:'关系的节奏',f:[3,1],v:['你希望关系有明确的说法和计划，不清不楚会难受。','大事你想说清楚，日常可以随意。','你喜欢顺其自然，被催着定下来会有压力。']},
+ {n:'两个人的空间',f:[0,2],v:['你喜欢把对方带进你的各个圈子，一起热闹。','你需要二人世界，也需要各自的朋友。','你更想两个人安静待着，对方太爱热闹你会累。']}
+];
+// 相处推演：每个维度，字母相同时按字母给一句，不同时给一句
+const MT=[
+ {same:{E:'你们都外向：一起玩很带劲。记得留出两个人安静说话的时间，不然总在热闹里，聊不深。',I:'你们都内向：相处安静舒服，不用硬找话题。要小心两个人都等对方先开口，问题一直没人提。'},diff:'一个外向，一个内向：一个想出门，一个想回家。提前说好"这周出去几次"，比每次临时拉扯好。外向的一方，别把对方的安静当成不开心。'},
+ {same:{S:'你们都偏实感：过日子合拍，聊的都是具体的事。可以偶尔一起聊聊，三年后想过什么样的生活。',N:'你们都偏直觉：能聊到半夜，想法一个接一个。但水电、账单、订票这些事，要说清楚谁负责。'},diff:'一个实感，一个直觉：一个讲具体的事，一个讲想法和可能，容易嫌对方"太现实"或"不着边"。讲想法的补一个例子，讲事实的补一句"所以我的意思是"。'},
+ {same:{T:'你们都偏思考：有事讲道理，吵架也吵得有效率。但两个人都不太说软话，记得把"我在乎你"直接说出来。',F:'你们都偏情感：很会照顾彼此的感受。但都怕伤到对方，不满容易憋着。约一个固定时间，专门说真话。'},diff:'一个思考，一个情感：一个想解决问题，一个想先被理解。倾诉之前先说清楚，"我只是想让你听"，还是"帮我想办法"，能省掉一大半争吵。'},
+ {same:{J:'你们都偏判断：生活有规划、有秩序。分歧多半出在"按谁的计划来"，重要的事轮流做主。',P:'你们都偏感知：随性、好玩、不互相管。但要有一个人负责订票、交钱、记日子，不然重要的事会一起忘。'},diff:'一个判断，一个感知：一个要提前定，一个想到时候再说。把事情分成"必须提前定的"和"可以随意的"两类，各让一步。'}
+];
+const MSUM=['你们四个字母都相反：对方是你最不熟悉的那种人。能学到的最多，需要的耐心也最多。','你们只有一个字母相同：差异大，新鲜感强，磨合期会长一些。','你们一半相同，一半不同：有共同语言，也有互补。','你们有三个字母相同：大体同频，不同的那一个维度，就是你们主要的磨合点。','你们是同一个类型：很懂对方，也容易有一样的盲点。'];
+// 工作环境：每个维度 [偏左,中间,偏右]
+const WK=[
+ {env:['能随时找人讨论、有互动和反馈的环境。','有讨论也有独处时间的环境，两种你都需要一点。','能安静独立做事、不被频繁打断的环境。'],drain:['长时间一个人闷头做，没人交流。','整天开会，或者整天没人说话，两头都耗你。','一天到晚开会、应酬、被临时拉去聊。'],tip:['想法先和我聊一聊，我是说着说着想清楚的。','重要的事提前告诉我，我再决定是当面聊还是先想一想。','要我的意见，请提前把材料发我，给我一点时间想。']},
+ {env:['目标清楚、有具体标准、有先例可以参考的工作。','既要落地，也要有一点新意的工作。','有探索空间、允许试新做法的工作。'],drain:['只有空泛的愿景，没人说清到底要做什么。','只有重复执行，或者只有空谈，都会让你烦。','大量重复、照章办事、不许改流程。'],tip:['给我具体的例子和数字，别只讲概念。','先告诉我目的，再给我一个例子，我就能接上。','先告诉我为什么要做、大方向是什么，细节我自己补。']},
+ {env:['凭能力和结果说话、反馈直接的团队。','既讲结果，也讲人情的团队。','彼此支持、气氛好、做的事对人有意义的团队。'],drain:['靠关系和情绪做决定，对错说不清。','只看数字不管人，或者只顾和气不讲对错。','冷冰冰只看指标，互相挑错、互相防备。'],tip:['有问题直接说问题，不用铺垫太多。','意见直说没关系，顺便告诉我你的考虑。','提意见前先说做得好的地方，我会更听得进去。']},
+ {env:['有计划、有截止时间、分工清楚的工作。','大框架清楚、过程可以自己调的工作。','灵活、可以自己安排节奏、允许临场调整的工作。'],drain:['方向天天变，事情总悬着定不下来。','管得太死，或者完全没人管，都不舒服。','打卡式管理，每一步都要按流程报备。'],tip:['要改计划请尽早告诉我，别临时通知。','给我截止时间和底线，中间让我自己安排。','告诉我最后期限就行，过程别盯太细。']}
+];
+// 八个功能：[发挥好时, 用过头时]
+const FNX={
+ Ne:['你能给一个卡住的问题找到新的出口。','想法太多，哪一个都没落地。'],
+ Ni:['你能提前看到事情的走向，少走弯路。','太信自己的判断，听不进眼前的反例。'],
+ Se:['你反应快，机会来了抓得住。','只顾眼前痛快，不想后果。'],
+ Si:['你做事稳，细节和承诺都靠得住。','太依赖熟悉的做法，不愿意变。'],
+ Te:['你能把一团乱的事排出先后，并且做成。','只看效率和结果，忘了照顾人。'],
+ Ti:['你想得清楚，不容易被似是而非的说法带走。','一直在想，迟迟不动手，也不太管别人听不听得懂。'],
+ Fe:['你让一群人相处得舒服，大家愿意听你的。','太顾别人的感受，自己的想法没了。'],
+ Fi:['你清楚自己要什么，不随大流。','只按自己的感受来，别人很难说动你。']
+};
+// 每个侧面的一句话解读：[偏左, 中间, 偏右]
+const FT=[
+ [['你会先开口。认识人这件事，你不等别人来。','看场合。熟悉的场子你会主动，陌生的场子你先观察。','你习惯等对方先来。不是不想认识，是不想打扰。'],
+  ['你的情绪和想法写在脸上，别人很容易读懂你。','对信任的人你说得多，对其他人你留一半。','你想清楚了才说，很多话只留给少数几个人。'],
+  ['你喜欢认识不同圈子的人，人多你反而来劲。','大场面你应付得来，但真正充电靠的还是少数几个人。','你宁可要两三个真懂你的人，也不要一屋子熟人。'],
+  ['你上手快，边做边调，想太多反而卡住。','小事你直接动手，大事你会先停下来想一想。','你需要先安静想明白再行动，事后还会复盘。'],
+  ['你能把气氛带起来，独处太久会闷。','你能热闹也能安静，取决于当天还剩多少电。','别人眼里你安静、慢热。没有安排的周末才是休息。']],
+ [['你讲事情有时间、有地点、有细节，关注现在实际是什么样。','你既能讲清细节，也能跳出来打个比方。','你容易从一件小事联想开去，爱用比喻解释东西。'],
+  ['你信亲眼看到、亲手验证过的东西。','你会想象未来，但要有点现实依据才当真。','你常常在设想未来，"可能会怎样"很吸引你。'],
+  ['学东西你先问"能拿来干什么"。','有用的你学，有意思的你也愿意看两眼。','一个想法只要有意思，暂时没用你也愿意琢磨。'],
+  ['遇到问题你先想以前是怎么解决的，不重新发明轮子。','老办法好用你就用，不好用你也敢换。','"大家一直这么做"说服不了你，你想试新路子。'],
+  ['你一步做完再做下一步，好用的方法会一直用。','你能按步骤来，但重复太多会走神。','你脑子里常同时冒出好几个想法，重复的事很快就腻。']],
+ [['做决定你先列利弊，对事不对人。','你会算利弊，也会想这事对身边的人意味着什么。','你先想到的，是这件事会让别人有什么感受。'],
+  ['你认为规则该对所有人一样。朋友倾诉时，你想给办法。','你讲规则，但遇到具体的人会愿意通融。','你觉得规则要看人、看处境。朋友倾诉时，你先陪着。'],
+  ['听到一个观点，你本能地先找漏洞。','你会提问，但不会为了分对错把气氛搞僵。','你倾向先相信别人，为了和气常把不同意见咽回去。'],
+  ['你提意见比较直接，觉得这样省时间。','你对熟人直说，对不熟的人会包装一下。','你开口前会先想怎么说对方才不难受，也容易把别人的话放在心上。'],
+  ['你认定是对的事，别人不高兴你也会坚持。','原则问题你不让，其他的你好商量。','你很难拒绝别人，别人难过你也跟着低落。']],
+ [['你的文件、桌面、清单都有秩序。','重要的东西你会整理，其余的乱一点也无所谓。','乱一点你不在意，规划太细你反而觉得被绑住。'],
+  ['事情悬着你不踏实，喜欢早点定下来。','大方向你会定，细节留到时候再说。','你喜欢留着几个选项，不急着做最后决定。'],
+  ['你接到事就早开始，给自己留余量。','重要的你会提前做，不重要的会拖到快截止。','截止日期前的压力，反而能让你发挥出来。'],
+  ['你的作息比较固定，计划被打乱会烦。','你有大致的节奏，偶尔被打乱也接得住。','临时约你你很乐意，生活里有点意外才有意思。'],
+  ['正事做完再玩，决定了就执行。','你大体先做正事，但状态不对时不硬撑。','你跟着状态走，有新信息就愿意推翻原计划。']]
+];
+// 四个场景：每个场景由两个侧面拼成。a/b=[维度,侧面]，A/B/T=[偏左,中间,偏右]
+const SCENES=[
+ {name:'做决定',a:[2,0],b:[3,1],
+  A:['你做决定靠逻辑，会把利弊摆出来比。','你做决定时，逻辑和人情都会过一遍。','你做决定，先看它对人的影响。'],
+  B:['而且想尽快定下来，拖着会难受。','大方向会先定，细节可以晚一点。','而且不急着定，想多留一会儿余地。'],
+  T:['定之前多问一句：谁会因此不舒服。','两边打架时，先写下你最不能接受的那个结果。','把利弊写在纸上，和感受放在一起再看一眼。']},
+ {name:'和人沟通',a:[0,1],b:[2,3],
+  A:['你想到什么说什么，别人不用猜你。','你对熟人话多，对其他人会收着。','你想清楚才开口，很多话不说出来。'],
+  B:['说话直接，不绕弯。','对熟人直说，对外人会包装一下。','开口前会先照顾对方的感受。'],
+  T:['说完停两秒，留出对方接话的空。','重要的话，对不熟的人也说到位。','把"我在想"说出来，别让人以为你没意见。']},
+ {name:'面对变化',a:[1,3],b:[3,3],
+  A:['有变化时，你先找以前的经验。','老办法能用你就用，不行就换。','有变化你反而来劲，想试新路子。'],
+  B:['计划被打乱会让你烦。','节奏被打乱一下，你接得住。','临时改计划对你不算事。'],
+  T:['给计划留一块"本来就会变"的空白。','变化来时先分清：哪些要守，哪些可以放。','换新路子之前，先问清旧办法为什么存在。']},
+ {name:'处理冲突',a:[2,2],b:[2,4],
+  A:['有分歧你会追问，要把对错弄清。','你会提出不同意见，但不想把气氛搞僵。','你倾向先让一步，把不同意见咽下去。'],
+  B:['认定的事不轻易让。','原则不让，其余好商量。','也很难对别人说不。'],
+  T:['先复述一遍对方的意思，再反驳。','先说哪里同意，再说哪里不同意。','把咽下去的那句话，用"我觉得"开头说出来。']}
+];
+// 荣格八种功能：[名字, 一句话, 作为劣势功能、压力大时的样子]
+const FN={
+ Ne:['外向直觉 · 发散联想','看到一件事就冒出好几种可能，喜欢把不相干的东西连在一起。','会突然往坏处想，脑补出一堆"万一"。'],
+ Ni:['内向直觉 · 洞察收束','不知不觉就看出事情会往哪走，一个念头能在心里酝酿很久。','会钻进一个不好的预感里，出不来。'],
+ Se:['外向实感 · 当下行动','对眼前的环境反应快，看到机会就动手，享受当下的体验。','会突然放纵一把：猛吃、乱买、刷手机停不下来。'],
+ Si:['内向实感 · 经验对照','记得住细节和以前的做法，喜欢熟悉、可靠的节奏。','会盯着身体的小毛病或某个细节，反复纠结。'],
+ Te:['外向思考 · 组织推进','定目标、排步骤、看结果，要的是把事情做成。','会变得挑剔、强硬，急着指挥别人。'],
+ Ti:['内向思考 · 拆解原理','要自己想通"为什么"，在意逻辑前后一致。','会钻牛角尖，冷着脸挑别人的逻辑错。'],
+ Fe:['外向情感 · 照顾氛围','很快读出一屋子人的情绪，会主动让大家舒服。','会突然很在意别人怎么看，或者情绪一下子爆出来。'],
+ Fi:['内向情感 · 内心标尺','心里有一把自己的尺，对不对先问自己的感受。','会觉得没人理解自己，一下子很委屈。']
+};
+const ROLE=[['主导','最顺手，用得最多'],['辅助','给主导打配合'],['第三','放松时才冒出来，用得不稳'],['劣势','最不熟练，压力大时容易失控']];
+function stack(c){
+ const opp={S:'N',N:'S',T:'F',F:'T'},flip=a=>a==='e'?'i':'e';
+ const perc=c[1],judg=c[2];
+ const ext=c[3]==='J'?judg:perc, int=c[3]==='J'?perc:judg;
+ const dom=c[0]==='E'?[ext,'e']:[int,'i'], aux=c[0]==='E'?[int,'i']:[ext,'e'];
+ const ter=[opp[aux[0]],flip(aux[1])], inf=[opp[dom[0]],flip(dom[1])];
+ return [dom,aux,ter,inf].map(x=>x[0]+x[1]);
+}
+// 八维测试题：[题目, 功能]，八个功能各 12 题，共 96 题
+const FKEYS=['Ne','Ni','Se','Si','Te','Ti','Fe','Fi'];
+const FQ=[
+ ["别人说一个想法，我会马上想到好几个\"还可以这样\"。",0],
+ ["我常把两件看起来没关系的事连在一起。",0],
+ ["想出新点子的那一刻，比把事情做完更让我兴奋。",0],
+ ["聊天时我很容易从一个话题跳到另一个话题。",0],
+ ["我喜欢问\"如果……会怎样\"。",0],
+ ["一件事只有一种做法，会让我觉得闷。",0],
+ ["我同时对很多不同的领域感兴趣。",0],
+ ["我经常开了很多个头，却没有全部做完。",0],
+ ["我能很快看出一个东西还能拿来干别的什么。",0],
+ ["我喜欢和人你一句我一句地碰撞想法。",0],
+ ["面对新情况，我先看到的是机会而不是风险。",0],
+ ["我不喜欢太早下结论，总觉得还有别的可能。",0],
+ ["我常常说不清理由，但就是知道事情最后会怎样。",1],
+ ["我会长时间琢磨同一个问题，直到某天突然想通。",1],
+ ["看一件事，我习惯先问它背后真正的含义。",1],
+ ["我脑子里对未来有一幅比较清晰的画面。",1],
+ ["我常能预感到一件事的走向，后来多半应验。",1],
+ ["我倾向于把很多信息归结成一个核心看法。",1],
+ ["我心里有一个长远的方向，眼前的事都为它服务。",1],
+ ["我需要独处的时间，让想法自己慢慢成形。",1],
+ ["别人觉得是巧合的事，我常能看出其中的规律。",1],
+ ["一旦看清了方向，我很难被别的可能性分心。",1],
+ ["我常用画面、象征或比喻来理解事情。",1],
+ ["我的很多判断来自\"突然明白了\"，而不是一步步推出来的。",1],
+ ["进到一个新地方，我会马上注意到周围的颜色、声音、气味。",2],
+ ["出了突发状况，我通常是先动手处理的那个人。",2],
+ ["我喜欢用身体去体验：运动、美食、速度、现场。",2],
+ ["我更相信此刻眼前正在发生的事。",2],
+ ["我反应快，能跟着现场的变化随时调整。",2],
+ ["长时间坐着讨论理论，会让我坐不住。",2],
+ ["我喜欢有刺激感、有冲击力的体验。",2],
+ ["我对别人的穿着、表情、动作的变化很敏感。",2],
+ ["想做的事，我倾向于马上去做，而不是先计划。",2],
+ ["我享受好看、好吃、好玩的东西带来的直接快乐。",2],
+ ["我学东西靠上手做，而不是靠看书。",2],
+ ["我觉得活在当下比惦记以后更重要。",2],
+ ["我能清楚记得某件事当时的细节，比如那天穿了什么、吃了什么。",3],
+ ["做一件事，我习惯照着以前验证过的方法来。",3],
+ ["熟悉的地方、熟悉的口味、固定的习惯，会让我安心。",3],
+ ["遇到新情况，我会先和过去类似的经历对比。",3],
+ ["我对身体的感觉很敏感：累了、饿了、不舒服，马上知道。",3],
+ ["我会保留有纪念意义的旧东西。",3],
+ ["我做事仔细，会一步一步按顺序完成。",3],
+ ["环境或流程突然改变，我需要一段时间适应。",3],
+ ["我重视传统、惯例和大家约定好的做法。",3],
+ ["我常常回想过去的事，并且记得当时的感受。",3],
+ ["我喜欢稳定、可预期的生活节奏。",3],
+ ["别人说的和以前不一样，我会立刻注意到。",3],
+ ["看到一件事效率低，我会忍不住想怎么把它理顺。",4],
+ ["我做事先定目标和截止时间，再往回排步骤。",4],
+ ["判断一个方案好不好，我主要看数据和结果。",4],
+ ["我习惯给别人分工、安排任务。",4],
+ ["我说话直接，重点是把事情讲清楚。",4],
+ ["我喜欢用清单、表格、流程来管理事情。",4],
+ ["没有结论的讨论会让我不耐烦。",4],
+ ["我会用客观标准去衡量事情，而不是凭感觉。",4],
+ ["我做决定快，定了就推进。",4],
+ ["我看重能力和成果，胜过看重态度。",4],
+ ["遇到问题，我先想的是\"现在能做什么来解决\"。",4],
+ ["我愿意引用权威资料和事实来支持我的观点。",4],
+ ["一个说法前后不一致，我会很难受，非要弄明白不可。",5],
+ ["我喜欢自己从头推一遍，而不是直接接受现成的结论。",5],
+ ["我用词讲究准确，不喜欢含糊的说法。",5],
+ ["我喜欢把一个东西拆开，弄懂它是怎么运作的。",5],
+ ["就算大家都这么认为，逻辑上说不通我也不接受。",5],
+ ["我会在脑子里搭一套自己的理解框架。",5],
+ ["我对\"为什么是这样\"比\"这有什么用\"更感兴趣。",5],
+ ["我常常发现别人论证里的漏洞。",5],
+ ["我宁可慢一点，也要把问题想得严密。",5],
+ ["我喜欢给事物分类，找出它们之间的区别。",5],
+ ["我做判断时会刻意把个人感情放在一边。",5],
+ ["一个问题没想透，我会一直惦记着它。",5],
+ ["一进屋，我很快就能感觉到大家的情绪和气氛。",6],
+ ["有人被冷落时，我会主动把他拉进话题里。",6],
+ ["做决定前，我会先想大家能不能接受。",6],
+ ["我会根据对方是谁，调整自己说话的方式。",6],
+ ["身边的人不开心，我也很难开心起来。",6],
+ ["我很在意礼貌和场合上该有的分寸。",6],
+ ["我常常充当调解的人，让大家别闹僵。",6],
+ ["我愿意为了大家的和气，放下自己的一点想法。",6],
+ ["我很自然地会去关心、照顾别人。",6],
+ ["我喜欢把感谢、赞美这些话说出口。",6],
+ ["别人怎么看我，对我影响挺大。",6],
+ ["我觉得一个群体里，大家感受一致很重要。",6],
+ ["一件事对不对，我心里有自己的标准，别人怎么说影响不大。",7],
+ ["让我做违背内心的事，就算有好处我也很别扭。",7],
+ ["我的感受很深，但很少完全说给别人听。",7],
+ ["我很清楚自己喜欢什么、讨厌什么。",7],
+ ["我看重一个人真不真诚，胜过他会不会做人。",7],
+ ["我不愿意为了合群而假装。",7],
+ ["有些事对我有特别的意义，别人未必懂。",7],
+ ["我会默默坚持自己认为重要的事。",7],
+ ["看到不公平的事，我心里会很不舒服。",7],
+ ["我做选择时，会问自己\"这是不是我真正想要的\"。",7],
+ ["我尊重每个人按自己的方式生活。",7],
+ ["被人误解我的本意，会让我很难受。",7]
+];
+
+// ===== v13 八维加长版的文案。要改措辞只改这里 =====
+// 每个功能：day 日常 / work 工作 / love 关系 / miss 别人容易误会的 / up 分数低时怎么练 / down 分数高时怎么收 / sh 一句话动作 / out 卡住时拿它当出口
+const FD={
+ Ne:{sh:'往外找各种可能',day:'聊天时你常说"那还可以这样"。看到一个东西，会想到它别的用法。',work:'适合开头阶段：出点子、找角度，把卡住的事换个问法。',love:'你需要新鲜的话题和一起尝试的事，日子太固定会闷。',miss:'别人以为你三分钟热度，其实你是在试哪条路走得通。',up:'遇到问题先写出三种做法再选，不要只想第一种。',down:'每次只留一个想法往下做，其余的记在本子上，先不碰。',out:'找个人聊聊，听听还有什么别的可能。'},
+ Ni:{sh:'在心里看出事情的走向',day:'你常常"就是知道"一件事会怎么收场，但一时说不出理由。',work:'适合定方向、做长期判断，提前看出哪条路走不通。',love:'你想要一段有共同方向的关系，会在心里反复琢磨它要往哪走。',miss:'别人觉得你武断，因为你只说了结论，没说是怎么想到的。',up:'做一件事之前，先写一句：半年后我希望它变成什么样。',down:'把你的预感说给别人听，再问一句：有没有反例。',out:'一个人静下来，问自己这件事最后要去哪。'},
+ Se:{sh:'盯住眼前的现场',day:'你对眼前的东西反应快：谁换了发型，哪里有空位，现在该不该出手。',work:'适合现场、应急、要马上动手的事，越临场越稳。',love:'你用一起吃、一起玩、一起做事来表达喜欢，不爱空谈。',miss:'别人以为你只图眼前，其实你信的是"先做了再说"。',up:'每天挑一件事，不看手机，只用眼睛和手把它做完。',down:'动手之前先问一句：这件事三个月后还重要吗。',out:'出门动一动，做一件手上的事。'},
+ Si:{sh:'拿过去的经验来对照',day:'你记得以前是怎么做的、哪家店好吃、上次在哪踩过坑。',work:'适合要稳、要准、不能出错的事。流程和细节交给你，别人放心。',love:'你用记住对方的习惯、守住约定来表达在乎，喜欢稳定的相处节奏。',miss:'别人以为你守旧，其实你只是不想把管用的东西随便丢掉。',up:'每天睡前记三件今天的具体小事：吃了什么、见了谁、身体累不累。',down:'每个月挑一件"一直这么做"的事，换一种做法试一次。',out:'回到固定的作息，照着以前管用的办法做。'},
+ Te:{sh:'把事情排好往前推',day:'看到事情乱，你会忍不住排顺序、定时间、分给人。',work:'适合带项目、盯结果，把目标拆成能做的步骤。',love:'你用解决问题、把事情安排好来表达关心。',miss:'别人觉得你强势或者冷，其实你是急着把事办成。',up:'给手上一件事写下目标、截止时间、第一步，然后只做第一步。',down:'安排别人之前，先问对方一句：你觉得怎么做合适。',out:'列一张清单，先做完第一条。'},
+ Ti:{sh:'自己把道理想通',day:'一个说法前后对不上，你会一直惦记，非要自己想通。',work:'适合找漏洞、理清原理，把复杂的东西拆明白。',love:'你用认真想对方的问题、给出想清楚的回答来表达在乎。',miss:'别人觉得你抬杠或者冷淡，其实你只是想把话说准。',up:'听到一个结论，先问自己：它的理由是什么，哪一步可能不成立。',down:'想到七分清楚就先说出来、做出来，剩下的边做边补。',out:'停下来想清楚，这件事到底通不通。'},
+ Fe:{sh:'照顾在场每个人的感受',day:'一进屋你就知道气氛对不对。谁被冷落了，你会去接一句。',work:'适合协调、带团队、对外沟通，让一群人愿意一起做。',love:'你会主动说感谢、说喜欢，也希望对方把感受说出来。',miss:'别人以为你没主见，其实你是先顾着大家。',up:'每天对一个人说一句具体的感谢，说清楚谢的是哪件事。',down:'答应别人之前停三秒，先问自己：我愿不愿意。',out:'把心里的事说给一个信得过的人。'},
+ Fi:{sh:'问自己心里认不认',day:'一件事对不对，你先问自己心里认不认。别人怎么说，影响不大。',work:'适合需要真诚、需要守住底线、自己认同的工作。',love:'你的感情很深，但不常说。一旦认定，很难变。',miss:'别人觉得你固执或者难懂，因为你的标准在心里，没说出来。',up:'做选择时写一句：抛开别人怎么看，我自己想要的是什么。',down:'把你在意的那条标准说出口，别等对方猜。',out:'问问自己，真正在乎的是什么。'}
+};
+// 四组对照：[左名, 右名, 左边的功能, 右边的功能, [偏左, 中间, 偏右]]
+const BAL=[
+ ['朝外的功能','朝内的功能',['Ne','Se','Te','Fe'],['Ni','Si','Ti','Fi'],['你更常把注意力放在外面：人、事、现场。','朝外和朝内你差不多，都在用。','你更常把注意力放在里面：想法、感受、记忆。']],
+ ['直觉','实感',['Ne','Ni'],['Se','Si'],['你更爱看可能和走向。','可能和事实，你两样都看。','你更信具体的、发生过的事。']],
+ ['思考','情感',['Te','Ti'],['Fe','Fi'],['下判断时你先讲道理。','道理和感受，你都会过一遍。','下判断时你先看人和感受。']],
+ ['收信息','下判断',['Ne','Ni','Se','Si'],['Te','Ti','Fe','Fi'],['你更喜欢多看、多收，不急着定。','看和定，你比较平衡。','你更喜欢尽快有个结论。']]
+];
+// 四条功能轴
+const AXT={
+ NeSi:['新的可能 ↔ 过去的经验','你用"还能怎样"和"以前怎样"来回对照：一边找新路，一边拿经验验一验。'],
+ NiSe:['长远的走向 ↔ 眼前的现场','你用"最后会怎样"和"现在是怎样"来回对照：一边看终点，一边盯当下。'],
+ TeFi:['把事做成 ↔ 忠于自己','你下判断看两样：这件事能不能成，和我心里认不认。'],
+ TiFe:['道理通顺 ↔ 大家舒服','你下判断看两样：道理通不通，和在场的人能不能接受。']
+};
+// 八个位置（Beebe 的八功能模型），前四个是常用的，后四个是同一批功能换个朝向
+const POS=[['主导','最顺手，是你的主场'],['辅助','用来帮人、托底的那一手'],['第三','放松和玩的时候用，时好时坏'],['劣势','最弱，也最向往'],['对立','和人较劲时冒出来'],['批评','挑剔自己和别人时冒出来'],['盲点','容易看错，被它绊倒'],['阴影','最陌生，压力极大时才出现']];
+let phase='main',lastCode='',lastFn=false,lastTips=[],lastTs=0,lastFnText='',curF=0;
+function fnNext(){if(lastCode){$('fnBtn').textContent='查看我的八维结果';show('result')}else{restart()}}
+function fnGo(){lastFn?show('fnres'):startFn()}
+function startFn(){
+ phase='fn';order=[];const seq=[0,5,2,7,4,1,6,3];
+ for(let j=0;j<12;j++)seq.forEach(f=>order.push(f*12+j));
+ answers={};idx=0;show('quiz');render();
+}
+function ftab(n,keep){
+ curF=n;
+ document.querySelectorAll('#ftabs button').forEach((b,i)=>{b.classList.toggle('on',i===n);b.setAttribute('aria-selected',i===n)});
+ document.querySelectorAll('#fnres .pane').forEach((p,i)=>p.classList.toggle('on',i===n));
+ if(!keep){const y=$('ftabs').getBoundingClientRect().top+window.scrollY-4;if(window.scrollY>y)window.scrollTo(0,y)}
+}
+// 从中间往两边长的对照条：pL 是左边占的百分比
+function balRow(nl,nr,pL,foot){
+ const left=pL>50,w=Math.min(50,Math.abs(pL-50)*4); // 差距放大四倍画，不然看不出来
+ return `<div class="axis"><div class="axis-h"><span class="${left?'w':''}">${nl} ${Math.round(pL)}%</span><span class="${!left?'w':''}">${100-Math.round(pL)}% ${nr}</span></div><div class="track"><div class="mid"></div><div class="fill" style="${left?'right':'left'}:50%;width:${w}%"></div></div><div class="axis-f">${foot}</div></div>`;
+}
+function finishFn(){
+ const raw=FKEYS.map(()=>0);
+ order.forEach(qi=>{raw[FQ[qi][1]]+=(answers[qi]||0)+2}); // 每题 0–4 分，每个功能满分 48
+ const S={};FKEYS.forEach((k,i)=>S[k]=Math.round(raw[i]/48*100));
+ const rank=[...FKEYS].sort((a,b)=>S[b]-S[a]);
+ const M=FKEYS.reduce((v,k)=>v+S[k],0)/8,Mr=Math.round(M),R=S[rank[0]]-S[rank[7]],rel=k=>Math.round(S[k]-M);
+ const nm=k=>FN[k][0].split(' · ')[1],avg=ks=>ks.reduce((v,k)=>v+S[k],0)/ks.length;
+ const hiK=rank[0],loK=rank[7],tie2=rank.filter(k=>S[k]===S[rank[1]]);
+
+ // ① 这次答得怎么样
+ const sty=M>=75&&R<=20?`你八个功能的平均分是 ${Mr}，最高和最低只差 ${R} 分。也就是说，大部分题你都选了"是"或"偏是"。这不算答错，但八个分数挤在一起，谁高谁低只靠一两道题决定，排名不稳。请重点看下面"和你自己比"那一栏，少看绝对分数。想要更清楚的结果，可以重测一次：很像你的才选"是"，一般像的就选"说不上"。`
+  :M<=40&&R<=20?`你八个功能的平均分是 ${Mr}，最高和最低只差 ${R} 分。也就是说，大部分题你都选了"否"或"偏否"。八个分数挤在一起，排名不稳。请重点看下面"和你自己比"那一栏。重测时可以放松一点：有点像你的，就选"偏是"。`
+  :R<=15?`你的八个分数很接近，最高和最低只差 ${R} 分。这次分不出明显的先后，排名只当参考，重点看"和你自己比"那一栏。`
+  :R>=40?`你的分数拉得很开：最高的 ${hiK} 和最低的 ${loK} 差了 ${R} 分。常用的和少用的都很明确，这次结果比较好读。`
+  :`你的平均分是 ${Mr}，最高和最低差 ${R} 分，有高有低，可以正常往下读。`;
+ $('rFnStyle').innerHTML=`<div class="stat3"><div><b>${Mr}</b><span>八个功能的平均分</span></div><div><b>${R}</b><span>最高和最低差多少</span></div><div><b>${FKEYS.filter(k=>S[k]>M).length}</b><span>高于平均的功能数</span></div></div><p style="color:var(--ink);font-size:14px;margin-top:12px">${sty}</p><p class="note">这套题没有反着问的题，习惯点"是"的人，八个分数会一起偏高。所以先看这一栏，再看排名。</p>`;
+
+ // 分数条：高于自己平均分的才上色
+ $('rFnBars').innerHTML=rank.map(k=>`<div class="fbar${S[k]<M?' low':''}"><b>${k}</b><div class="t"><i style="width:${Math.max(3,S[k])}%"></i></div><span>${S[k]}</span></div><div class="fbar-d">${FN[k][0]}</div>`).join('');
+
+ // 和你自己比
+ const byRel=[...FKEYS].sort((a,b)=>(S[b]-M)-(S[a]-M)),mx=Math.max(5,...FKEYS.map(k=>Math.abs(S[k]-M)));
+ const up=byRel.filter(k=>rel(k)>=3),dn=byRel.filter(k=>rel(k)<=-3),mxr=Math.max(...FKEYS.map(k=>Math.abs(rel(k)))),far=mxr>=5?byRel.filter(k=>Math.abs(rel(k))===mxr&&Math.sign(rel(k))===Math.sign(rel(byRel.find(x=>Math.abs(rel(x))===mxr)))):[];
+ $('rFnRel').innerHTML=byRel.map(k=>{const r=rel(k),w=Math.abs(S[k]-M)/mx*48;return `<div class="rel"><b>${k}</b><div class="track"><div class="mid"></div><div class="fill${r<0?' neg':''}" style="${r<0?'right':'left'}:50%;width:${w}%"></div></div><span>${r>0?'+':''}${r}</span></div>`}).join('')
+  +`<p style="color:var(--ink);font-size:14px;margin-top:14px">${up.length?`比你自己的平均高的：${up.map(k=>`${k}（${nm(k)}）`).join('、')}。`:''}${dn.length?`比平均低的：${dn.map(k=>`${k}（${nm(k)}）`).join('、')}。`:''}${!up.length&&!dn.length?'减掉平均分以后，八个功能还是贴在一起，这次看不出哪个更突出。':''}</p>`
+  +(far.length?`<p style="color:var(--ink);font-size:14px;margin-top:8px">离平均最远的是 ${far.join('、')}（${rel(far[0])>0?'高':'低'} ${Math.abs(rel(far[0]))} 分）。${R<=20?'在一份分数很挤的结果里，这是最能信的一条。':''}</p>`:'')
+  +`<p class="note">中间那条竖线是你自己的平均分 ${Mr}。往右是比平均高，往左是比平均低。</p>`;
+
+ // 四组对照
+ $('rFnBal').innerHTML=BAL.map(([nl,nr,L,Rr,t])=>{const a=avg(L),b=avg(Rr),p=a+b?a/(a+b)*100:50;return balRow(nl,nr,p,t[p>=52?0:p<=48?2:1])}).join('')
+  +`<p class="note">为了看得清，条的长度把差距放大了四倍。百分比贴近 50，说明两边你都在用。</p>`;
+
+ // ② 专项解读：最高的两个 + 最低的一个
+ const hi=k=>`<div class="fn"><div class="tagc">${k}</div><div><b>${FN[k][0]}<span class="role">${S[k]} 分 · 你最常用的方式之一</span></b><p>${FN[k][1]}</p><p class="sub">用得好：${FNX[k][0]}</p><p class="sub">用过头：${FNX[k][1]}</p></div></div>`;
+ const lo=loK;
+ $('rFnRead').innerHTML=hi(rank[0])+hi(rank[1])+`<div class="fn inf"><div class="tagc">${lo}</div><div><b>${FN[lo][0]}<span class="role">${S[lo]} 分 · 你用得最少的方式</span></b><p>${FN[lo][1]}</p><p class="sub">这种方式你平时很少用。压力大时它可能反过来冒头：${FN[lo][2]}</p></div></div>`
+  +(tie2.length>1?`<p class="note">${tie2.join('、')} 的分数一样，都是 ${S[rank[1]]} 分。上面只挑了排在前面的来读，其余几个在下面"八个功能逐个看"里都有。</p>`:'');
+
+ // 最高的两个放在一起看
+ const A=rank[0],B=rank[1],isP=k=>'NS'.includes(k[0]),pp=isP(A)&&isP(B),jj=!isP(A)&&!isP(B),ee=A[1]==='e'&&B[1]==='e',ii=A[1]==='i'&&B[1]==='i';
+ const sameAxis=[['Ne','Si'],['Ni','Se'],['Te','Fi'],['Ti','Fe']].some(x=>x.includes(A)&&x.includes(B));
+ $('rFnPair').innerHTML=`<div class="alt"><b>${A} + ${B}</b><p style="color:var(--ink)">你最常做的两件事：${FD[A].sh}，再${FD[B].sh}。</p></div>`
+  +`<div class="row"><h3>一个看，一个判？</h3><p>${pp?'这两个都是用来"收信息"的。你看得多、想得多，但不急着下结论。好处是不容易看漏，代价是容易一直在看，迟迟不定。要定的时候，借一下你分数最高的判断功能。':jj?'这两个都是用来"下判断"的。你定得快，有主意。好处是不拖，代价是可能还没看全就定了。定之前多问一句：还有什么我没看到。':'一个负责收信息，一个负责下判断，搭配是完整的：先看清，再拿主意。'}</p></div>`
+  +`<div class="row"><h3>朝外还是朝内？</h3><p>${ee?'两个都朝外：你靠和人、和现场打交道来想事情。独处太久会没着落，记得留一点安静的时间整理自己。':ii?'两个都朝内：你的功夫都下在心里，别人看不到你想了多少。重要的想法要说出来，不然别人以为你没想法。':'一个朝外，一个朝内：你能在心里想，也能拿到外面去试，里外接得上。'}</p></div>`
+  +(sameAxis?`<div class="row"><h3>它们是一对</h3><p>${A} 和 ${B} 正好是同一条轴的两头，一头高，另一头常常跟着高。两个一起用的时候你最顺：${AXT[['NeSi','NiSe','TeFi','TiFe'].find(x=>x.includes(A)&&x.includes(B))][1]}</p></div>`:'')
+  +(tie2.length>1&&!tie2.includes(A)?`<p class="note">第二高有 ${tie2.length} 个并列（${tie2.join('、')}）。这里按 ${B} 来读，换成另外几个也说得通。</p>`:'');
+
+ // 你走的两条轴
+ const pA=S.Ne+S.Si,pB=S.Ni+S.Se,jA=S.Te+S.Fi,jB=S.Ti+S.Fe;
+ const pAxis=pA>=pB?['Ne','Si']:['Ni','Se'], jAxis=jA>=jB?['Te','Fi']:['Ti','Fe'];
+ const axRow=(t,x,y,nx,ny,kx,ky)=>{const close=Math.abs(x-y)<8,win=x>=y?kx:ky;return `<div class="row"><h3>${t}</h3>${balRow(nx,ny,x+y?x/(x+y)*100:50,`${nx} 合计 ${x} 分，${ny} 合计 ${y} 分`)}<p style="margin-top:10px"><b>${AXT[win][0]}</b></p><p>${AXT[win][1]}</p>${close?`<p class="cost">两条轴只差 ${Math.abs(x-y)} 分，很接近。另一条你也在用：${AXT[x>=y?ky:kx][0]}。</p>`:''}</div>`};
+ $('rFnAxis').innerHTML=axRow('怎么看事情',pA,pB,'Ne–Si','Ni–Se','NeSi','NiSe')+axRow('怎么下判断',jA,jB,'Te–Fi','Ti–Fe','TeFi','TiFe');
+
+ // 八个功能逐个看
+ $('rFnAll').innerHTML=rank.map((k,i)=>{const r=rel(k),D=FD[k],high=S[k]>=M;
+  return `<details class="fd${high?'':' lo'}"${i===0?' open':''}><summary><span class="k">${k}</span><span>${FN[k][0]}<small>${S[k]} 分 · 比你的平均${r>0?'高 '+r:r<0?'低 '+(-r):'持平'}</small></span></summary>
+   <div class="row"><h3>它是什么</h3><p>${FN[k][1]}</p></div>
+   <div class="row"><h3>日常里的样子</h3><p>${D.day}</p></div>
+   <div class="row"><h3>工作里</h3><p>${D.work}</p></div>
+   <div class="row"><h3>关系里</h3><p>${D.love}</p></div>
+   <div class="row"><h3>用得好 / 用过头</h3><p>${FNX[k][0]}</p><p class="cost">过头时：${FNX[k][1]}</p></div>
+   <div class="row"><h3>别人容易误会的地方</h3><p>${D.miss}</p></div>
+   <div class="row"><h3>${high?'你用得多，可以这样收一收':'你用得少，可以这样练'}</h3><p>${high?D.down:D.up}</p></div></details>`}).join('');
+
+ lastFn=true;
+ const all=Object.keys(TYPES);
+ // 算法一：功能发展顺序（主导、辅助、第三、劣势按 4/3/2/1 加权）
+ const grant=all.map(t=>[t,stack(t).reduce((v,k,i)=>v+S[k]*(4-i),0)]).sort((a,b)=>b[1]-a[1])[0][0];
+ // 算法二：功能轴（先定感知轴和判断轴，再看四个功能里哪个最高作主导）
+ const four=[...pAxis,...jAxis].sort((a,b)=>S[b]-S[a]);
+ const axis=all.find(t=>{const st=stack(t);return st[0]===four[0]&&st.every(k=>four.includes(k))});
+ // 算法三：Myers 定义（外向功能决定 J/P）
+ const myers=(S.Ne+S.Se+S.Te+S.Fe>=S.Ni+S.Si+S.Ti+S.Fi?'E':'I')+(S.Ne+S.Ni>=S.Se+S.Si?'N':'S')+(S.Te+S.Ti>=S.Fe+S.Fi?'T':'F')+(S.Te+S.Fe>=S.Ne+S.Se?'J':'P');
+ const rows=[['功能发展顺序',grant],['功能轴',axis],['Myers 定义',myers]];
+ $('rFnFit').innerHTML=rows.map(([n,t])=>`<div class="fit" style="grid-template-columns:110px 1fr"><span style="color:var(--sub)">${n}</span><b>${t}「${TYPES[t].n}」</b></div><div class="fbar-d" style="margin-left:120px">${stack(t).join(' → ')}</div>`).join('');
+ const set=[...new Set([grant,axis,myers])],flat=R<=15||(M>=75&&R<=20)||(M<=40&&R<=20);
+ let cmp=flat?'你八个功能的分数非常接近，这次分不出明显的先后，三种算法的结果参考价值有限。可能是很多题都选了中间或都选了同意，换个放松的时候再测一次。'
+  :set.length===1?`三种算法都指向 ${grant}，结果比较一致。`
+  :`三种算法给出了 ${set.length} 种结果（${set.join('、')}）。这很常见，说明你的功能分布不完全贴合某一个标准类型，上面的分数表比任何一个类型标签都更能代表你。`;
+ if(!flat&&lastCode)cmp+=set.includes(lastCode)?` 前面四个字母测出的 ${lastCode} 也在其中。`:` 前面四个字母测出的是 ${lastCode}，和这里不同：字母看的是偏好，八维看的是你实际怎么想事情，两个画像都读一读。`;
+ $('rFnCmp').textContent=cmp;
+
+ // 八个位置：按"功能发展顺序"判出的类型来排
+ const st=stack(grant),fl=k=>k[0]+(k[1]==='e'?'i':'e'),eight=[...st,...st.map(fl)];
+ const odd=eight.slice(4).filter(k=>S[k]>=S[st[1]]);
+ $('rFnPos').innerHTML=`<p style="font-size:13px">这是 John Beebe 的"八功能模型"：每个类型的八个功能各占一个位置。下面按"功能发展顺序"算法判出的 <b style="color:var(--ink)">${grant}</b> 来排，右边是你自己的实际分数。</p>`
+  +`<div class="posh">常用的四个</div>`+eight.slice(0,4).map((k,i)=>`<div class="pos"><i>${i+1}</i><b>${k}</b><div><em>${POS[i][0]}</em><small>${POS[i][1]}</small></div><span>${S[k]}</span></div>`).join('')
+  +`<div class="posh">背面的四个（同样的功能，朝向相反）</div>`+eight.slice(4).map((k,i)=>`<div class="pos sh"><i>${i+5}</i><b>${k}</b><div><em>${POS[i+4][0]}</em><small>${POS[i+4][1]}</small></div><span>${S[k]}</span></div>`).join('')
+  +`<p style="color:var(--ink);font-size:14px;margin-top:14px">${odd.length?`按这个模型，${odd.join('、')} 应该是你不太用的，可你给它${odd.length>1?'们':''}打的分不比辅助 ${st[1]} 低。这说明你不贴合 ${grant} 的标准排法。这种情况很常见，以你自己的分数为准。`:`你的分数和这个排法大体对得上：常用的四个整体更高。`}</p>`
+  +`<p class="note">"英雄""父母""捣蛋鬼"这些位置的名字是比喻，帮人记住每个位置的脾气。${flat?'你这次分数太接近，判出的类型不稳，这一栏只当了解这个模型。':''}</p>`;
+
+ // 卡住和失控
+ const inw=st[0][1]==='i';
+ $('rFnLoop').innerHTML=`<p style="font-size:13px">同样按 ${grant} 的排法来讲。这是类型圈里常用的两个说法，用来解释"为什么我有时候不像自己"。</p>`
+  +`<div class="row"><h3>打转：只用第一和第三</h3><p>卡住的时候，你可能只在 ${st[0]} 和 ${st[2]} 之间来回：${FD[st[0]].sh}，又${FD[st[2]].sh}。这两个都朝${inw?'内':'外'}，于是${inw?'越想越深，不出门，也不问人':'越忙越散，停不下来想一想'}。</p><p class="cost">出口是第二个功能 ${st[1]}：${FD[st[1]].out}</p></div>`
+  +`<div class="row"><h3>失控：最弱的那个接管</h3><p>累到极点、压力很大时，最不熟练的 ${st[3]} 可能突然冒出来：${FN[st[3]][2]}</p><p class="cost">这时候不用分析自己。先睡够、吃好，离开让你紧绷的地方，等主导的 ${st[0]} 回来。</p></div>`
+  +`<p class="note">"失控"的说法来自心理学家 Naomi Quenk 对劣势功能的整理；"打转"是爱好者总结的经验，没有正式研究。两个都只当提醒用。</p>`;
+
+ // 这一周可以练的一件事
+ const low=byRel[7],top=byRel[0];
+ $('rFnGrow').innerHTML=(R<8?`<p style="color:var(--ink);font-size:14px">你的八个分数几乎一样，这次挑不出最该练的一个。可以先做一件更基础的事：重测一遍，把"是"留给真的很像你的题。</p>`
+  :`<div class="row"><h3>补一补最少用的 ${low}（${nm(low)}）</h3><p>${FD[low].up}</p><p class="cost">不用练成强项。会一点，是为了主场不灵的时候有得选。</p></div>
+   <div class="row"><h3>收一收最常用的 ${top}（${nm(top)}）</h3><p>${FD[top].down}</p><p class="cost">它用过头时的样子：${FNX[top][1]}</p></div>`)
+  +`<p class="note">一周只练一件，挑一件小事试一次就够。</p>`;
+
+ $('fTop').textContent=rank.slice(0,2).join(' · ');
+ $('fTopTag').textContent=tie2.length>2&&tie2.includes(rank[0])?`${tie2.join('、')} 并列最高，都是 ${S[rank[0]]} 分。上面只显示了前两个。`
+  :tie2.length>1&&!tie2.includes(rank[0])?`最高的是 ${rank[0]}（${nm(rank[0])}）。第二高有 ${tie2.length} 个并列：${tie2.join('、')}，都是 ${S[rank[1]]} 分，上面只显示了一个。`
+  :'你分数最高的两个功能：'+nm(rank[0])+'、'+nm(rank[1]);
+ lastFnText=`我的荣格八维：\n`+rank.map(k=>`${k} ${nm(k)} ${S[k]}`).join('\n')+`\n平均 ${Mr}，最高和最低差 ${R}`+(up.length?`\n相对突出：${up.join('、')}`:'')+(dn.length?`\n相对少用：${dn.join('、')}`:'');
+ $('fnNext').textContent=lastCode?'回到我的 16 型结果':'再做 16 型人格测试';
+ phase='main';ftab(0,true);show('fnres');watch($('fnres'));
+}
+function copyFn(){copyText(lastFnText,'已复制，可以发给朋友了')}
+const zone=p=>p>=60?0:p<=40?2:1; // 0偏左 1中间 2偏右
+const GROUP=t=>{
+ if(t[1]==='N'&&t[2]==='T')return['理性策略型','#7B61FF','#EFEBFF','#5B3FE0'];
+ if(t[1]==='N'&&t[2]==='F')return['理想共情型','#2FA37A','#E5F5EE','#1E7A59'];
+ if(t[1]==='S'&&t[3]==='J')return['稳定守护型','#3D7DD8','#E6EFFB','#2A62B8'];
+ return['灵活行动型','#C27C12','#FBF0DF','#8F5708'];
+};
+
+let order=[],answers={},idx=0;
+const $=id=>document.getElementById(id);
+const store={get(){try{return JSON.parse(localStorage.getItem('t16p')||'null')}catch(e){return null}},set(v){try{localStorage.setItem('t16p',JSON.stringify(v))}catch(e){}},clear(){try{localStorage.removeItem('t16p')}catch(e){}}};
+// ===== v12 互动 =====
+let qdir=1,busy=false,curTab=0;
+const LBL7=['非常不同意','不同意','有点不同意','中立','有点同意','同意','非常同意'],LBL5=['否','偏否','说不上','偏是','是'];
+const RM=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches);
+// 滚动到才出现
+const io=(!RM&&'IntersectionObserver' in window)?new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'}):null;
+function watch(root){if(!io||!root)return;root.querySelectorAll('.axis,.facet,.ftext,.pop,.fbar,.fit,.edge,.scene,.row,.alt,.fn,.chip,.rel,.pos,.fd').forEach(el=>{el.classList.add('rvl','pre');io.observe(el)})}
+// 类型字母：逐个出现；tap=true 时可点
+const codeHTML=(c,tap)=>[...c].map((ch,i)=>tap?`<button style="--i:${i}" onclick="jumpAxis(${i})" aria-label="${ch}，查看这个维度">${ch}</button>`:`<span style="--i:${i}">${ch}</span>`).join('');
+function jumpAxis(d){tab(0,true);const a=$('rAxes').children[d];if(!a)return;a.classList.remove('pre','flash');a.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'});void a.offsetWidth;a.classList.add('flash')}
+document.querySelectorAll('.tabs button').forEach(b=>{b.setAttribute('role','tab');b.setAttribute('aria-selected',b.classList.contains('on'))});document.querySelectorAll('.pane').forEach(p=>p.setAttribute('role','tabpanel'));
+// 键盘作答
+document.addEventListener('keydown',e=>{
+ if(!$('quiz').classList.contains('on')||e.metaKey||e.ctrlKey||e.altKey)return;
+ const n=parseInt(e.key,10),sc=$('scale');
+ if(n>=1&&n<=sc.children.length)sc.children[n-1].click();
+ else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();prev()}
+});
+// 报告页左右滑动切换四个部分
+[['result',()=>curTab,n=>tab(n)],['fnres',()=>curF,n=>ftab(n)]].forEach(([id,get,set])=>{let x=0,y=0;const r=$(id);
+ r.addEventListener('touchstart',e=>{x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});
+ r.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-x,dy=e.changedTouches[0].clientY-y;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*2.2){const n=get()+(dx<0?1:-1);if(n>=0&&n<=3)set(n)}},{passive:true});
+});
+// 首页十六型格子
+(function(){
+ const g=$('tgrid'),ks=Object.keys(TYPES);let auto=true,i=0;
+ g.innerHTML=ks.map(t=>`<button style="--c:${GROUP(t)[3]}" data-t="${t}" aria-label="${t} ${TYPES[t].n}">${t}</button>`).join('');
+ const sel=t=>{g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('tpeek').innerHTML=`<b><i style="color:${GROUP(t)[3]}">${t}</i> · ${TYPES[t].n}</b><span>${TYPES[t].t}</span>`};
+ g.addEventListener('click',e=>{const b=e.target.closest('button');if(b){auto=false;sel(b.dataset.t)}});
+ const seq=[...ks].sort(()=>Math.random()-.5);sel(seq[0]);
+ if(!RM)setInterval(()=>{if(auto&&$('home').classList.contains('on')&&!document.hidden){i=(i+1)%16;sel(seq[i])}},2400);
+})();
+
+
+// 只有一个版本：80 题，分三个阶段。STAGES 是每个阶段结束时的累计题数（13 → 再 30 → 再 37）
+const STAGES=[13,43,80];
+// 出题顺序：每一轮把 20 个侧面各问一题，四轮问完；每轮里正向题、反向题交错
+function buildOrder(){
+ const o=[];
+ for(let r=0;r<4;r++)for(let f=0;f<5;f++)for(let d=0;d<4;d++)o.push(d*20+f*4+(r+f+d)%4);
+ return o;
+}
+// 用已答的题算四个维度的暂时百分比
+function partial(){
+ const s=[0,0,0,0],n=[0,0,0,0];
+ order.slice(0,idx).forEach(qi=>{const d=Q[qi][1];s[d]+=(answers[qi]||0)*Q[qi][3];n[d]++});
+ return s.map((v,d)=>50+v/(3*n[d])*50);
+}
+function axHTML(pct){
+ return DIMS.map((D,d)=>{
+  const p=pct[d],left=p>50,w=Math.abs(p-50),st=Math.round(w*2);
+  return `<div class="axis"><div class="axis-h"><span class="${left?'w':''}">${D.a} ${D.an} ${Math.round(p)}%</span><span class="${!left?'w':''}">${(100-Math.round(p))}% ${D.bn} ${D.b}</span></div><div class="track"><div class="mid"></div><div class="fill" style="${left?'right':'left'}:50%;width:${w}%"></div></div><div class="axis-f">${D.name} · ${st<15?'接近中间，还不稳':st<45?'中等偏好':'明显偏好'}</div></div>`;
+ }).join('');
+}
+// 阶段结果页：答完 13 题、43 题时各出现一次
+function stageScreen(){
+ const p=partial(),first=idx===STAGES[0],left=order.length-idx;
+ if(first){
+  $('stTop').innerHTML=`<div class="eyebrow">第一阶段完成</div><div class="nick">你的初步轮廓</div><div class="dims" style="text-align:left">`
+   +DIMS.map((D,d)=>`<div class="dim"><b>${Math.abs(p[d]-50)<12?'还看不出':'偏'+(p[d]>50?D.an:D.bn)}</b><span>${D.name}</span></div>`).join('')
+   +`</div><p class="note">13 道题只够看个方向：每个维度才问了三四题，现在下结论还太早。</p>`;
+  $('stNext').innerHTML=`<h2>下一阶段 · 30 题</h2><ul class="list"><li>定出你的四个字母</li><li>看每个字母有多确定，哪个还在摇摆</li></ul>
+   <button class="btn btn-main" style="margin-top:16px" onclick="goOn()">继续 · 再答 30 题</button>
+   <button class="btn btn-ghost" onclick="restart()">先存着，下次继续</button>`;
+ }else{
+  const code=DIMS.map((D,d)=>p[d]>50?D.a:D.b).join(''),weak=DIMS.filter((D,d)=>Math.abs(p[d]-50)*2<15).map(D=>D.name);
+  $('stTop').innerHTML=`<div class="eyebrow">第二阶段完成 · 暂定类型</div><div class="code">${codeHTML(code)}</div><div class="nick">${TYPES[code].n}</div><div class="tag">${TYPES[code].t}</div>`;
+  $('stNext').innerHTML=`<h2>目前的四个维度</h2>${axHTML(p)}
+   <p style="color:var(--ink);font-size:14px;margin-top:16px">${weak.length?`「${weak.join('」「')}」还贴着中间，最后一段题可能会让字母变掉。`:'四个维度的方向都比较清楚了，最后一段题主要用来看细节。'}</p>
+   <div class="fgroup"><h3>最后一阶段 · ${left} 题，换一份完整报告</h3><ul class="list"><li>二十个侧面：你和同类型的人哪里不一样</li><li>情感分析，和 TA 的相处推演</li><li>职业性格，给合作者的使用说明</li><li>成长建议</li></ul></div>
+   <p class="note">你已经答完 ${idx} 题，超过一半了。现在停下，只能拿到四个字母。</p>
+   <button class="btn btn-main" style="margin-top:14px" onclick="goOn()">继续 · 最后 ${left} 题</button>
+   <button class="btn btn-ghost" onclick="restart()">先存着，下次继续</button>`;
+ }
+ show('stage');watch($('stage'));
+}
+function goOn(){show('quiz');render()}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');$('copyNote').style.display=id==='quiz'?'none':'';window.scrollTo(0,0)}
+function start(){
+ phase='main';
+ order=buildOrder();answers={};idx=0;save();show('quiz');render();
+}
+function resume(){const s=store.get();if(!s)return start();phase='main';order=buildOrder();answers=s.answers;idx=Math.min(s.idx,order.length-1);show('quiz');render()}
+function save(){if(phase==='main')store.set({answers,idx})}
+function render(){
+ const qi=order[idx];
+ const isFn=phase==='fn';$('endL').textContent=isFn?'否':'不同意';$('endR').textContent=isFn?'是':'同意';
+ const qt=$('qtext');qt.textContent=(isFn?FQ:Q)[qi][0];
+ qt.classList.remove('qin','qback');void qt.offsetWidth;qt.classList.add(qdir<0?'qback':'qin');qdir=1;
+ const st=$('steps');
+ if(isFn){st.style.display='none';$('count').textContent=(idx+1)+' / '+order.length;$('prog').style.width=(idx/order.length*100)+'%'}
+ else{const si=STAGES.findIndex(n=>idx<n),a=si?STAGES[si-1]:0,len=STAGES[si]-a;$('count').textContent=`第 ${si+1} 阶段 · ${idx-a+1} / ${len}`;$('prog').style.width=((idx-a)/len*100)+'%';
+  st.style.display='flex';st.innerHTML=STAGES.map((n,i)=>`<i class="${i<si?'done':i===si?'now':''}" style="flex:${n-(i?STAGES[i-1]:0)}"></i>`).join('')}
+ $('backBtn').disabled=idx===0;
+ const L=isFn?LBL5:LBL7,vals=isFn?[-2,-1,0,1,2]:[-3,-2,-1,0,1,2,3],pk=$('picked');
+ const cur=()=>{const v=answers[qi];pk.textContent=v==null?'':L[vals.indexOf(v)]};cur();
+ $('quitBtn').textContent=isFn?'退出八维测试':'保存并退出';
+ $('kbd').textContent=`键盘 1–${vals.length} 作答，← 返回上一题`;
+ const sc=$('scale');sc.innerHTML='';
+ vals.forEach((v,i)=>{
+  const b=document.createElement('button');
+  b.className='dot s'+(isFn?Math.abs(v)+1:Math.abs(v))+' '+(v<0?'dis':v>0?'agr':'neu')+(answers[qi]===v?' sel':'');
+  b.setAttribute('aria-label',L[i]);
+  b.onmouseenter=()=>{pk.textContent=L[i]};b.onmouseleave=cur;
+  b.onclick=()=>pick(v,b);
+  sc.appendChild(b);
+ });
+}
+function pick(v,b){
+ if(busy)return;busy=true;
+ const qi=order[idx];answers[qi]=v;
+ document.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));b.classList.add('sel');
+ $('picked').textContent=b.getAttribute('aria-label');
+ try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}
+ setTimeout(()=>{
+  busy=false;
+  if(idx<order.length-1){idx++;save();if(phase==='main'&&STAGES.includes(idx))stageScreen();else render()}else if(phase==='fn'){finishFn()}else{store.clear();saveRep();finish()}
+ },240);
+}
+let quitArm=0;
+function quit(){
+ if(phase==='main'){save();restart();toast('进度已保存，下次可以接着答');return}
+ if(Date.now()-quitArm<4000){phase='main';restart();return}
+ quitArm=Date.now();$('quitBtn').textContent='再点一次确认退出，八维的进度不会保存';setTimeout(()=>{$('quitBtn').textContent='退出八维测试'},4000);
+}
+function prev(){if(idx>0&&!busy){qdir=-1;idx--;save();render()}}
+
+// 做完的报告存在本机，下次可以直接找回
+const rep={get(){try{return JSON.parse(localStorage.getItem('t16r2')||'null')}catch(e){return null}},set(v){try{localStorage.setItem('t16r2',JSON.stringify(v))}catch(e){}}};
+function saveRep(){lastTs=Date.now();rep.set({answers,ts:lastTs})}
+function lastReport(){const s=rep.get();if(!s)return;phase='main';order=buildOrder();answers=s.answers;lastTs=s.ts;finish(true)}
+function tab(n,keep){
+ curTab=n;
+ document.querySelectorAll('#tabs button').forEach((b,i)=>{b.classList.toggle('on',i===n);b.setAttribute('aria-selected',i===n)});
+ document.querySelectorAll('#result .pane').forEach((p,i)=>p.classList.toggle('on',i===n));
+ if(!keep){const y=$('tabs').getBoundingClientRect().top+window.scrollY-4;if(window.scrollY>y)window.scrollTo(0,y)}
+}
+function gen(){
+ const steps=['计算四个维度的偏好','定位二十个侧面','生成情感与职业分析','整理成长建议'];
+ $('gSteps').innerHTML=steps.map(s=>`<div class="gstep">${s}<div class="bar"><i></i></div></div>`).join('');
+ show('gen');
+ const bars=$('gSteps').querySelectorAll('i');
+ steps.forEach((_,i)=>setTimeout(()=>{if(bars[i])bars[i].style.width='100%'},60+i*420));
+ setTimeout(()=>show('result'),60+steps.length*420+350);
+}
+function match(t,b){
+ document.querySelectorAll('#rPick button').forEach(x=>x.classList.remove('on'));if(b)b.classList.add('on');
+ let n=0,h='';
+ DIMS.forEach((D,d)=>{const same=t[d]===lastCode[d];if(same)n++;h+=`<div class="row"><h3>${D.name} · ${lastCode[d]} 和 ${t[d]}</h3><p>${same?MT[d].same[t[d]]:MT[d].diff}</p></div>`});
+ $('rMatch').innerHTML=`<div class="alt"><b>${lastCode} × ${t}「${TYPES[t].n}」</b><p style="color:var(--ink)">${MSUM[n]}</p></div>`+h+`<p class="note">类型只能提示你们容易在哪里卡住，不决定合不合适。两个人愿不愿意沟通，比字母重要。</p>`;
+ watch($('rMatch'));
+ if(b)$('rMatch').scrollIntoView({behavior:RM?'auto':'smooth',block:'nearest'});
+}
+let lastText='';
+function finish(quiet){
+ if(!lastTs)lastTs=Date.now();
+ const dimSum=[0,0,0,0],dimN=[0,0,0,0],fac=[...Array(4)].map(()=>[0,0,0,0,0]),facN=[...Array(4)].map(()=>[0,0,0,0,0]);
+ order.forEach(qi=>{
+  const [_,d,f,k]=Q[qi];const v=(answers[qi]||0)*k;
+  dimSum[d]+=v;dimN[d]++;fac[d][f]+=v;facN[d][f]++;
+ });
+ let code='';const pct=[];
+ DIMS.forEach((D,d)=>{
+  const p=50+dimSum[d]/(3*dimN[d])*50; pct.push(p);
+  code+=p>50?D.a:D.b;
+ });
+ lastCode=code;
+ const T=TYPES[code],[gName,gCol,gSoft,gInk]=GROUP(code);
+ document.documentElement.style.setProperty('--accent',gCol);document.documentElement.style.setProperty('--accent-ink',gInk);
+ document.documentElement.style.setProperty('--accent-soft',gSoft);
+ $('rCode').innerHTML=codeHTML(code,true);$('rNick').textContent=T.n;$('rTag').textContent=T.t;$('rGroup').textContent=gName;
+ // axes
+ let ax='';
+ DIMS.forEach((D,d)=>{
+  const p=pct[d],left=p>50,strength=Math.round(Math.abs(p-50)*2);
+  const lv=strength<15?'接近中间，两边都能用':strength<45?'中等偏好':'明显偏好';
+  const w=Math.abs(p-50);
+  ax+=`<div class="axis"><div class="axis-h"><span class="${left?'w':''}">${D.a} ${D.an} ${Math.round(p)}%</span><span class="${!left?'w':''}">${(100-Math.round(p))}% ${D.bn} ${D.b}</span></div>
+  <div class="track"><div class="mid"></div><div class="fill" style="${left?`right:50%;width:${w}%`:`left:50%;width:${w}%`}"></div></div>
+  <div class="axis-f">${D.name} · ${lv}</div></div>`;
+ });
+ $('rAxes').innerHTML=ax;
+ $('rDesc').textContent=T.d;
+ $('rStr').innerHTML=T.s.map(x=>`<li>${x}</li>`).join('');
+ $('rWeak').innerHTML=T.w.map(x=>`<li>${x}</li>`).join('');
+ $('rCareer').innerHTML=T.c.map(x=>`<span class="chip">${x}</span>`).join('');
+ $('rLove').textContent=T.l;
+ // facets
+ let fh='';const off=[];const fp=[[],[],[],[]];
+ DIMS.forEach((D,d)=>{
+  fh+=`<div class="fgroup"><h3>${D.a} ${D.an} — ${D.b} ${D.bn}</h3>`;
+  D.facets.forEach((F,f)=>{
+   const p=50+fac[d][f]/(3*facN[d][f])*50; // p=左侧倾向
+   const pos=100-p;fp[d][f]=p;const z=zone(p);
+   const leftWin=p>50,mainLeft=pct[d]>50;
+   if(Math.abs(p-50)>=15&&leftWin!==mainLeft)off.push(leftWin?F[0]:F[1]);
+   fh+=`<div class="facet"><span class="${p>55?'on':''}">${F[0]}</span><div class="ftrack"><div class="fdot" style="left:${pos}%"></div></div><span class="${p<45?'on':''}">${F[1]}</span></div><div class="ftext${z===1?' fmid':''}">${FT[d][f][z]}</div>`;
+  });
+  fh+='</div>';
+ });
+ if(off.length)fh+=`<p class="note">你和典型 ${code} 不太一样的地方：<b style="color:var(--ink)">${off.join('、')}</b>。这些"反差侧面"正是你的独特之处。</p>`;
+ $('rFacets').innerHTML=fh;
+ // 四个场景
+ $('rScenes').innerHTML=SCENES.map(S=>{
+  const za=zone(fp[S.a[0]][S.a[1]]),zb=zone(fp[S.b[0]][S.b[1]]);
+  return `<div class="scene"><h3>${S.name}</h3><p>${S.A[za]}${S.B[zb]}</p><p class="try">可以试试：${S.T[za]}</p></div>`;
+ }).join('');
+ // 如果觉得不像你
+ let fit='';const close=[];
+ DIMS.forEach((D,d)=>{if(Math.abs(pct[d]-50)*2<15)close.push(d)});
+ if(close.length){
+  fit+=`<p style="color:var(--ink);font-size:14px">你有 ${close.length} 个维度很接近中间，换一天、换个心情测，字母可能会变。下面这些相邻类型也可能像你，看看哪个画像更像平时的你。</p>`;
+  close.forEach(d=>{
+   const D=DIMS[d],alt=code.slice(0,d)+(code[d]===D.a?D.b:D.a)+code.slice(d+1),A=TYPES[alt];
+   fit+=`<div class="alt"><b>${alt}「${A.n}」</b><p>因为你的 ${D.an} ${Math.round(pct[d])}% / ${D.bn} ${(100-Math.round(pct[d]))}%，几乎各占一半。</p><p style="color:var(--ink)">${A.d}</p></div>`;
+  });
+ }else{
+  fit+=`<p style="color:var(--ink);font-size:14px">你的四个维度都没有贴着中间，这个结果相对稳定。如果还是觉得不像，常见原因是答题时想的是"理想中的自己"或"工作里的自己"。隔几天，按平时最放松的状态再测一次。</p>`;
+ }
+ fit+=`<p class="note">四个字母只是概括。真正属于你的，是上面二十个侧面的位置。</p>`;
+ $('rFit').innerHTML=fit;
+ // ===== v9 详细报告 =====
+ const pad=n=>String(n).padStart(2,'0'),dt=new Date(lastTs),E=X[code];
+ $('rMeta').textContent=`报告生成于 ${dt.getFullYear()}-${pad(dt.getMonth()+1)}-${pad(dt.getDate())} ${pad(dt.getHours())}:${pad(dt.getMinutes())} · 80 题 · 四部分完整报告`;
+ // 这个类型有多常见
+ popRender(0);
+ // 最突出的侧面
+ const fl=[];fp.forEach((r,d)=>r.forEach((p,f)=>fl.push({d,f,p,s:Math.abs(p-50)})));
+ fl.sort((a,b)=>b.s-a.s);
+ const top=fl.filter(x=>x.s>=10).slice(0,5),side=x=>x.p>50?0:1,fname=x=>DIMS[x.d].facets[x.f][side(x)];
+ $('rEdge').innerHTML=top.length?top.map(x=>`<div class="edge"><h3>${fname(x)}<span>偏向 ${Math.round(50+x.s)}%</span></h3><p>${FS[x.d][x.f][side(x)][0]}</p><p class="cost">代价：${FS[x.d][x.f][side(x)][1]}</p></div>`).join('')
+  :`<p style="color:var(--ink);font-size:14px">你的二十个侧面都靠近中间，没有特别突出的一项。这说明你很看场合：两种方式你都能用。好处是适应面宽，代价是别人不太容易一下子看懂你。</p>`;
+ // 情感分析
+ $('rNeed').textContent=E.need;$('rPit').textContent=E.pit;
+ $('rLv').innerHTML=LV.map(L=>`<div class="row"><h3>${L.n}</h3><p>${L.v[zone(fp[L.f[0]][L.f[1]])]}</p></div>`).join('');
+ $('rPick').innerHTML=Object.keys(TYPES).map(t=>`<button class="${t===code?'me':''}" onclick="match('${t}',this)">${t}</button>`).join('');
+ $('rMatch').innerHTML='';
+ // 职业性格
+ const zs=pct.map(zone);
+ $('rRole').textContent=E.role;
+ $('rWork').innerHTML=DIMS.map((D,d)=>`<div class="row"><h3>${D.name}</h3><p>适合：${WK[d].env[zs[d]]}</p><p class="cost">消耗：${WK[d].drain[zs[d]]}</p></div>`).join('');
+ lastTips=DIMS.map((D,d)=>WK[d].tip[zs[d]]);
+ $('rTips').innerHTML=lastTips.map(x=>`<li>${x}</li>`).join('');
+ // 成长建议
+ $('rSt').textContent=E.st;
+ $('rGrow').innerHTML=E.g.map(x=>`<li>${x}</li>`).join('');
+ const t1=fl[0];
+ $('rFlip').innerHTML=t1.s>=10?`<p style="color:var(--ink);font-size:14px">你偏得最明显的侧面是「${fname(t1)}」（${Math.round(50+t1.s)}%）。${FS[t1.d][t1.f][side(t1)][1]}</p><p style="color:var(--ink);font-size:14px;margin-top:8px">这一周，故意练一次它的反面「${DIMS[t1.d].facets[t1.f][1-side(t1)]}」：挑一件小事，用你平时不会用的那种方式做一遍，看看结果有什么不同。</p><p class="note">不是要你改掉自己。偏好是你的主场，多会一种打法，是为了主场不灵的时候有得选。</p>`
+  :`<p style="color:var(--ink);font-size:14px">你没有特别偏的侧面，不需要刻意去练反面。更值得做的是：遇到重要的事，先想清楚这一次要用哪一边，再动手。</p>`;
+ $('fnBtn').textContent=lastFn?'查看我的八维结果':'开始八维测试 · 96 题';
+ lastText=`我的16型人格测试结果：${code}「${T.n}」——${T.t}\n`+DIMS.map((D,d)=>`${D.an}${Math.round(pct[d])}% / ${D.bn}${(100-Math.round(pct[d]))}%`).join('\n')+(top.length?`\n我最突出的侧面：${top.map(fname).join('、')}`:'')+(off.length?`\n我的反差侧面：${off.join('、')}`:'')+`\n在中国网上测试的人里约占 ${POPS[0].d[code]}%`;
+ tab(0,true);watch($('result'));
+ if(quiet)show('result');else gen();
+}
+function copyText(txt,msg){
+ const ok=()=>toast(msg);
+ try{navigator.clipboard.writeText(txt).then(ok).catch(fallback)}catch(e){fallback()}
+ function fallback(){const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){toast('复制失败，请截图保存')}t.remove()}
+}
+function copyResult(){copyText(lastText,'已复制，可以发给朋友了')}
+function copyTips(){copyText(`和我（${lastCode}）合作的使用说明：\n`+lastTips.map((x,i)=>`${i+1}. ${x}`).join('\n'),'已复制，可以发给同事了')}
+function shareTest(){copyText(`我测出来是 ${lastCode}「${TYPES[lastCode].n}」。这个 16 型人格测试的详细报告是免费的，你也测一下：${location.href.split('#')[0]}`,'已复制，发给朋友吧')}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function restart(){document.documentElement.style.setProperty('--accent','#7B61FF');document.documentElement.style.setProperty('--accent-ink','#5B3FE0');document.documentElement.style.setProperty('--accent-soft','#EFEBFF');const sv=store.get();$('resumeBtn').style.display=sv&&Object.keys(sv.answers||{}).length?'block':'none';if(rep.get())$('lastBtn').style.display='block';show('home')}
+(function(){const s=store.get();if(s&&Object.keys(s.answers||{}).length)$('resumeBtn').style.display='block';if(rep.get())$('lastBtn').style.display='block'})();
+$('adCard').innerHTML=`<h2>${AD.title}</h2><p>${AD.text}</p>`+AD.links.map(([n,d,u])=>`<a href="${u}" target="_blank" rel="noopener"><b>${n} →</b><span>${d}</span></a>`).join('')+`<button class="btn" onclick="shareTest()">把这个测试发给朋友</button>`+(AD.foot?`<p style="font-size:12px;margin-top:12px;color:#B5ACA2">${AD.foot}</p>`:'');
+</script>
+</body>
+</html>

@@ -47,3 +47,14 @@ details.rc summary h3{margin:0 !important;font-size:15.5px;line-height:1.5}
 details.rc summary:after{content:"";position:absolute;right:20px;top:50%;width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-70%) rotate(45deg);opacity:.5;transition:transform .25s}
 details.rc[open] summary:after{transform:translateY(-30%) rotate(-135deg)}
 details.rc .dl{padding:0 18px 18px}
+
+/* 更多问卷折叠块（中性、柔和） */
+html[data-theme="gallery"] details.deep{margin:20px 0 6px;border:1px solid rgba(120,90,140,.14);border-radius:16px;background:rgba(255,255,255,.5);overflow:hidden}
+html[data-theme="gallery"] details.deep>summary{position:relative;list-style:none;cursor:pointer;padding:15px 44px 15px 18px;display:flex;flex-direction:column;gap:3px}
+html[data-theme="gallery"] details.deep>summary::-webkit-details-marker{display:none}
+html[data-theme="gallery"] details.deep>summary b{color:#6a5f72;font-size:15px}
+html[data-theme="gallery"] details.deep>summary .muted{font-size:12.5px}
+html[data-theme="gallery"] details.deep>summary:after{content:"展开";position:absolute;right:18px;top:50%;transform:translateY(-50%);color:#b0a6b8;font-size:12.5px}
+html[data-theme="gallery"] details.deep[open]>summary:after{content:"收起"}
+html[data-theme="gallery"] details.deep .deepbody{padding:2px 16px 14px}
+html[data-theme="gallery"] details.deep .sec:first-child{margin-top:4px}

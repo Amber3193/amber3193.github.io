@@ -139,7 +139,7 @@
   /* ---------- 视图 ---------- */
   var V = {};
   V.home = function () {
-    return '<section class="hero"><h1>了解自己最近的状态</h1><p>这里提供多份经过研究验证的自评问卷，涵盖情绪、创伤、解离、人格与关系、注意力、饮酒和饮食。每次做一份，做完两份以上可以看综合分析。</p></section>' +
+    return '<section class="hero"><h1>了解自己最近的状态</h1><p>一些经过研究验证的小问卷，帮你看看最近的情绪、压力和状态。每次做一份，几分钟就好；做完两份以上可以看综合分析。</p></section>' +
       '<div class="card"><h3>开始之前</h3><ul class="plain"><li>这些问卷是<b>筛查</b>，不是诊断。</li><li>' + esc(C.notRealtime) + "</li><li>回答只在这台设备上计算，不上传，默认不保存。</li><li>每题都可以跳过，随时可以退出。</li></ul>" +
       '<h3 style="margin-top:16px">你的年龄是？</h3><p class="muted">这些问卷只适用于成年人。</p><div class="row2"><button class="primary" onclick="App.setAge(true)">18 岁及以上</button><button class="ghostbtn" onclick="App.setAge(false)">未满 18 岁</button></div></div>';
   };
@@ -159,13 +159,24 @@
       (done >= 2 ? '<button class="primary alt" onclick="App.go(\'analysis\')">查看综合分析</button>' : "") + "</div>" +
       '<label class="toggle"><input type="checkbox" ' + (state.persist ? "checked" : "") + ' onchange="App.togglePersist(this)"> 在这台设备上保留本次结果（刷新不丢失，可随时删除）</label><div id="persistMsg" class="tiny"></div></div>';
     if (lateNight()) h += '<div class="card note2">现在是深夜。疲惫时，焦虑和低落的自评通常会偏高；如果觉得累，可以先休息，明天白天再做。</div>';
-    order.forEach(function (d) {
-      h += '<h2 class="sec">' + esc(d) + '</h2><div class="grid">' + groups[d].map(function (id) {
-        var x = I[id], s = state.session[id];
-        return '<button class="tcard" onclick="App.open(\'' + id + '\')"><h3>' + esc(x.nameZh) + "</h3><p>" + esc(x.measures) + '</p><div class="meta">' + x.abbr + " · " + x.items.length + " 题 · 约 " + x.minutes + " 分钟 " + badge(x) + "</div>" +
-          (s ? '<div class="done">本次已完成：' + esc(scoreText(x, s.result)) + "</div>" : "") + "</button>";
-      }).join("") + "</div>";
+    var GENTLE = { "情绪与压力": 1, "自我": 1 };
+    function cardFor(id) {
+      var x = I[id], s = state.session[id];
+      return '<button class="tcard" onclick="App.open(\'' + id + '\')"><h3>' + esc(x.nameZh) + "</h3><p>" + esc(x.measures) + '</p><div class="meta">' + x.abbr + " · " + x.items.length + " 题 · 约 " + x.minutes + " 分钟 " + badge(x) + "</div>" +
+        (s ? '<div class="done">本次已完成：' + esc(scoreText(x, s.result)) + "</div>" : "") + "</button>";
+    }
+    order.filter(function (d) { return GENTLE[d]; }).forEach(function (d) {
+      h += '<h2 class="sec">' + esc(d) + '</h2><div class="grid">' + groups[d].map(cardFor).join("") + "</div>";
     });
+    var deepDomains = order.filter(function (d) { return !GENTLE[d]; });
+    if (deepDomains.length) {
+      var deepCount = deepDomains.reduce(function (t2, d) { return t2 + groups[d].length; }, 0);
+      h += '<details class="deep"><summary><b>更多问卷 · 选做（' + deepCount + ' 份）</b><span class="muted">想更全面地了解自己时再展开，不急。</span></summary><div class="deepbody">';
+      deepDomains.forEach(function (d) {
+        h += '<h2 class="sec">' + esc(d) + '</h2><div class="grid">' + groups[d].map(cardFor).join("") + "</div>";
+      });
+      h += "</div></details>";
+    }
     h += '<h2 class="sec">说明</h2><button class="tcard soft" onclick="App.go(\'other\')"><h3>本站不提供的内容</h3><p>不提供诊断、用药建议，也不提供“鉴定他人”的工具</p><div class="meta">查看说明</div></button>';
     return h;
   };

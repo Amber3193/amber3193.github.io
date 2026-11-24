@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="gallery">
+<head>
+<script>(function(){var a=["YW1iZXIzMTkuY29t","dXpxaTNsLmtpY3AuZnVu"],h=location.hostname.replace(/^www\./,"");if(!h||h=="localhost"||h=="127.0.0.1")return;for(var i=0;i<a.length;i++)if(atob(a[i])==h)return;location.replace("https://"+atob(a[0])+location.pathname)})();</script>
+
+<meta charset="UTF-8">
+<!-- 心境实验室 © 2026 Amber（XU YUEHONG）. All rights reserved. 欢迎分享；商用或改编须事先取得书面授权。量表版权归原作者及机构所有。 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>心境自评 · 了解最近的自己</title>
+<meta name="theme-color" content="#fff3ea">
+<meta name="author" content="Amber">
+<meta name="copyright" content="© 2026 Amber（XU YUEHONG）. All rights reserved.">
+<link rel="stylesheet" href="stardust.css">
+<link rel="stylesheet" href="soft.css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9387b5eb6ae265e030af4c2337022430";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="proto">原型版本 · 未经临床专家审核 · 部分问卷授权待核验 · 部分题目为工作译本</div>
+<div class="wrap">
+  <header>
+    <button class="logo" onclick="App.go('home')"><i></i>心境自评</button>
+    <nav>
+      <button onclick="App.go('research')">研究目录</button>
+      <button onclick="App.go('privacy')">隐私</button>
+      <button id="helpTop" onclick="App.go('help')">需要帮助</button>
+    </nav>
+  </header>
+  <main id="main"></main>
+  <footer>本站提供自评筛查与科普，不提供诊断或治疗建议，不是急救服务。量表版权归原作者及机构所有（PHQ-9 / GAD-7 © Pfizer Inc.；WHO-5 © WHO 2024, CC BY-NC-SA 3.0 IGO；K10 © Ronald C. Kessler；ASRS v1.1 © New York University and President and Fellows of Harvard College；MDQ © The University of Texas Medical Branch；其余见研究目录）。<span class="owner">© 2026 Amber · 保留所有权利<br>欢迎分享；如需商用或改编，请先取得书面授权。</span></footer>
+</div>
+<script src="data/instruments.js"></script>
+<script src="data/copy.js"></script>
+<script src="data/resources.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/analysis.js"></script>
+<script src="js/app.js"></script>
+<script src="stardust.js"></script>
+</body>
+</html>

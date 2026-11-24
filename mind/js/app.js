@@ -305,11 +305,11 @@
     return '<section class="hero"><h1>需要帮助</h1><p>如果你正在经历难以承受的痛苦，或有伤害自己的念头，请现在联系专业的人。你不需要先“证明”自己够严重。</p></section><div class="card">' + regionPicker() + "</div>" + backBtn();
   };
   V.research = function () {
-    var h = '<section class="hero"><h1>研究目录与证据卡</h1><p class="muted">核验日期 2026-11-13。检索范围：WHO、政府与学会网站、量表作者官网、PubMed 收录论文；未系统检索中文数据库全文，可能有遗漏。</p></section>';
+    var h = '<section class="hero"><h1>研究目录与证据卡</h1><p class="muted">核验日期 2026-11-13。检索范围：WHO、政府与学会网站、量表作者官网、PubMed 收录论文；未系统检索中文数据库全文，可能有遗漏。</p><p class="tiny">点任意一项展开看详情。</p></section>';
     h += A.ORDER.map(function (k) {
       var x = I[k];
-      return '<div class="card"><h3>' + esc(x.nameZh) + "（" + x.abbr + "） " + badge(x) + '</h3><dl class="dl"><dt>原始来源</dt><dd>' + esc(x.evidence.original) + "</dd><dt>中文版</dt><dd>" + esc(x.evidence.chinese) + "</dd>" +
-        "<dt>局限</dt><dd>" + esc(x.evidence.limits) + "</dd><dt>授权</dt><dd>" + esc(x.license.terms) + " 商业展示：" + esc(x.license.commercialDisplay) + '<br><span class="muted">' + esc(x.license.source) + "</span></dd><dt>文本版本</dt><dd>" + esc(x.textVersion.note) + "</dd></dl></div>";
+      return '<details class="card rc"><summary><h3>' + esc(x.nameZh) + "（" + x.abbr + "） " + badge(x) + '</h3></summary><dl class="dl"><dt>原始来源</dt><dd>' + esc(x.evidence.original) + "</dd><dt>中文版</dt><dd>" + esc(x.evidence.chinese) + "</dd>" +
+        "<dt>局限</dt><dd>" + esc(x.evidence.limits) + "</dd><dt>授权</dt><dd>" + esc(x.license.terms) + " 商业展示：" + esc(x.license.commercialDisplay) + '<br><span class="muted">' + esc(x.license.source) + "</span></dd><dt>文本版本</dt><dd>" + esc(x.textVersion.note) + "</dd></dl></details>";
     }).join("");
     return h + backBtn();
   };

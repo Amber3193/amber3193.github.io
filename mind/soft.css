@@ -39,3 +39,11 @@ html[data-theme="gallery"] .st{background:rgba(255,122,89,.08);color:#d0604a;bor
 html[data-theme="gallery"] .combo-btn{background:rgba(255,236,228,.9);border-color:rgba(255,122,89,.35);color:#2b2433}
 html[data-theme="gallery"] .done{color:#e2607a}
 html[data-theme="gallery"] footer{color:#9a90a3}
+/* 研究目录：默认收起，点开看详情 */
+details.rc{padding:0;overflow:hidden}
+details.rc summary{list-style:none;cursor:pointer;padding:16px 44px 16px 18px;position:relative}
+details.rc summary::-webkit-details-marker{display:none}
+details.rc summary h3{margin:0 !important;font-size:15.5px;line-height:1.5}
+details.rc summary:after{content:"";position:absolute;right:20px;top:50%;width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-70%) rotate(45deg);opacity:.5;transition:transform .25s}
+details.rc[open] summary:after{transform:translateY(-30%) rotate(-135deg)}
+details.rc .dl{padding:0 18px 18px}

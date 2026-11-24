@@ -1,249 +1,49 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="gallery">
 <head>
 <script>(function(){var a=["YW1iZXIzMTkuY29t","dXpxaTNsLmtpY3AuZnVu"],h=location.hostname.replace(/^www\./,"");if(!h||h=="localhost"||h=="127.0.0.1")return;for(var i=0;i<a.length;i++)if(atob(a[i])==h)return;location.replace("https://"+atob(a[0])+location.pathname)})();</script>
+
 <meta charset="UTF-8">
-<!-- 心境 · 今天的你 © 2026 Amber（XU YUEHONG）. All rights reserved. 欢迎分享；商用或改编须事先取得书面授权。 -->
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- 心境实验室 © 2026 Amber（XU YUEHONG）. All rights reserved. 欢迎分享；商用或改编须事先取得书面授权。量表版权归原作者及机构所有。 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<title>今天的你 · 心境</title>
-<meta name="theme-color" content="#0c0a14">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="心境">
-<meta name="mobile-web-app-capable" content="yes">
-<script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?9387b5eb6ae265e030af4c2337022430";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
-<style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC",sans-serif;
-  color:#ece9f2;background:#0b0912;min-height:100vh;
-  background-image:radial-gradient(120% 80% at 50% -10%, var(--glow, rgba(150,120,200,.28)), transparent 60%),
-                   radial-gradient(90% 60% at 50% 115%, rgba(40,30,70,.5), transparent 55%);
-  background-attachment:fixed;transition:background-image .6s ease;
-  padding:max(18px,env(safe-area-inset-top)) 18px calc(40px + env(safe-area-inset-bottom));
-}
-.app{max-width:460px;margin:0 auto}
-.top{display:flex;align-items:baseline;justify-content:space-between;margin:4px 2px 18px}
-.top .d{font-size:13px;color:#a79fc0;letter-spacing:.04em}
-.top .t{font-size:15px;font-weight:600;color:#d8d2ea}
-h1{font-size:25px;font-weight:650;letter-spacing:.01em;margin:0 2px 2px}
-.sub{font-size:13px;color:#9b93b6;margin:0 2px 20px;line-height:1.6}
-.pad{position:relative;width:100%;aspect-ratio:1/.82;border-radius:26px;overflow:hidden;
-  box-shadow:0 20px 60px -24px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.06);
-  touch-action:none;cursor:grab}
-.pad:active{cursor:grabbing}
-.pad canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.axl{position:absolute;color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.08em;pointer-events:none;text-shadow:0 1px 6px rgba(0,0,0,.5)}
-.axl.l{left:12px;top:50%;transform:translateY(-50%)}
-.axl.r{right:12px;top:50%;transform:translateY(-50%)}
-.axl.tp{top:10px;left:50%;transform:translateX(-50%)}
-.axl.bt{bottom:10px;left:50%;transform:translateX(-50%)}
-.orb{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, #fff, rgba(255,255,255,.75) 40%, rgba(255,255,255,0) 72%);
-  box-shadow:0 0 22px 6px rgba(255,255,255,.45);pointer-events:none}
-.word{text-align:center;margin:22px 4px 2px;font-size:22px;font-weight:600;letter-spacing:.02em}
-.wsub{text-align:center;color:#9b93b6;font-size:12.5px;margin-bottom:18px}
-.note{width:100%;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:14px;
-  color:#ece9f2;font-size:15px;padding:13px 15px;font-family:inherit;outline:none}
-.note::placeholder{color:#7d7598}
-.note:focus{border-color:rgba(180,150,230,.5);background:rgba(255,255,255,.08)}
-.save{width:100%;margin-top:12px;border:0;border-radius:16px;padding:16px;font-size:16px;font-weight:650;
-  color:#17121f;background:linear-gradient(180deg,#fbeccb,#f4c98f);font-family:inherit;cursor:pointer;
-  box-shadow:0 12px 30px -12px rgba(244,201,143,.6)}
-.save:active{transform:translateY(1px)}
-.saved{text-align:center;color:#c9c1e0;font-size:13px;margin-top:12px;min-height:18px}
-.cal{margin-top:34px}
-.cal .h{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 14px}
-.cal .h b{font-size:16px;font-weight:650}
-.cal .h span{font-size:12.5px;color:#9b93b6}
-.nav{display:flex;align-items:center;gap:14px;margin:0 2px 12px;color:#b8b0d2;font-size:13px}
-.nav button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#d8d2ea;
-  border-radius:9px;width:30px;height:30px;font-size:15px;cursor:pointer}
-.nav .m{flex:1;text-align:center;font-weight:600;color:#ded7f0}
-.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
-.wd{text-align:center;font-size:11px;color:#7d7598;padding-bottom:2px}
-.cell{aspect-ratio:1;border-radius:11px;display:flex;align-items:flex-end;justify-content:flex-end;
-  padding:5px;font-size:11px;color:rgba(255,255,255,.75);background:rgba(255,255,255,.04);position:relative}
-.cell.has{color:#fff;font-weight:600;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
-.cell.today{outline:2px solid rgba(255,255,255,.55);outline-offset:1px}
-.cell.blank{background:none}
-.detail{margin-top:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;padding:14px 16px;font-size:14px;line-height:1.6;display:none}
-.detail.on{display:block}
-.detail .dd{color:#a79fc0;font-size:12px;margin-bottom:4px}
-.detail .dn{color:#ece9f2}
-.detail .dn.empty{color:#7d7598}
-.foot{margin-top:30px;text-align:center;font-size:12px;color:#7d7598;line-height:1.7}
-.foot a{color:#b9a7e0;text-decoration:none}
-.foot .pv{display:block;margin-bottom:8px}
-</style>
-</head>
-<body>
-<div class="app">
-  <div class="top"><span class="t">心境</span><span class="d" id="today"></span></div>
-  <h1 id="hi">此刻，你是什么颜色？</h1>
-  <p class="sub">拖动下面的小光点，让这团光变成你现在的感觉。左右是心情，上下是精力。</p>
-
-  <div class="pad" id="pad">
-    <canvas id="cv"></canvas>
-    <span class="axl l">低落</span><span class="axl r">明亮</span>
-    <span class="axl tp">充沛</span><span class="axl bt">平静</span>
-    <div class="orb" id="orb"></div>
-  </div>
-
-  <div class="word" id="word">轻轻拖一下</div>
-  <div class="wsub" id="wsub">不用想太多，凭感觉就好</div>
-
-  <input class="note" id="note" maxlength="60" placeholder="想说一句？（可选）">
-  <button class="save" id="save">记下此刻</button>
-  <div class="saved" id="savemsg"></div>
-
-  <div class="cal">
-    <div class="h"><b>心情日历</b><span id="streak"></span></div>
-    <div class="nav"><button id="prev">&#8249;</button><div class="m" id="mlabel"></div><button id="next">&#8250;</button></div>
-    <div class="grid" id="wdrow"></div>
-    <div class="grid" id="days" style="margin-top:7px"></div>
-    <div class="detail" id="detail"></div>
-  </div>
-
-  <div class="foot">
-    <span class="pv">只存在这台手机里，不上传、不用注册。</span>
-    <span class="pv" style="color:#7a7296;font-size:11.5px">在微信里打开，记录可能存不住。想每天记：点右上「…」用浏览器打开，或把本页加到手机桌面。</span>
-    想做更深入的心理自评量表？<a href="library.html">进入量表库 &#8594;</a>
-  </div>
-</div>
-
+<title>心境自评 · 了解最近的自己</title>
+<meta name="theme-color" content="#fff3ea">
+<meta name="author" content="Amber">
+<meta name="copyright" content="© 2026 Amber（XU YUEHONG）. All rights reserved.">
+<link rel="stylesheet" href="stardust.css">
+<link rel="stylesheet" href="soft.css">
 <script>
-(function(){
-  var KEY="xj_mood_log";
-  var stops=[[58,74,140],[106,74,156],[177,74,138],[224,122,106],[242,178,74]];
-  function moodColor(v){ v=Math.max(0,Math.min(1,v)); var f=v*(stops.length-1), i=Math.floor(f), t=f-i;
-    if(i>=stops.length-1)return stops[stops.length-1].slice();
-    var a=stops[i], b=stops[i+1]; return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t]; }
-  function rgba(c,a){return "rgba("+(c[0]|0)+","+(c[1]|0)+","+(c[2]|0)+","+a+")";}
-  function mix(c,d,t){return [c[0]+(d[0]-c[0])*t,c[1]+(d[1]-c[1])*t,c[2]+(d[2]-c[2])*t];}
-  function pad2(n){return(n<10?"0":"")+n;}
-  function keyOf(dt){return dt.getFullYear()+"-"+pad2(dt.getMonth()+1)+"-"+pad2(dt.getDate());}
-  function load(){try{return JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){return{};}}
-  function save(o){try{localStorage.setItem(KEY,JSON.stringify(o));return true;}catch(e){return false;}}
-
-  var state={v:0.5,e:0.5};
-  var pad=document.getElementById("pad"), cv=document.getElementById("cv"), ctx=cv.getContext("2d"), orb=document.getElementById("orb");
-  var W=0,H=0,DPR=Math.min(2,window.devicePixelRatio||1);
-  function resize(){ var r=pad.getBoundingClientRect(); W=r.width; H=r.height; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); placeOrb(); }
-  window.addEventListener("resize",resize);
-
-  var blobs=[];for(var i=0;i<4;i++)blobs.push({a:Math.random()*6.28,s:0.18+Math.random()*0.22,rx:0.2+Math.random()*0.5,ry:0.2+Math.random()*0.5,ph:Math.random()*6.28});
-  var t0=Date.now();
-  function frame(){
-    var tm=(Date.now()-t0)/1000;
-    var mc=moodColor(state.v);
-    var energy=state.e;
-    var bg=mix(mc,[12,10,20],0.9);
-    ctx.globalCompositeOperation="source-over";
-    ctx.fillStyle=rgba(bg,1); ctx.fillRect(0,0,W,H);
-    ctx.globalCompositeOperation="lighter";
-    var breathe=1+Math.sin(tm*(0.5+energy*0.9))*0.06;
-    for(var i=0;i<blobs.length;i++){
-      var b=blobs[i];
-      var cx=W*(0.5+Math.cos(b.a+tm*b.s*(0.4+energy))*(0.16+b.rx*0.18));
-      var cy=H*(0.5+Math.sin(b.ph+tm*b.s*(0.4+energy))*(0.16+b.ry*0.18));
-      var rad=Math.max(W,H)*(0.34+energy*0.12)*breathe;
-      var g=ctx.createRadialGradient(cx,cy,0,cx,cy,rad);
-      var al=0.22+energy*0.30;
-      g.addColorStop(0,rgba(mix(mc,[255,255,255],0.12+energy*0.1),al));
-      g.addColorStop(1,rgba(mc,0));
-      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,rad,0,6.2832); ctx.fill();
-    }
-    requestAnimationFrame(frame);
-  }
-
-  function word(v,e){
-    var hi=v>=0.58,lo=v<=0.42,up=e>=0.58,dn=e<=0.42;
-    if(hi&&up)return["明亮，又有劲","这样的时刻，值得记一笔"];
-    if(hi&&dn)return["平静地，好好的","松弛下来的一天"];
-    if(lo&&up)return["心里有点满","能量停不太下来，先深呼吸一下"];
-    if(lo&&dn)return["有点低，也有点累","没关系，慢慢来就好"];
-    if(hi)return["是舒展的一天",""];
-    if(lo)return["今天有点沉","对自己温柔点"];
-    if(up)return["能量挺足",""];
-    if(dn)return["慢节奏的一天",""];
-    return["就……还行","普通的一天，也算数"];
-  }
-  function updateWord(){
-    var w=word(state.v,state.e);
-    document.getElementById("word").textContent=w[0];
-    document.getElementById("wsub").textContent=w[1]||"凭感觉就好";
-    document.body.style.setProperty("--glow",rgba(moodColor(state.v),0.3));
-  }
-  function placeOrb(){ orb.style.left=(state.v*W)+"px"; orb.style.top=((1-state.e)*H)+"px"; }
-  var dragging=false;
-  function setFromXY(clientX,clientY){
-    var r=pad.getBoundingClientRect();
-    state.v=Math.max(0,Math.min(1,(clientX-r.left)/r.width));
-    state.e=Math.max(0,Math.min(1,1-(clientY-r.top)/r.height));
-    placeOrb(); updateWord();
-  }
-  pad.addEventListener("pointerdown",function(e){dragging=true;pad.setPointerCapture(e.pointerId);setFromXY(e.clientX,e.clientY);});
-  pad.addEventListener("pointermove",function(e){if(dragging)setFromXY(e.clientX,e.clientY);});
-  function endDrag(){ if(dragging){dragging=false; if(navigator.vibrate)try{navigator.vibrate(8);}catch(e){}} }
-  pad.addEventListener("pointerup",endDrag); pad.addEventListener("pointercancel",endDrag);
-
-  var savemsg=document.getElementById("savemsg");
-  document.getElementById("save").addEventListener("click",function(){
-    var o=load(); var k=keyOf(new Date());
-    var had=!!o[k];
-    o[k]={v:+state.v.toFixed(3),e:+state.e.toFixed(3),note:document.getElementById("note").value.trim()};
-    var ok=save(o);
-    savemsg.textContent=ok?(had?"今天的记录已更新 ✓":"记下了 ✓ 明天再来点一下"):"没能保存：这个浏览器不允许本地存储";
-    if(navigator.vibrate)try{navigator.vibrate(12);}catch(e){}
-    renderCal();
-  });
-
-  var view=new Date(); view.setDate(1);
-  var detail=document.getElementById("detail");
-  var WD=["日","一","二","三","四","五","六"];
-  (function(){var h="";for(var i=0;i<7;i++)h+='<div class="wd">'+WD[i]+'</div>';document.getElementById("wdrow").innerHTML=h;})();
-  function renderCal(){
-    var o=load();
-    var y=view.getFullYear(), m=view.getMonth();
-    document.getElementById("mlabel").textContent=y+" 年 "+(m+1)+" 月";
-    var first=new Date(y,m,1).getDay(), dim=new Date(y,m+1,0).getDate();
-    var todayK=keyOf(new Date());
-    var h="";
-    for(var i=0;i<first;i++)h+='<div class="cell blank"></div>';
-    for(var d=1;d<=dim;d++){
-      var k=y+"-"+pad2(m+1)+"-"+pad2(d);
-      var ent=o[k];
-      var cls="cell"+(ent?" has":"")+(k===todayK?" today":"");
-      var st=ent?' style="background:'+rgba(moodColor(ent.v),0.42+ent.e*0.45)+'"':"";
-      var at=ent?' data-k="'+k+'"':"";
-      h+='<div class="'+cls+'"'+st+at+">"+d+"</div>";
-    }
-    document.getElementById("days").innerHTML=h;
-    var cnt=Object.keys(o).length;
-    document.getElementById("streak").textContent=cnt?("已记录 "+cnt+" 天"):"还没有记录";
-    detail.classList.remove("on");
-  }
-  document.getElementById("days").addEventListener("click",function(e){
-    var el=e.target.closest(".cell.has"); if(!el)return;
-    var o=load(), ent=o[el.getAttribute("data-k")]; if(!ent)return;
-    var w=word(ent.v,ent.e);
-    var safe=ent.note?ent.note.replace(/[<>&]/g,""):"";
-    detail.innerHTML='<div class="dd">'+el.getAttribute("data-k")+' · '+w[0]+'</div><div class="dn'+(safe?"":" empty")+'">'+(safe||"（这天没有写字）")+'</div>';
-    detail.classList.add("on");
-  });
-  document.getElementById("prev").addEventListener("click",function(){view.setMonth(view.getMonth()-1);renderCal();});
-  document.getElementById("next").addEventListener("click",function(){view.setMonth(view.getMonth()+1);renderCal();});
-
-  var now=new Date();
-  document.getElementById("today").textContent=(now.getMonth()+1)+"月"+now.getDate()+"日 "+WD[now.getDay()];
-  var hr=now.getHours();
-  document.getElementById("hi").textContent= hr<5?"夜深了，此刻的你是什么颜色？" : hr<11?"早上好，此刻的你是什么颜色？" : hr<18?"此刻，你是什么颜色？" : "今晚，你是什么颜色？";
-  resize(); updateWord(); renderCal(); requestAnimationFrame(frame);
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9387b5eb6ae265e030af4c2337022430";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
 })();
 </script>
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="wrap">
+  <header>
+    <button class="logo" onclick="App.go('home')"><i></i>心境自评</button>
+    <nav>
+      <button onclick="App.go('research')">研究目录</button>
+      <button onclick="App.go('privacy')">隐私</button>
+      <button id="helpTop" onclick="App.go('help')">需要帮助</button>
+    </nav>
+  </header>
+  <main id="main"></main>
+  <footer>本站提供自评筛查与科普，不提供诊断或治疗建议，不是急救服务。量表版权归原作者及机构所有（PHQ-9 / GAD-7 © Pfizer Inc.；WHO-5 © WHO 2024, CC BY-NC-SA 3.0 IGO；K10 © Ronald C. Kessler；ASRS v1.1 © New York University and President and Fellows of Harvard College；MDQ © The University of Texas Medical Branch；其余见研究目录）。<span class="owner">© 2026 Amber · 保留所有权利<br>欢迎分享；如需商用或改编，请先取得书面授权。</span></footer>
+</div>
+<script src="data/instruments.js"></script>
+<script src="data/copy.js"></script>
+<script src="data/resources.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/analysis.js"></script>
+<script src="js/app.js"></script>
+<script src="stardust.js"></script>
 </body>
 </html>

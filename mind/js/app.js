@@ -316,7 +316,7 @@
   V.privacy = function () {
     var saved = readSaved(), legacy = hasLegacy();
     return '<section class="hero"><h1>隐私与数据</h1></section><div class="card"><ul class="plain">' +
-      "<li>不需要注册，不收集姓名、联系方式等身份信息。</li><li>所有计分在你的浏览器里完成，回答不会上传，也不会出现在网址里。</li><li>本站用百度统计记录访问量（访问时间、大致地区、设备类型），只用来了解有多少人在用；你的作答和结果不会被统计。本站不投放广告。</li><li>综合分析只使用当前页面内存中的本次结果，关闭页面即消失。</li><li>默认不保存。只有你在结果页点“保存”，才会在这台设备上存下问卷名称、结果和日期，保留到你删除为止。</li></ul></div>" +
+      "<li>不需要注册，不收集姓名、联系方式等身份信息。</li><li>所有计分在你的浏览器里完成，回答不会上传，也不会出现在网址里。</li><li>综合分析只使用当前页面内存中的本次结果，关闭页面即消失。</li><li>默认不保存。只有你在结果页点“保存”，才会在这台设备上存下问卷名称、结果和日期，保留到你删除为止。</li></ul></div>" +
       '<div class="card"><h3>这台设备上保存的数据</h3>' + (saved.length ? "<ul>" + saved.map(function (s) { return "<li>" + esc(s.date) + " · " + esc(I[s.id] ? I[s.id].nameZh : s.id) + " · " + (s.total != null ? s.total : "") + "</li>"; }).join("") + "</ul>" : '<p class="muted">没有保存的结果。</p>') +
       (legacy ? '<p class="muted">检测到旧版网站在未经确认的情况下自动保存的记录，建议删除。</p>' : "") +
       '<button class="ghostbtn" onclick="App.deleteAll()">删除全部数据</button> <span id="delMsg" class="muted"></span></div>' + backBtn();

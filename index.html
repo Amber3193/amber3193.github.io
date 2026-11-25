@@ -7,40 +7,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Amber · 不按剧本</title>
 <meta name="description" content="Amber 的个人网站：4 个免费测试和一个原创听歌台。">
-<meta name="theme-color" content="#0a0a0b">
+<meta name="theme-color" content="#0c0b0a">
 <meta name="author" content="Amber">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500&family=Lora:ital@1&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+SC:wght@300;500&family=DM+Mono&display=swap" media="print" onload="this.media='all'">
 <style>
+:root{
+  /* 画廊图录：暖黑底、象牙白字、低饱和生成画；说明文字放在画下面 */
+  color-scheme:dark;
+  --bg:#0c0b0a;--tile:#141312;--paper:#ece6dc;--soft:rgba(236,230,220,.66);--dim:rgba(236,230,220,.42);--line:rgba(236,230,220,.14);
+  --amber:#c9a27a;
+  --disp:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --serif:"Noto Serif SC","Songti SC","STSong",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,monospace;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#0a0a0b;color:#efece6;-webkit-font-smoothing:antialiased}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
-  background:radial-gradient(90% 46vh at 12% 0%,rgba(242,196,150,.13),transparent 70%),radial-gradient(80% 40vh at 96% 6%,rgba(164,196,236,.12),transparent 70%),#0a0a0b;background-repeat:no-repeat}
+html,body{background:var(--bg);color:var(--paper);-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:radial-gradient(70% 50vh at 18% -8%,rgba(201,162,122,.10),transparent 70%),var(--bg);background-repeat:no-repeat}
 a{color:inherit;text-decoration:none}
-.page{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:34px;padding:calc(18px + env(safe-area-inset-top)) 18px calc(26px + env(safe-area-inset-bottom))}
-.top{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.28em;color:rgba(239,236,230,.5)}
-.top b{color:#efece6;font-weight:600}
-.hero{padding-top:6vh}
-.serif{font-family:"Noto Serif SC","Songti SC","STSong",serif}
-h1{font-weight:300;font-size:clamp(60px,19vw,104px);line-height:.95;letter-spacing:.01em}
-.cn{margin-top:16px;font-weight:300;font-size:clamp(20px,5.8vw,28px);letter-spacing:.44em}
-.en{margin-top:6px;font-family:"Lora",Georgia,serif;font-style:italic;font-size:15px;color:rgba(239,236,230,.6)}
-.sub{margin-top:20px;max-width:30em;font-size:14px;line-height:1.8;color:rgba(239,236,230,.72)}
-.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid rgba(239,236,230,.16);padding-top:12px;margin-bottom:12px}
-.sh h2{font-weight:500;font-size:19px;letter-spacing:.24em}
-.sh h2 i{margin-left:10px;font-family:"Lora",Georgia,serif;font-weight:400;font-size:14px;letter-spacing:0;color:rgba(239,236,230,.5)}
-.sh span{font-size:11px;letter-spacing:.12em;color:rgba(239,236,230,.5);white-space:nowrap}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.w{position:relative;overflow:hidden;border-radius:14px;background:#141416;display:flex;flex-direction:column;justify-content:space-between;padding:12px;min-height:clamp(150px,44vw,230px)}
-.w.wide{grid-column:1/-1;min-height:clamp(150px,38vw,210px)}
-.w canvas{position:absolute;inset:0;width:100%;height:100%;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
-.w:active canvas{transform:scale(1.05)}
-.w::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,0) 40%,rgba(10,10,11,.7) 100%);pointer-events:none}
-.w>*{position:relative;z-index:2}
-.no{font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.75);display:flex;justify-content:space-between}
-.t{font-size:clamp(17px,4.8vw,22px);font-weight:700;line-height:1.2}
-.m{margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.75);line-height:1.4}
-footer{font-size:10.5px;color:rgba(239,236,230,.38);text-align:center;line-height:1.5}
+a:focus-visible{outline:1px solid var(--amber);outline-offset:4px}
+.page{max-width:1040px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--dim)}
+nav b{color:var(--paper);font-weight:400;letter-spacing:.32em}
+nav .links{display:flex;gap:18px}
+nav .links a:hover{color:var(--paper)}
+
+.hero{padding:16vh 0 9vh}
+.eyebrow{color:var(--dim)}
+h1{margin-top:18px;font-family:var(--disp);font-weight:300;font-size:clamp(84px,25vw,212px);line-height:.82;letter-spacing:-.025em;margin-left:-.04em}
+.line2{margin-top:22px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.cn{font-family:var(--serif);font-weight:300;font-size:clamp(19px,5vw,26px);letter-spacing:.5em}
+.it{font-family:var(--disp);font-style:italic;font-weight:300;font-size:clamp(18px,4.6vw,24px);color:var(--soft)}
+.intro{margin-top:26px;max-width:27em;font-size:14px;line-height:1.9;color:var(--soft)}
+.facts{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.facts div{padding:12px 0 0;display:flex;flex-direction:column;gap:6px}
+.facts span{color:var(--dim)}
+.facts strong{font-family:var(--disp);font-weight:300;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+
+section{padding-top:56px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:14px;margin-bottom:22px}
+.sh h2{font-family:var(--serif);font-weight:300;font-size:22px;letter-spacing:.3em;text-wrap:balance}
+.sh h2 i{margin-left:12px;font-family:var(--disp);font-weight:300;font-size:20px;letter-spacing:0;color:var(--dim)}
+.sh .mono{color:var(--dim)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:34px 14px}
+@media (min-width:760px){.grid{gap:56px 28px}}
+.work{display:flex;flex-direction:column;gap:12px;min-width:0}
+.work.wide{grid-column:1/-1}
+.frame{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--tile);border:1px solid var(--line)}
+.work.wide .frame{aspect-ratio:16/9}
+@media (max-width:520px){.work.wide .frame{aspect-ratio:4/3}}
+.frame canvas{position:absolute;inset:0;width:100%;height:100%;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.work:hover canvas{transform:scale(1.035)}
+.frame .tag{position:absolute;left:10px;top:10px;color:var(--soft);display:flex;align-items:center;gap:8px;z-index:2}
+.frame .tag i{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+.cap{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:baseline}
+.cap .no{color:var(--dim)}
+.cap .ti{font-family:var(--serif);font-weight:500;font-size:clamp(16px,4.4vw,20px);letter-spacing:.06em;line-height:1.35}
+.cap .ti em{font-family:var(--disp);font-style:italic;font-weight:300;letter-spacing:0;color:var(--dim);margin-left:8px;font-size:.95em}
+.cap .me{grid-column:2;font-size:12.5px;line-height:1.6;color:var(--soft)}
+.work:hover .ti{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+@media (max-width:420px){.cap{grid-template-columns:1fr}.cap .me{grid-column:1}.cap .ti em{display:block;margin:2px 0 0}}
+
+footer{margin-top:72px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:11px;color:var(--dim);line-height:1.6}
+@media (prefers-reduced-motion:reduce){.frame canvas{transition:none}.frame .tag i{animation:none}}
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -54,64 +88,96 @@ var _hmt = _hmt || [];
 </head>
 <body>
 <div class="page">
-  <div class="top"><b>AMBER</b><span>AMBER319.COM</span></div>
+  <nav class="mono"><b>AMBER</b><span class="links"><a href="#works">作品</a><a href="#radio">听歌台</a></span></nav>
+
   <header class="hero">
-    <h1 class="serif">Amber</h1>
-    <p class="cn serif">不按剧本</p>
-    <p class="en">Not by the Script</p>
-    <p class="sub">我做的测试和音乐都放在这里。免费，不用注册。欢迎来玩，更欢迎来挑毛病，我会一直改。</p>
+    <p class="eyebrow mono">Personal site · amber319.com</p>
+    <h1>Amber</h1>
+    <div class="line2"><span class="cn">不按剧本</span><span class="it">Not by the Script</span></div>
+    <p class="intro">我做的测试和音乐都放在这里。免费，不用注册。欢迎来玩，更欢迎来挑毛病，我会一直改。</p>
+    <div class="facts">
+      <div><span class="mono">测试</span><strong>04</strong></div>
+      <div><span class="mono">原创曲</span><strong>07</strong></div>
+      <div><span class="mono">更新</span><strong>2026.11</strong></div>
+    </div>
   </header>
-  <section>
-    <div class="sh"><h2 class="serif">测试<i>Tests</i></h2><span>4 个 · 做完马上出结果</span></div>
-    <main class="grid">
-    <a class="w" href="mbti/index.html"><canvas data-p="0"></canvas>
-      <div class="no"><span>01</span><span>人格</span></div>
-      <div><div class="t">16型人格</div><div class="m">看看最近的你是哪一型</div></div></a>
-    <a class="w" href="attachment/index.html"><canvas data-p="1"></canvas>
-      <div class="no"><span>02</span><span>关系</span></div>
-      <div><div class="t">恋爱安全感<br>说明书</div><div class="m">22 题 · 约 4 分钟</div></div></a>
-    <a class="w" href="mind/index.html"><canvas data-p="2"></canvas>
-      <div class="no"><span>03</span><span>情绪</span></div>
-      <div><div class="t">心境自评</div><div class="m">了解最近的状态，不是诊断</div></div></a>
-    <a class="w" href="tarot/index.html"><canvas data-p="3"></canvas>
-      <div class="no"><span>04</span><span>塔罗</span></div>
-      <div><div class="t">夜曲塔罗</div><div class="m">抽三张牌，听听牌面怎么说</div></div></a>
-    </main>
-  </section>
-  <section>
-    <div class="sh"><h2 class="serif">听歌台<i>Radio</i></h2><span>7 首原创</span></div>
+
+  <section id="works">
+    <div class="sh"><h2>测试<i>Tests</i></h2><span class="mono">01 — 04</span></div>
     <div class="grid">
-    <a class="w wide" href="radio/"><canvas data-p="4"></canvas>
-      <div class="no"><span>ON AIR</span><span>音乐</span></div>
-      <div><div class="t">不按剧本听歌台</div><div class="m">星尘、胶片、点燃三个面，点开就能听</div></div></a>
+      <a class="work" href="mbti/index.html">
+        <div class="frame"><canvas data-k="mbti"></canvas></div>
+        <div class="cap"><span class="no mono">01</span><span class="ti">16型人格<em>Personality</em></span><span class="me">看看最近的你是哪一型</span></div>
+      </a>
+      <a class="work" href="attachment/index.html">
+        <div class="frame"><canvas data-k="attach"></canvas></div>
+        <div class="cap"><span class="no mono">02</span><span class="ti">恋爱安全感说明书<em>Attachment</em></span><span class="me">22 题 · 约 4 分钟</span></div>
+      </a>
+      <a class="work" href="mind/index.html">
+        <div class="frame"><canvas data-k="mind"></canvas></div>
+        <div class="cap"><span class="no mono">03</span><span class="ti">心境自评<em>Mood</em></span><span class="me">了解最近的状态，不是诊断</span></div>
+      </a>
+      <a class="work" href="tarot/index.html">
+        <div class="frame"><canvas data-k="tarot"></canvas></div>
+        <div class="cap"><span class="no mono">04</span><span class="ti">夜曲塔罗<em>Nocturne</em></span><span class="me">抽三张牌，听听牌面怎么说</span></div>
+      </a>
     </div>
   </section>
-  <footer>© 2026 Amber · 欢迎分享；商用或改编请先取得书面授权</footer>
+
+  <section id="radio">
+    <div class="sh"><h2>听歌台<i>Radio</i></h2><span class="mono">7 tracks</span></div>
+    <div class="grid">
+      <a class="work wide" href="radio/">
+        <div class="frame"><span class="tag mono"><i></i>On air</span><canvas data-k="radio"></canvas></div>
+        <div class="cap"><span class="no mono">05</span><span class="ti">不按剧本听歌台<em>Original music</em></span><span class="me">星尘、胶片、点燃三个面，点开就能听</span></div>
+      </a>
+    </div>
+  </section>
+
+  <footer><span>© 2026 Amber</span><span>欢迎分享；商用或改编请先取得书面授权</span></footer>
 </div>
 <script>
 (function(){
-  var P=[[[255,122,69],[255,61,127],[120,60,255]],[[255,74,110],[255,176,120],[120,20,60]],[[60,140,255],[120,230,210],[20,30,90]],[[180,140,255],[255,210,140],[40,20,80]],[[242,150,96],[96,140,235],[40,24,70]]];
-  var all=[];
-  function setup(cv,p){
-    var ctx=cv.getContext('2d'),dpr=Math.min(window.devicePixelRatio||1,2),w,h;
-    function size(){w=cv.clientWidth;h=cv.clientHeight;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
-    size();window.addEventListener('resize',size);
-    var B=[];for(var i=0;i<4;i++)B.push({a:Math.random()*6.28,s:.15+Math.random()*.2,r:.5+Math.random()*.35,c:p[i%3],o:Math.random()*6.28});
-    var L=[];for(var j=0;j<12;j++)L.push({y:Math.random(),k:.6+Math.random()*1.6,ph:Math.random()*6.28});
-    all.push(function(t){
-      ctx.globalCompositeOperation='source-over';ctx.fillStyle='#141416';ctx.fillRect(0,0,w,h);
-      ctx.globalCompositeOperation='lighter';
-      B.forEach(function(b){var x=w*(.5+.4*Math.cos(t*b.s+b.a)),y=h*(.5+.36*Math.sin(t*b.s*1.3+b.o)),R=Math.max(w,h)*b.r,g=ctx.createRadialGradient(x,y,0,x,y,R);
-        g.addColorStop(0,'rgba('+b.c+',.65)');g.addColorStop(1,'rgba('+b.c+',0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h)});
-      ctx.globalCompositeOperation='source-over';ctx.lineWidth=1;
-      L.forEach(function(l,n){ctx.strokeStyle='rgba(255,255,255,'+(.06+.05*Math.sin(t*.5+l.ph))+')';ctx.beginPath();
-        for(var x=0;x<=w;x+=6){var y=h*l.y+Math.sin(x*.02*l.k+t*.4+l.ph)*10+Math.sin(x*.04+t*.2+n)*4;x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()});
-    });
-  }
-  document.querySelectorAll('.w canvas').forEach(function(cv){setup(cv,P[+cv.dataset.p])});
-  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,t0=performance.now();
-  function loop(now){var t=reduce?8:(now-t0)/1000;all.forEach(function(f){f(t)});if(!reduce)requestAnimationFrame(loop)}
-  requestAnimationFrame(loop);
+  var IV="236,230,220",AM="201,162,122",BL="143,163,184",MV="168,143,154";
+  var grain=document.createElement("canvas");grain.width=grain.height=160;
+  (function(){var g=grain.getContext("2d"),d=g.createImageData(160,160);for(var i=0;i<d.data.length;i+=4){var v=Math.random()*255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255}g.putImageData(d,0,0)})();
+  function glow(c,x,y,r,col,a){var g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,"rgba("+col+","+a+")");g.addColorStop(1,"rgba("+col+",0)");c.fillStyle=g;c.fillRect(0,0,c.canvas.width,c.canvas.height)}
+  function circ(c,x,y,r){c.beginPath();c.arc(x,y,Math.max(0,r),0,6.2832)}
+  var ART={
+    mbti:function(c,w,h,t){glow(c,w*.3,h*.25,w*.9,AM,.16);var n=4,pad=w*.18,st=(w-pad*2)/(n-1),y0=h/2-st*1.5,on=Math.floor(t/2.6)%16;
+      for(var i=0;i<16;i++){var x=pad+(i%n)*st,y=y0+Math.floor(i/n)*st,r=st*(.17+.05*Math.sin(t*.7+i*1.3));
+        if(i===on){glow(c,x,y,st*.9,AM,.35);c.fillStyle="rgba("+AM+",.95)";circ(c,x,y,r);c.fill()}
+        else{c.strokeStyle="rgba("+IV+","+(.22+.12*Math.sin(t*.5+i))+")";c.lineWidth=1;circ(c,x,y,r);c.stroke()}}},
+    attach:function(c,w,h,t){var cx=w/2,cy=h*.48,d=w*(.2+.09*Math.sin(t*.45)),dy=h*.05*Math.sin(t*.3);
+      c.strokeStyle="rgba("+IV+",.1)";c.lineWidth=1;circ(c,cx,cy,w*.34);c.stroke();circ(c,cx,cy,w*.22);c.stroke();
+      glow(c,cx-d,cy+dy,w*.36,AM,.5);glow(c,cx+d*1.15,cy-dy,w*.34,BL,.42);
+      c.strokeStyle="rgba("+IV+",.35)";c.beginPath();c.moveTo(cx-d,cy+dy);c.lineTo(cx+d*1.15,cy-dy);c.stroke();
+      c.fillStyle="rgba("+IV+",.9)";circ(c,cx-d,cy+dy,2.2);c.fill();circ(c,cx+d*1.15,cy-dy,2.2);c.fill()},
+    mind:function(c,w,h,t){glow(c,w*.5,h*1.05,w*.95,BL,.28);c.lineWidth=1;
+      for(var j=0;j<15;j++){var y0=h*(.16+j*.05),a=.07+.16*(1-Math.abs(j-7)/7);c.strokeStyle="rgba("+IV+","+a+")";c.beginPath();
+        for(var x=0;x<=w;x+=4){var y=y0+Math.sin(x*.018+t*.35+j*.5)*h*.018+Math.sin(x*.041-t*.22+j)*h*.008;x?c.lineTo(x,y):c.moveTo(x,y)}c.stroke()}},
+    tarot:function(c,w,h,t){c.fillStyle="#121219";c.fillRect(0,0,w,h);glow(c,w*.5,h*.45,w*.7,MV,.22);
+      var cx=w/2,cy=h*.46,R=w*.3;c.strokeStyle="rgba("+AM+",.55)";c.lineWidth=1;circ(c,cx,cy,R);c.stroke();circ(c,cx,cy,R*1.12);c.strokeStyle="rgba("+AM+",.18)";c.stroke();
+      c.strokeStyle="rgba("+AM+",.7)";c.beginPath();for(var k=0;k<=8;k++){var a=t*.06+k*3*6.2832/8;var p=[cx+R*Math.cos(a),cy+R*Math.sin(a)];k?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1])}c.stroke();
+      for(var s=0;s<26;s++){var sx=(Math.sin(s*12.9898)*43758.5453%1+1)%1*w,sy=(Math.sin(s*78.233)*12345.6789%1+1)%1*h;c.fillStyle="rgba("+IV+","+(.15+.35*(.5+.5*Math.sin(t*1.2+s)))+")";circ(c,sx,sy,.9);c.fill()}},
+    radio:function(c,w,h,t){var cx=w*.78,cy=h*.5,R=Math.min(w,h)*.62;glow(c,cx,cy,R*1.2,AM,.2);glow(c,w*.12,h*.9,w*.5,BL,.14);
+      c.lineWidth=1;for(var r=R*.2;r<R;r+=3.2){c.strokeStyle="rgba("+IV+","+(.04+.03*Math.sin(r*.3))+")";circ(c,cx,cy,r);c.stroke()}
+      c.save();c.translate(cx,cy);c.rotate(t*.5);c.strokeStyle="rgba("+IV+",.25)";c.beginPath();c.arc(0,0,R*.7,-.3,.3);c.stroke();c.restore();
+      c.fillStyle="rgba("+AM+",.9)";circ(c,cx,cy,R*.06);c.fill();
+      var n=48,bw=(w*.5)/n;for(var i=0;i<n;i++){var v=.25+.75*Math.abs(Math.sin(i*.35+t*1.1)*Math.cos(i*.13-t*.6));var bh=h*.32*v;
+        c.fillStyle="rgba("+IV+","+(.18+.4*v)+")";c.fillRect(w*.07+i*bw,h*.5-bh/2,Math.max(1,bw*.42),bh)}}
+  };
+  var items=[],visible=new Set();
+  document.querySelectorAll("canvas[data-k]").forEach(function(cv){
+    var c=cv.getContext("2d"),it={cv:cv,c:c,f:ART[cv.dataset.k],w:0,h:0,pat:null};
+    function size(){var d=Math.min(window.devicePixelRatio||1,2);it.w=cv.clientWidth;it.h=cv.clientHeight;cv.width=it.w*d;cv.height=it.h*d;c.setTransform(d,0,0,d,0,0);it.pat=c.createPattern(grain,"repeat")}
+    size();window.addEventListener("resize",size);items.push(it);visible.add(it);
+  });
+  if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){var it=items.find(function(x){return x.cv===e.target});e.isIntersecting?visible.add(it):visible.delete(it)})});items.forEach(function(it){io.observe(it.cv)})}
+  function draw(it,t){var c=it.c;c.globalAlpha=1;c.fillStyle="#141312";c.fillRect(0,0,it.w,it.h);it.f(c,it.w,it.h,t);c.globalAlpha=.05;c.fillStyle=it.pat;c.fillRect(0,0,it.w,it.h);c.globalAlpha=1}
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches,t0=performance.now();
+  if(reduce){items.forEach(function(it){draw(it,8)});return}
+  (function loop(now){var t=(now-t0)/1000;visible.forEach(function(it){draw(it,t)});requestAnimationFrame(loop)})(t0);
 })();
 </script>
 </body>

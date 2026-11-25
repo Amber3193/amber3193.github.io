@@ -5,22 +5,34 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Amber 的测试</title>
-<meta name="description" content="Amber 做的 4 个免费测试：16型人格、恋爱安全感、心境自评、夜曲塔罗。">
+<title>Amber · 不按剧本</title>
+<meta name="description" content="Amber 的个人网站：4 个免费测试和一个原创听歌台。">
 <meta name="theme-color" content="#0a0a0b">
 <meta name="author" content="Amber">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500&family=Lora:ital@1&display=swap" media="print" onload="this.media='all'">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#0a0a0b;color:#efece6;-webkit-font-smoothing:antialiased}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif}
+html,body{background:#0a0a0b;color:#efece6;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+  background:radial-gradient(90% 46vh at 12% 0%,rgba(242,196,150,.13),transparent 70%),radial-gradient(80% 40vh at 96% 6%,rgba(164,196,236,.12),transparent 70%),#0a0a0b;background-repeat:no-repeat}
 a{color:inherit;text-decoration:none}
-.page{min-height:100%;height:100svh;max-width:720px;margin:0 auto;display:flex;flex-direction:column;padding:calc(14px + env(safe-area-inset-top)) 16px calc(12px + env(safe-area-inset-bottom))}
+.page{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:34px;padding:calc(18px + env(safe-area-inset-top)) 18px calc(26px + env(safe-area-inset-bottom))}
 .top{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.28em;color:rgba(239,236,230,.5)}
 .top b{color:#efece6;font-weight:600}
-h1{margin-top:14px;font-size:clamp(30px,9vw,46px);font-weight:700;line-height:1.05;letter-spacing:-.02em}
-.sub{margin-top:8px;font-size:13px;line-height:1.55;color:rgba(239,236,230,.62)}
-.grid{flex:1;min-height:0;margin-top:16px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px}
-.w{position:relative;overflow:hidden;border-radius:14px;background:#141416;display:flex;flex-direction:column;justify-content:space-between;padding:12px;min-height:150px}
+.hero{padding-top:6vh}
+.serif{font-family:"Noto Serif SC","Songti SC","STSong",serif}
+h1{font-weight:300;font-size:clamp(60px,19vw,104px);line-height:.95;letter-spacing:.01em}
+.cn{margin-top:16px;font-weight:300;font-size:clamp(20px,5.8vw,28px);letter-spacing:.44em}
+.en{margin-top:6px;font-family:"Lora",Georgia,serif;font-style:italic;font-size:15px;color:rgba(239,236,230,.6)}
+.sub{margin-top:20px;max-width:30em;font-size:14px;line-height:1.8;color:rgba(239,236,230,.72)}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid rgba(239,236,230,.16);padding-top:12px;margin-bottom:12px}
+.sh h2{font-weight:500;font-size:19px;letter-spacing:.24em}
+.sh h2 i{margin-left:10px;font-family:"Lora",Georgia,serif;font-weight:400;font-size:14px;letter-spacing:0;color:rgba(239,236,230,.5)}
+.sh span{font-size:11px;letter-spacing:.12em;color:rgba(239,236,230,.5);white-space:nowrap}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.w{position:relative;overflow:hidden;border-radius:14px;background:#141416;display:flex;flex-direction:column;justify-content:space-between;padding:12px;min-height:clamp(150px,44vw,230px)}
+.w.wide{grid-column:1/-1;min-height:clamp(150px,38vw,210px)}
 .w canvas{position:absolute;inset:0;width:100%;height:100%;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .w:active canvas{transform:scale(1.05)}
 .w::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,0) 40%,rgba(10,10,11,.7) 100%);pointer-events:none}
@@ -28,8 +40,7 @@ h1{margin-top:14px;font-size:clamp(30px,9vw,46px);font-weight:700;line-height:1.
 .no{font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.75);display:flex;justify-content:space-between}
 .t{font-size:clamp(17px,4.8vw,22px);font-weight:700;line-height:1.2}
 .m{margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.75);line-height:1.4}
-footer{margin-top:10px;font-size:10.5px;color:rgba(239,236,230,.38);text-align:center;line-height:1.5}
-@media (max-height:600px){.sub{display:none}h1{margin-top:8px}}
+footer{font-size:10.5px;color:rgba(239,236,230,.38);text-align:center;line-height:1.5}
 </style>
 <script>
 var _hmt = _hmt || [];
@@ -43,10 +54,16 @@ var _hmt = _hmt || [];
 </head>
 <body>
 <div class="page">
-  <div class="top"><b>AMBER</b><span>4 个测试</span></div>
-  <h1>Amber 的测试</h1>
-  <p class="sub">关于人格、关系和情绪。免费，不用注册，做完马上出结果。</p>
-  <main class="grid">
+  <div class="top"><b>AMBER</b><span>AMBER319.COM</span></div>
+  <header class="hero">
+    <h1 class="serif">Amber</h1>
+    <p class="cn serif">不按剧本</p>
+    <p class="en">Not by the Script</p>
+    <p class="sub">我做的测试和音乐都放在这里。免费，不用注册。欢迎来玩，更欢迎来挑毛病，我会一直改。</p>
+  </header>
+  <section>
+    <div class="sh"><h2 class="serif">测试<i>Tests</i></h2><span>4 个 · 做完马上出结果</span></div>
+    <main class="grid">
     <a class="w" href="mbti/index.html"><canvas data-p="0"></canvas>
       <div class="no"><span>01</span><span>人格</span></div>
       <div><div class="t">16型人格</div><div class="m">看看最近的你是哪一型</div></div></a>
@@ -59,12 +76,21 @@ var _hmt = _hmt || [];
     <a class="w" href="tarot/index.html"><canvas data-p="3"></canvas>
       <div class="no"><span>04</span><span>塔罗</span></div>
       <div><div class="t">夜曲塔罗</div><div class="m">抽三张牌，听听牌面怎么说</div></div></a>
-  </main>
+    </main>
+  </section>
+  <section>
+    <div class="sh"><h2 class="serif">听歌台<i>Radio</i></h2><span>7 首原创</span></div>
+    <div class="grid">
+    <a class="w wide" href="radio/"><canvas data-p="4"></canvas>
+      <div class="no"><span>ON AIR</span><span>音乐</span></div>
+      <div><div class="t">不按剧本听歌台</div><div class="m">星尘、胶片、点燃三个面，点开就能听</div></div></a>
+    </div>
+  </section>
   <footer>© 2026 Amber · 欢迎分享；商用或改编请先取得书面授权</footer>
 </div>
 <script>
 (function(){
-  var P=[[[255,122,69],[255,61,127],[120,60,255]],[[255,74,110],[255,176,120],[120,20,60]],[[60,140,255],[120,230,210],[20,30,90]],[[180,140,255],[255,210,140],[40,20,80]]];
+  var P=[[[255,122,69],[255,61,127],[120,60,255]],[[255,74,110],[255,176,120],[120,20,60]],[[60,140,255],[120,230,210],[20,30,90]],[[180,140,255],[255,210,140],[40,20,80]],[[242,150,96],[96,140,235],[40,24,70]]];
   var all=[];
   function setup(cv,p){
     var ctx=cv.getContext('2d'),dpr=Math.min(window.devicePixelRatio||1,2),w,h;

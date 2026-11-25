@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Amber 电台 · 不按剧本</title>
+<meta name="theme-color" content="#0c0b0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+SC:wght@300;500&family=DM+Mono&display=swap" media="print" onload="this.media='all'">
+<style>
+:root{
+  /* 「Amber 电台」：网站是一档正在播出的节目。首页 = 开播 + 今晚台本（流程单）+ 收台。
+     颜色随访客当地时间换档：早间（象牙纸）/ 傍晚（暮色玫瑰）/ 深夜（暖黑星尘） */
+  --disp:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --serif:"Noto Serif SC","Songti SC","STSong",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  --bg:#0c0b0a;--tile:#141312;--paper:#ece6dc;--soft:rgba(236,230,220,.68);--dim:rgba(236,230,220,.42);--line:rgba(236,230,220,.14);
+  --warm:201,162,122;--cool:143,163,184;--onair:#e4885c;--glowA:.12;--glowB:.08;
+}
+html[data-slot="morning"]{--bg:#f4eee4;--tile:#ebe3d6;--paper:#2b2521;--soft:rgba(43,37,33,.72);--dim:rgba(43,37,33,.46);--line:rgba(43,37,33,.14);--warm:214,150,96;--cool:120,150,190;--onair:#c4552d;--glowA:.22;--glowB:.16}
+html[data-slot="dusk"]{--bg:#2c2330;--tile:#352b38;--paper:#f3e6dc;--soft:rgba(243,230,220,.72);--dim:rgba(243,230,220,.46);--line:rgba(243,230,220,.16);--warm:240,170,130;--cool:160,170,220;--onair:#f09a6a;--glowA:.24;--glowB:.18}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--paper);-webkit-font-smoothing:antialiased;transition:background .6s}
+body{font-family:var(--sans);background:radial-gradient(75% 55vh at 14% -10%,rgba(var(--warm),var(--glowA)),transparent 70%),radial-gradient(70% 50vh at 100% 30%,rgba(var(--cool),var(--glowB)),transparent 70%),var(--bg);background-repeat:no-repeat}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:40;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:1px solid rgb(var(--warm));outline-offset:4px}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.page{max-width:1040px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 20px calc(110px + env(safe-area-inset-bottom))}
+
+/* ON AIR 条 */
+.bar{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;color:var(--dim);background:linear-gradient(var(--bg) 70%,transparent)}
+.bar b{color:var(--paper);font-weight:400;letter-spacing:.32em}
+.air{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+.air i{width:7px;height:7px;border-radius:50%;background:var(--dim)}
+.live .air{color:var(--paper);border-color:var(--onair)}
+.live .air i{background:var(--onair);box-shadow:0 0 10px var(--onair);animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+
+/* 开播 */
+.hero{padding:12vh 0 6vh}
+.slot{color:var(--dim)}
+h1{margin-top:16px;font-family:var(--disp);font-weight:300;font-size:clamp(84px,25vw,212px);line-height:.82;letter-spacing:-.025em;margin-left:-.04em}
+.line2{margin-top:20px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.cn{font-family:var(--serif);font-weight:300;font-size:clamp(19px,5vw,26px);letter-spacing:.5em}
+.it{font-family:var(--disp);font-style:italic;font-weight:300;font-size:clamp(18px,4.6vw,24px);color:var(--soft)}
+.start{margin-top:34px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.go{display:inline-flex;align-items:center;gap:12px;padding:14px 22px 14px 16px;border-radius:999px;background:var(--paper);color:var(--bg);font-size:15px;letter-spacing:.2em}
+.go svg{width:22px;height:22px;fill:currentColor}
+.live .go{background:transparent;color:var(--paper);border:1px solid var(--line)}
+.start small{color:var(--dim);font-size:12px;line-height:1.6;max-width:16em}
+.caption{margin-top:28px;min-height:5.4em;max-width:24em;font-family:var(--serif);font-weight:300;font-size:clamp(17px,4.6vw,21px);line-height:1.75;color:var(--soft)}
+.caption p{opacity:0;transform:translateY(6px);transition:opacity .6s,transform .6s}
+.caption p.on{opacity:1;transform:none}
+
+/* 今晚台本 */
+section{padding-top:52px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:14px}
+.sh h2{font-family:var(--serif);font-weight:300;font-size:22px;letter-spacing:.3em}
+.sh h2 i{margin-left:12px;font-family:var(--disp);font-weight:300;font-size:20px;letter-spacing:0;color:var(--dim)}
+.sh .mono{color:var(--dim)}
+.note{margin-top:10px;font-size:13px;line-height:1.7;color:var(--soft)}
+.note s{color:var(--dim);text-decoration-thickness:1px}
+.note em{font-style:normal;font-family:var(--serif);color:rgb(var(--warm))}
+.rundown{margin-top:18px;list-style:none;border-top:1px solid var(--line)}
+.rundown li a{display:grid;grid-template-columns:56px 86px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.rundown .tm{font-family:var(--mono);font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+.rundown .tm b{display:block;font-weight:400;color:var(--soft);margin-top:4px;font-size:10.5px;letter-spacing:.12em}
+.rundown .th{position:relative;width:86px;aspect-ratio:1;overflow:hidden;border:1px solid var(--line);background:var(--tile)}
+.rundown canvas{position:absolute;inset:0;width:100%;height:100%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.rundown a:hover canvas{transform:scale(1.06)}
+.rundown .tx{min-width:0}
+.rundown .tx h3{font-family:var(--serif);font-weight:500;font-size:clamp(16px,4.4vw,20px);letter-spacing:.04em;line-height:1.35}
+.rundown .tx h3 em{font-family:var(--disp);font-style:italic;font-weight:300;color:var(--dim);margin-left:8px;letter-spacing:0}
+.rundown .tx p{margin-top:4px;font-size:12.5px;line-height:1.55;color:var(--soft)}
+.rundown .go2{font-family:var(--mono);font-size:12px;color:var(--dim)}
+.rundown a:hover .tx h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+@media (max-width:520px){.rundown li a{grid-template-columns:44px 72px 1fr;gap:12px}.rundown .th{width:72px}.rundown .go2{display:none}}
+
+/* 收台 */
+.signoff{padding-top:64px}
+.signoff p{font-family:var(--serif);font-weight:300;font-size:clamp(18px,5vw,24px);line-height:1.7;color:var(--soft)}
+.signoff .sig{margin-top:12px;font-family:var(--disp);font-style:italic;font-size:26px;color:var(--paper)}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:11px;color:var(--dim);line-height:1.6}
+.slots{display:flex;gap:6px}
+.slots button{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.slots button[aria-pressed=true]{color:var(--paper);border-color:var(--paper)}
+
+/* 底部常驻播放条 */
+.mini{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:35;width:min(560px,calc(100% - 24px));display:flex;align-items:center;gap:12px;padding:9px 10px 9px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.mini .pp{flex:none;width:40px;height:40px;border-radius:50%;background:var(--paper);color:var(--bg);display:grid;place-items:center}
+.mini .pp svg{width:16px;height:16px;fill:currentColor}
+.mini .now{flex:1;min-width:0;line-height:1.3}
+.mini .now b{display:block;font-family:var(--serif);font-weight:500;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .now span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--dim)}
+.mini .eq{display:flex;align-items:flex-end;gap:2px;height:16px;margin-right:2px}
+.mini .eq i{width:2px;height:30%;background:var(--dim)}
+.live .mini .eq i{background:var(--onair);animation:eq 1s ease-in-out infinite}
+.mini .eq i:nth-child(2){animation-delay:-.3s}.mini .eq i:nth-child(3){animation-delay:-.6s}.mini .eq i:nth-child(4){animation-delay:-.15s}
+@keyframes eq{0%,100%{height:25%}50%{height:100%}}
+.mini .nx{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--soft);padding:8px 10px;min-height:40px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bar mono"><b>AMBER</b><span class="air"><i></i><span id="airTxt">OFF AIR</span></span><span id="clock">--:--</span></div>
+
+  <header class="hero">
+    <p class="slot mono" id="slotLabel">深夜档 · Late night</p>
+    <h1>Amber</h1>
+    <div class="line2"><span class="cn">不按剧本</span><span class="it">Not by the Script</span></div>
+    <div class="start">
+      <button class="go" id="goBtn" type="button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span id="goTxt">开 播</span></button>
+      <small>点一下开播。背景音乐是我做的原创曲，陪你逛完整个台本。</small>
+    </div>
+    <div class="caption" id="caption" aria-live="polite"></div>
+  </header>
+
+  <section>
+    <div class="sh"><h2>今晚台本<i>Rundown</i></h2><span class="mono" id="rdDate">2026.11.25</span></div>
+    <p class="note">主持人拿到的流程单，通常写着<s>按稿念，别出错</s>。这里的规矩是<em>不按剧本</em>：想从哪个环节开始都行。</p>
+    <ol class="rundown">
+      <li><a href="../radio/"><span class="tm" data-off="0">--:--<b>开场</b></span><span class="th"><canvas data-k="radio"></canvas></span><span class="tx"><h3>不按剧本听歌台<em>Radio</em></h3><p>7 首原创音乐，星尘、胶片、点燃三个面</p></span><span class="go2">→</span></a></li>
+      <li><a href="../mbti/"><span class="tm" data-off="5">--:--<b>环节一</b></span><span class="th"><canvas data-k="mbti"></canvas></span><span class="tx"><h3>16型人格<em>Personality</em></h3><p>看看最近的你是哪一型 · 先答 13 题</p></span><span class="go2">→</span></a></li>
+      <li><a href="../attachment/"><span class="tm" data-off="15">--:--<b>环节二</b></span><span class="th"><canvas data-k="attach"></canvas></span><span class="tx"><h3>恋爱安全感说明书<em>Attachment</em></h3><p>22 题 · 约 4 分钟</p></span><span class="go2">→</span></a></li>
+      <li><a href="../mind/"><span class="tm" data-off="20">--:--<b>环节三</b></span><span class="th"><canvas data-k="mind"></canvas></span><span class="tx"><h3>心境自评<em>Mood</em></h3><p>了解最近的状态，不是诊断</p></span><span class="go2">→</span></a></li>
+      <li><a href="../tarot/"><span class="tm" data-off="30">--:--<b>返场</b></span><span class="th"><canvas data-k="tarot"></canvas></span><span class="tx"><h3>夜曲塔罗<em>Nocturne</em></h3><p>抽三张牌，听听牌面怎么说</p></span><span class="go2">→</span></a></li>
+    </ol>
+  </section>
+
+  <section class="signoff">
+    <div class="sh"><h2>收台<i>Sign-off</i></h2><span class="mono">05 items</span></div>
+    <p style="margin-top:22px">今天的节目就到这里。测试都免费，不用注册，欢迎来挑毛病，我会一直改。</p>
+    <p class="sig">— Amber</p>
+  </section>
+
+  <footer><span>© 2026 Amber · 欢迎分享；商用或改编请先取得书面授权</span><span class="slots" role="group" aria-label="切换时段预览"><button type="button" data-s="morning">早间</button><button type="button" data-s="dusk">傍晚</button><button type="button" data-s="night">深夜</button></span></footer>
+</div>
+
+<div class="mini" id="mini">
+  <button class="pp" id="ppBtn" type="button" aria-label="播放"><svg viewBox="0 0 24 24" id="ppIco"><path d="M8 5v14l11-7z"/></svg></button>
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  <span class="now"><b id="nowT">星尘自取</b><span>NOW PLAYING · 听歌台</span></span>
+  <button class="nx" id="nxBtn" type="button">下一首</button>
+</div>
+<audio id="au" preload="none" playsinline></audio>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)},root=document.documentElement,au=$("au");
+  var TR=[["01","星尘自取"],["02","纸上的光"],["03","蓝色胶片"],["04","夏末慢镜头"],["05","慢慢点燃"],["06","凌晨的高速"],["07","心流"]];
+  var SLOT={
+    morning:{label:"早间档 · Morning",first:1,lines:["早上好，这里是不按剧本。","我是 Amber。今天的台本在下面，","不过你知道的，我们不按剧本走。"]},
+    dusk:{label:"傍晚档 · Dusk",first:3,lines:["傍晚好，欢迎收听不按剧本。","我是 Amber。忙了一天，先听首歌，","台本在下面，挑一个你想玩的。"]},
+    night:{label:"深夜档 · Late night",first:0,lines:["晚上好，欢迎收听不按剧本。","我是 Amber。今晚的台本在下面，","不过你知道的，我们不按剧本走。"]}
+  };
+  function slotOf(h){return h>=6&&h<16?"morning":h>=16&&h<20?"dusk":"night"}
+  var q=(location.search.match(/slot=(morning|dusk|night)/)||[])[1];
+  var slot=q||slotOf(new Date().getHours()),cur=SLOT[slot].first;
+  function applySlot(s){slot=s;root.dataset.slot=s;$("slotLabel").textContent=SLOT[s].label;
+    document.querySelectorAll(".slots button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.s===s)});
+    if(au.paused&&!au.src){cur=SLOT[s].first;$("nowT").textContent=TR[cur][1]}
+    var m=document.querySelector('meta[name="theme-color"]');m.content=getComputedStyle(root).getPropertyValue("--bg").trim()}
+  applySlot(slot);
+  document.querySelectorAll(".slots button").forEach(function(b){b.addEventListener("click",function(){applySlot(b.dataset.s)})});
+
+  function pad(n){return String(n).padStart(2,"0")}
+  function tick(){var d=new Date();$("clock").textContent=pad(d.getHours())+":"+pad(d.getMinutes());
+    $("rdDate").textContent=d.getFullYear()+"."+pad(d.getMonth()+1)+"."+pad(d.getDate());
+    document.querySelectorAll(".rundown .tm").forEach(function(t){var x=new Date(d.getTime()+(+t.dataset.off)*60000);t.firstChild.nodeValue=pad(x.getHours())+":"+pad(x.getMinutes())})}
+  tick();setInterval(tick,20000);
+
+  var PLAY='<path d="M8 5v14l11-7z"/>',PAUSE='<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>';
+  function load(i){cur=(i+TR.length)%TR.length;au.src="../radio/audio/"+TR[cur][0]+".mp3";$("nowT").textContent=TR[cur][1]}
+  function play(){if(!au.src)load(cur);au.play().catch(function(){})}
+  au.addEventListener("play",function(){document.body.classList.add("live");$("airTxt").textContent="ON AIR";$("ppIco").innerHTML=PAUSE;$("ppBtn").setAttribute("aria-label","暂停");$("goTxt").textContent="播出中"});
+  au.addEventListener("pause",function(){document.body.classList.remove("live");$("airTxt").textContent="OFF AIR";$("ppIco").innerHTML=PLAY;$("ppBtn").setAttribute("aria-label","播放");$("goTxt").textContent="继续播"});
+  au.addEventListener("ended",function(){load(cur+1);play()});
+  $("ppBtn").addEventListener("click",function(){au.paused?play():au.pause()});
+  $("nxBtn").addEventListener("click",function(){load(cur+1);play()});
+  var said=false;
+  $("goBtn").addEventListener("click",function(){
+    if(!au.paused){au.pause();return}
+    play();if(said)return;said=true;
+    var cap=$("caption");cap.innerHTML="";
+    SLOT[slot].lines.forEach(function(l,i){var p=document.createElement("p");p.textContent=l;cap.appendChild(p);setTimeout(function(){p.classList.add("on")},400+i*1500)});
+  });
+
+  /* 台本缩略图：和首页作品画同一套生成画 */
+  var IV="236,230,220",AM="201,162,122",BL="143,163,184",MV="168,143,154";
+  function glow(c,x,y,r,col,a){var g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,"rgba("+col+","+a+")");g.addColorStop(1,"rgba("+col+",0)");c.fillStyle=g;c.fillRect(0,0,c.canvas.width,c.canvas.height)}
+  function circ(c,x,y,r){c.beginPath();c.arc(x,y,Math.max(0,r),0,6.2832)}
+  var ART={
+    mbti:function(c,w,h,t){glow(c,w*.3,h*.25,w*.9,AM,.16);var n=4,pd=w*.18,st=(w-pd*2)/(n-1),y0=h/2-st*1.5,on=Math.floor(t/2.6)%16;
+      for(var i=0;i<16;i++){var x=pd+(i%n)*st,y=y0+Math.floor(i/n)*st,r=st*(.17+.05*Math.sin(t*.7+i*1.3));
+        if(i===on){glow(c,x,y,st*.9,AM,.35);c.fillStyle="rgba("+AM+",.95)";circ(c,x,y,r);c.fill()}
+        else{c.strokeStyle="rgba("+IV+","+(.22+.12*Math.sin(t*.5+i))+")";c.lineWidth=1;circ(c,x,y,r);c.stroke()}}},
+    attach:function(c,w,h,t){var cx=w/2,cy=h*.48,d=w*(.2+.09*Math.sin(t*.45)),dy=h*.05*Math.sin(t*.3);
+      c.strokeStyle="rgba("+IV+",.1)";c.lineWidth=1;circ(c,cx,cy,w*.34);c.stroke();circ(c,cx,cy,w*.22);c.stroke();
+      glow(c,cx-d,cy+dy,w*.36,AM,.5);glow(c,cx+d*1.15,cy-dy,w*.34,BL,.42);
+      c.strokeStyle="rgba("+IV+",.35)";c.beginPath();c.moveTo(cx-d,cy+dy);c.lineTo(cx+d*1.15,cy-dy);c.stroke();
+      c.fillStyle="rgba("+IV+",.9)";circ(c,cx-d,cy+dy,1.6);c.fill();circ(c,cx+d*1.15,cy-dy,1.6);c.fill()},
+    mind:function(c,w,h,t){glow(c,w*.5,h*1.05,w*.95,BL,.28);c.lineWidth=1;
+      for(var j=0;j<11;j++){var y0=h*(.14+j*.07),a=.08+.16*(1-Math.abs(j-5)/5);c.strokeStyle="rgba("+IV+","+a+")";c.beginPath();
+        for(var x=0;x<=w;x+=3){var y=y0+Math.sin(x*.05+t*.35+j*.5)*h*.025+Math.sin(x*.11-t*.22+j)*h*.01;x?c.lineTo(x,y):c.moveTo(x,y)}c.stroke()}},
+    tarot:function(c,w,h,t){c.fillStyle="#121219";c.fillRect(0,0,w,h);glow(c,w*.5,h*.45,w*.7,MV,.22);
+      var cx=w/2,cy=h*.5,R=w*.32;c.strokeStyle="rgba("+AM+",.55)";c.lineWidth=1;circ(c,cx,cy,R);c.stroke();
+      c.strokeStyle="rgba("+AM+",.75)";c.beginPath();for(var k=0;k<=8;k++){var a=t*.06+k*3*6.2832/8;var p=[cx+R*Math.cos(a),cy+R*Math.sin(a)];k?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1])}c.stroke();
+      for(var s=0;s<12;s++){var sx=(Math.sin(s*12.9898)*43758.5453%1+1)%1*w,sy=(Math.sin(s*78.233)*12345.6789%1+1)%1*h;c.fillStyle="rgba("+IV+","+(.15+.35*(.5+.5*Math.sin(t*1.2+s)))+")";circ(c,sx,sy,.7);c.fill()}},
+    radio:function(c,w,h,t){var live=document.body.classList.contains("live"),cx=w*.7,cy=h*.5,R=w*.62;glow(c,cx,cy,R,AM,.22);
+      c.lineWidth=1;for(var r=R*.2;r<R;r+=2.6){c.strokeStyle="rgba("+IV+","+(.04+.03*Math.sin(r*.3))+")";circ(c,cx,cy,r);c.stroke()}
+      c.fillStyle="rgba("+AM+",.9)";circ(c,cx,cy,R*.08);c.fill();
+      var n=14,bw=(w*.5)/n;for(var i=0;i<n;i++){var v=live?.25+.75*Math.abs(Math.sin(i*.35+t*2.2)*Math.cos(i*.13-t*1.2)):.18+.1*Math.sin(i);var bh=h*.36*v;
+        c.fillStyle="rgba("+IV+","+(.2+.4*v)+")";c.fillRect(w*.06+i*bw,h*.5-bh/2,Math.max(1,bw*.45),bh)}}
+  };
+  var items=[];
+  document.querySelectorAll("canvas[data-k]").forEach(function(cv){var c=cv.getContext("2d"),it={cv:cv,c:c,f:ART[cv.dataset.k],w:0,h:0};
+    function size(){var d=Math.min(window.devicePixelRatio||1,2);it.w=cv.clientWidth;it.h=cv.clientHeight;cv.width=it.w*d;cv.height=it.h*d;c.setTransform(d,0,0,d,0,0)}
+    size();window.addEventListener("resize",size);items.push(it)});
+  function draw(it,t){it.c.fillStyle="#141312";it.c.fillRect(0,0,it.w,it.h);it.f(it.c,it.w,it.h,t)}
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches,t0=performance.now();
+  if(reduce){items.forEach(function(it){draw(it,8)})}else{(function loop(now){var t=(now-t0)/1000;items.forEach(function(it){draw(it,t)});requestAnimationFrame(loop)})(t0)}
+})();
+</script>
+</body>
+</html>

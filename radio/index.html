@@ -89,6 +89,19 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
 .ctl .play{width:68px;height:68px;background:var(--paper);color:#111}
 .ctl .play svg{width:24px;height:24px;fill:currentColor;stroke:none}
 .ctl button:active{transform:scale(.96)}
+.ctl .lab{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ctl .lab small{font-size:10.5px;letter-spacing:.08em;color:var(--dim);white-space:nowrap}
+.ctl .lab:has(button[aria-pressed=true]) small{color:var(--warm)}
+.ctl .play.loading svg{opacity:0}
+.ctl .play.loading::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;border:2px solid rgba(17,17,17,.25);border-top-color:#111;animation:spin .9s linear infinite}
+.ctl .play{position:relative}
+.mute[hidden]{display:none}
+.mute{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:12px;color:var(--dim)}
+.mute button{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 14px;color:var(--soft);font-size:13px;min-height:40px}
+.mute button[aria-pressed=true]{color:var(--warm);border-color:var(--warm)}
+.mute svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translate(-50%,12px);background:var(--paper);color:#111;font-size:13px;padding:9px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:20}
+.toast.on{opacity:1;transform:translate(-50%,0)}
 .vol{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--dim)}
 .vol svg{width:18px;height:18px;fill:none;stroke:var(--dim);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .volnote{font-size:12px;color:var(--dim);margin-top:10px;letter-spacing:.06em}
@@ -140,18 +153,18 @@ footer{color:var(--dim);font-size:12px;letter-spacing:.06em;text-align:center}
       <span id="dur">0:00</span>
     </div>
     <div class="ctl">
-      <button type="button" id="shuf" aria-pressed="false" aria-label="随机播放"><svg viewBox="0 0 24 24"><path d="M3 7h3c5 0 7 10 12 10h3M3 17h3c1.6 0 2.9-1 4-2.4M14 9.4c1.100-1.400 2.400-2.400 4-2.400h3M18 4l3 3-3 3M18 14l3 3-3 3"/></svg></button>
+      <span class="lab"><button type="button" id="shuf" aria-pressed="false" aria-label="随机播放"><svg viewBox="0 0 24 24"><path d="M3 7h3c5 0 7 10 12 10h3M3 17h3c1.6 0 2.9-1 4-2.4M14 9.4c1.100-1.400 2.400-2.400 4-2.400h3M18 4l3 3-3 3M18 14l3 3-3 3"/></svg></button><small>随机</small></span>
       <button type="button" id="prev" aria-label="上一首"><svg viewBox="0 0 24 24"><path d="M6 5v14M19 5l-9 7 9 7z"/></svg></button>
       <button type="button" class="play" id="play" aria-label="播放"><svg viewBox="0 0 24 24" id="ico"><path d="M8 5v14l11-7z"/></svg></button>
       <button type="button" id="next" aria-label="下一首"><svg viewBox="0 0 24 24"><path d="M18 5v14M5 5l9 7-9 7z"/></svg></button>
-      <button type="button" id="rep" aria-pressed="false" aria-label="单曲循环"><svg viewBox="0 0 24 24"><path d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></svg></button>
+      <span class="lab"><button type="button" id="rep" aria-pressed="false" aria-label="单曲循环"><svg viewBox="0 0 24 24"><path d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></svg></button><small>单曲循环</small></span>
     </div>
     <div class="vol" id="volrow">
       <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM16 9a4 4 0 0 1 0 6"/></svg>
       <input type="range" id="vol" min="0" max="100" value="80" aria-label="音量">
       <span id="volv">80</span>
     </div>
-    <p class="volnote" id="volnote" hidden>手机上用侧边音量键调音量。</p>
+    <div class="mute" id="muterow" hidden><button type="button" id="muteBtn" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM16 9a4 4 0 0 1 0 6"/></svg><span>静音</span></button><span>音量请用手机侧边键调</span></div>
     <p class="err" id="err" hidden></p>
   </main>
 
@@ -161,7 +174,8 @@ footer{color:var(--dim);font-size:12px;letter-spacing:.06em;text-align:center}
   </section>
   <footer>全部曲目为原创合成，无人声演唱。</footer>
 </div>
-<audio id="au" preload="metadata"></audio>
+<audio id="au" preload="metadata" playsinline></audio>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const SIDES={A:{name:"A 面 · 星尘",c:["#f2c496","#a4c4ec"]},B:{name:"B 面 · 胶片",c:["#e9a9a0","#7e9bd6"]},C:{name:"C 面 · 点燃",c:["#f2a56b","#8fa6f0"]}};
@@ -231,11 +245,14 @@ $("play").addEventListener("click",toggle);
 $("next").addEventListener("click",()=>step(1));
 $("prev").addEventListener("click",()=>{if(au.currentTime>4){au.currentTime=0}else step(-1)});
 $("dice").addEventListener("click",()=>{select(rand());play()});
-$("shuf").addEventListener("click",e=>{shuffle=!shuffle;e.currentTarget.setAttribute("aria-pressed",shuffle)});
-$("rep").addEventListener("click",e=>{au.loop=!au.loop;e.currentTarget.setAttribute("aria-pressed",au.loop)});
+let tt;function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),1600)}
+$("shuf").addEventListener("click",e=>{shuffle=!shuffle;e.currentTarget.setAttribute("aria-pressed",shuffle);toast(shuffle?"已开启随机播放":"已关闭随机，按顺序播放")});
+$("rep").addEventListener("click",e=>{au.loop=!au.loop;e.currentTarget.setAttribute("aria-pressed",au.loop);toast(au.loop?"已开启单曲循环":"已关闭单曲循环")});
 au.addEventListener("play",()=>{app.classList.add("playing");$("ico").innerHTML='<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>';$("play").setAttribute("aria-label","暂停")});
 au.addEventListener("pause",()=>{app.classList.remove("playing");$("ico").innerHTML='<path d="M8 5v14l11-7z"/>';$("play").setAttribute("aria-label","播放")});
 au.addEventListener("ended",()=>step(1));
+let lt;const busy=on=>{clearTimeout(lt);if(on)lt=setTimeout(()=>{$("play").classList.add("loading");$("play").setAttribute("aria-label","加载中")},100);else $("play").classList.remove("loading")};
+au.addEventListener("waiting",()=>busy(true));["playing","pause","canplay","error"].forEach(ev=>au.addEventListener(ev,()=>busy(false)));
 au.addEventListener("error",()=>{$("err").textContent="音频没加载出来，检查一下网络后再点播放。";$("err").hidden=false});
 au.addEventListener("loadedmetadata",()=>{if(isFinite(au.duration))$("dur").textContent=fmt(au.duration)});
 au.addEventListener("timeupdate",()=>{if(seeking)return;const d=isFinite(au.duration)?au.duration:TRACKS[cur].d;$("cur").textContent=fmt(au.currentTime);setSeek(au.currentTime/d)});
@@ -245,8 +262,10 @@ sk.addEventListener("change",()=>{const d=isFinite(au.duration)?au.duration:TRAC
 const vol=$("vol");
 function setVol(v){au.volume=v/100;vol.style.setProperty("--p",v+"%");$("volv").textContent=v;save("radio-vol",v)}
 vol.addEventListener("input",()=>setVol(+vol.value));
-/* iPhone 不允许网页改音量：检测到就收起滑块 */
-au.volume=.5; if(Math.abs(au.volume-.5)>.01){$("volrow").hidden=true;$("volrow").style.display="none";$("volnote").hidden=false}
+/* iPhone / iPad 不允许网页改音量（苹果限制），改用静音开关 + 侧键提示 */
+const IOS=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+if(IOS){$("volrow").hidden=true;$("volrow").style.display="none";$("muterow").hidden=false;
+  $("muteBtn").addEventListener("click",e=>{au.muted=!au.muted;e.currentTarget.setAttribute("aria-pressed",au.muted);e.currentTarget.querySelector("span").textContent=au.muted?"已静音":"静音";toast(au.muted?"已静音":"已取消静音")})}
 else{const v=+(load("radio-vol")||80);vol.value=v;setVol(v)}
 try{["play","pause"].forEach(a=>navigator.mediaSession.setActionHandler(a,toggle));
   navigator.mediaSession.setActionHandler("nexttrack",()=>step(1));navigator.mediaSession.setActionHandler("previoustrack",()=>step(-1))}catch(e){}

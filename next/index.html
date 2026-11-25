@@ -25,6 +25,15 @@ html[data-slot="dusk"]{--bg:#2c2330;--tile:#352b38;--paper:#f3e6dc;--soft:rgba(2
 html,body{background:var(--bg);color:var(--paper);-webkit-font-smoothing:antialiased;transition:background .6s}
 body{font-family:var(--sans);background:radial-gradient(75% 55vh at 14% -10%,rgba(var(--warm),var(--glowA)),transparent 70%),radial-gradient(70% 50vh at 100% 30%,rgba(var(--cool),var(--glowB)),transparent 70%),var(--bg);background-repeat:no-repeat}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:40;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#sky{position:fixed;inset:0;width:100vw;height:100vh;height:100lvh;z-index:0;display:block;opacity:0;transition:opacity 2.6s ease}
+.ready #sky{opacity:1}
+.page{position:relative;z-index:1}
+.hero>*{opacity:0;transform:translateY(10px);transition:opacity 1.4s ease,transform 1.4s ease}
+.ready .hero>*{opacity:1;transform:none}
+.ready .hero>*:nth-child(1){transition-delay:.9s}.ready .hero>*:nth-child(2){transition-delay:1.3s}.ready .hero>*:nth-child(3){transition-delay:1.8s}.ready .hero>*:nth-child(4){transition-delay:2.3s}
+html[data-slot="dusk"] body::before{content:"";position:fixed;left:0;right:0;bottom:0;height:60vh;z-index:0;pointer-events:none;background:linear-gradient(to top,rgba(38,18,32,.74) 0%,rgba(38,18,32,.5) 35%,transparent 100%)}
+html[data-slot="dusk"] .page{text-shadow:0 1px 3px rgba(50,22,38,.45),0 2px 18px rgba(50,22,38,.6)}
+html[data-slot="night"] .page{text-shadow:0 1px 14px rgba(0,0,0,.5)}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 a:focus-visible,button:focus-visible{outline:1px solid rgb(var(--warm));outline-offset:4px}
@@ -32,7 +41,7 @@ a:focus-visible,button:focus-visible{outline:1px solid rgb(var(--warm));outline-
 .page{max-width:1040px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 20px calc(110px + env(safe-area-inset-bottom))}
 
 /* ON AIR 条 */
-.bar{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;color:var(--dim);background:linear-gradient(var(--bg) 70%,transparent)}
+.bar{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;color:var(--dim)}
 .bar b{color:var(--paper);font-weight:400;letter-spacing:.32em}
 .air{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:5px 10px}
 .air i{width:7px;height:7px;border-radius:50%;background:var(--dim)}
@@ -102,10 +111,11 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;display
 .mini .eq i:nth-child(2){animation-delay:-.3s}.mini .eq i:nth-child(3){animation-delay:-.6s}.mini .eq i:nth-child(4){animation-delay:-.15s}
 @keyframes eq{0%,100%{height:25%}50%{height:100%}}
 .mini .nx{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--soft);padding:8px 10px;min-height:40px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero>*{opacity:1;transform:none}#sky{opacity:1}}
 </style>
 </head>
 <body>
+<canvas id="sky" aria-hidden="true"></canvas>
 <div class="page">
   <div class="bar mono"><b>AMBER</b><span class="air"><i></i><span id="airTxt">OFF AIR</span></span><span id="clock">--:--</span></div>
 
@@ -121,7 +131,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;display
   </header>
 
   <section>
-    <div class="sh"><h2>今晚台本<i>Rundown</i></h2><span class="mono" id="rdDate">2026.11.25</span></div>
+    <div class="sh"><h2 id="rdTitle">今晚台本<i>Rundown</i></h2><span class="mono" id="rdDate">2026.11.25</span></div>
     <p class="note">主持人拿到的流程单，通常写着<s>按稿念，别出错</s>。这里的规矩是<em>不按剧本</em>：想从哪个环节开始都行。</p>
     <ol class="rundown">
       <li><a href="../radio/"><span class="tm" data-off="0">--:--<b>开场</b></span><span class="th"><canvas data-k="radio"></canvas></span><span class="tx"><h3>不按剧本听歌台<em>Radio</em></h3><p>7 首原创音乐，星尘、胶片、点燃三个面</p></span><span class="go2">→</span></a></li>
@@ -155,17 +165,87 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;display
   var TR=[["01","星尘自取"],["02","纸上的光"],["03","蓝色胶片"],["04","夏末慢镜头"],["05","慢慢点燃"],["06","凌晨的高速"],["07","心流"]];
   var SLOT={
     morning:{label:"早间档 · Morning",first:1,lines:["早上好，这里是不按剧本。","我是 Amber。今天的台本在下面，","不过你知道的，我们不按剧本走。"]},
-    dusk:{label:"傍晚档 · Dusk",first:3,lines:["傍晚好，欢迎收听不按剧本。","我是 Amber。忙了一天，先听首歌，","台本在下面，挑一个你想玩的。"]},
-    night:{label:"深夜档 · Late night",first:0,lines:["晚上好，欢迎收听不按剧本。","我是 Amber。今晚的台本在下面，","不过你知道的，我们不按剧本走。"]}
+    dusk:{label:"傍晚档 · Dusk",first:3,voice:true,lines:["晚上好，欢迎收听不按剧本。","我是 Amber。今晚的台本在下面，","不过你知道的，我们不按剧本走。"]},
+    night:{label:"深夜档 · Late night",first:0,voice:true,lines:["晚上好，欢迎收听不按剧本。","我是 Amber。今晚的台本在下面，","不过你知道的，我们不按剧本走。"]}
   };
+
+  /* ===== 天空：WebGL 实时生成，深夜星空 / 清晨光雾 / 傍晚余晖 ===== */
+  var SKY=(function(){
+    var cv=$("sky"),gl=cv.getContext("webgl",{antialias:false,alpha:false,preserveDrawingBuffer:false})||cv.getContext("experimental-webgl");
+    if(!gl){cv.style.display="none";return{set:function(){}}}
+    var VS="attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}";
+    var FS=[
+"precision highp float;uniform vec2 R;uniform float T,M,SC;uniform vec2 PT;",
+"float h1(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}",
+"float nz(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h1(i),h1(i+vec2(1.,0.)),f.x),mix(h1(i+vec2(0.,1.)),h1(i+vec2(1.,1.)),f.x),f.y);}",
+"float fbm(vec2 p){float v=0.,a=.5;mat2 r=mat2(.8,.6,-.6,.8);for(int i=0;i<5;i++){v+=a*nz(p);p=r*p*2.02+.13;a*=.5;}return v;}",
+"float stars(vec2 p,float sc,float th,float t){vec2 g=p*sc;vec2 id=floor(g);vec2 f=fract(g)-.5;float h=h1(id);if(h<th)return 0.;vec2 o=vec2(h1(id+3.1),h1(id+7.7))-.5;float d=length(f-o*.7);float tw=.55+.45*sin(t*(.6+h*2.2)+h*60.);return (smoothstep(.09,0.,d)+exp(-d*14.)*.25)*tw*(h-th)/(1.-th)*2.;}",
+"void main(){vec2 uv=gl_FragCoord.xy/R;float asp=R.x/R.y;vec2 p=vec2((uv.x-.5)*asp,uv.y)+PT*.015;float y=uv.y+SC*.10;vec3 col;",
+" if(M<.5){",
+"  col=mix(vec3(.97,.84,.70),vec3(.92,.88,.84),smoothstep(0.,.5,y));col=mix(col,vec3(.66,.77,.90),smoothstep(.4,1.2,y));",
+"  vec2 sp=vec2(-.5*asp+.10,1.08);vec2 d=p-sp;float r=length(d);",
+"  col+=vec3(1.,.86,.62)*(.34*exp(-r*2.6)+.10*exp(-r*.9));",
+"  float a=atan(d.y,d.x);float ray=fbm(vec2(a*7.,T*.04))*fbm(vec2(a*13.+3.,T*.025));",
+"  col+=vec3(1.,.91,.74)*smoothstep(.12,.42,ray*ray)*exp(-r*.85)*.42;",
+"  float mist=fbm(vec2(p.x*1.3+T*.012,y*2.6-T*.004));",
+"  col=mix(col,vec3(1.,.97,.93),smoothstep(.45,.85,mist)*.32*smoothstep(.9,.05,y));",
+"  col+=vec3(1.,.92,.78)*stars(p+vec2(T*.004,-T*.009),24.,.86,T*.5)*.4*exp(-r*.7);",
+" }else if(M<1.5){",
+"  col=mix(vec3(.94,.62,.42),vec3(.80,.43,.38),smoothstep(0.,.10,y));col=mix(col,vec3(.52,.28,.38),smoothstep(.08,.36,y));",
+"  col=mix(col,vec3(.26,.17,.32),smoothstep(.38,.72,y));col=mix(col,vec3(.10,.08,.18),smoothstep(.7,1.15,y));",
+"  vec2 sp=vec2(.18*asp,.025);float r=length((p-sp)*vec2(1.,1.25));",
+"  col+=vec3(1.,.60,.34)*(.5*exp(-r*3.4)+.14*exp(-r*1.1));",
+"  col=mix(col,vec3(1.,.93,.78),smoothstep(.075,.065,length(p-sp))*.92);",
+"  float cl=fbm(vec2(p.x*1.1+T*.006,y*7.5));float band=smoothstep(.08,.22,y)*smoothstep(.62,.32,y);",
+"  vec3 cc=mix(vec3(.38,.20,.30),vec3(1.,.66,.46),clamp(smoothstep(.5,.12,y)*.9+.25*exp(-r*2.),0.,1.));",
+"  col=mix(col,cc,smoothstep(.48,.78,cl)*band*.72);",
+"  col+=vec3(.92,.92,1.)*stars(p,90.,.94,T)*smoothstep(.62,.95,y)*.7;",
+"  col=mix(col,vec3(1.,.82,.62),exp(-y*14.)*.35);",
+" }else{",
+"  col=mix(vec3(.028,.024,.045),vec3(.008,.01,.026),smoothstep(0.,1.,y));",
+"  col+=vec3(.13,.07,.04)*exp(-y*5.)*.6;",
+"  vec2 q=mat2(.86,.5,-.5,.86)*(p-vec2(0.,.6));float band=exp(-q.y*q.y*18.);",
+"  float neb=fbm(q*2.4+vec2(T*.003,0.));float dust=fbm(q*6.+5.);",
+"  col+=band*(vec3(.17,.13,.23)*neb*.95+vec3(.10,.12,.19)*dust*.55);",
+"  col-=band*smoothstep(.55,.75,fbm(q*4.+9.))*.05;",
+"  col+=vec3(.25,.14,.08)*.12*exp(-length(p-vec2(-.35,.9))*2.6)+vec3(.08,.10,.22)*.25*exp(-length(p-vec2(.45,.45))*2.);",
+"  float s=stars(p+vec2(0.,SC*.04),55.,.90,T)+stars(p+vec2(.37,SC*.08),110.,.88,T*1.3)*.7+stars(p+vec2(.71,SC*.14),200.,.86,T*1.7)*.45+band*stars(p+1.3,260.,.75,T*2.)*.5;",
+"  col+=mix(vec3(.75,.82,1.),vec3(1.,.86,.72),h1(floor(p*55.)))*s;",
+"  float k=floor(T/9.),lt=(T-k*9.)/1.4;",
+"  if(lt<1.){vec2 st=vec2((h1(vec2(k,1.))-.2)*asp*.8,.72+.22*h1(vec2(k,2.)));vec2 dir=normalize(vec2(-1.,-.42));vec2 pa=p-(st+dir*lt*.7);float al=dot(pa,-dir);float pe=length(pa+dir*al);",
+"   col+=vec3(1.,.95,.88)*(smoothstep(.0045,0.,pe)*smoothstep(.3,0.,al)*step(0.,al)*1.4+exp(-length(pa)*60.))*(1.-lt);}",
+" }",
+" col*=mix(1.,smoothstep(1.3,.2,length((uv-.5)*vec2(asp,1.))),.35);",
+" col+=(h1(gl_FragCoord.xy+T)-.5)/255.;gl_FragColor=vec4(col,1.);}"].join("\n");
+    function sh(t,src){var o=gl.createShader(t);gl.shaderSource(o,src);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)){console.warn(gl.getShaderInfoLog(o));return null}return o}
+    var vs=sh(gl.VERTEX_SHADER,VS),fs=sh(gl.FRAGMENT_SHADER,FS);if(!vs||!fs){cv.style.display="none";return{set:function(){}}}
+    var pr=gl.createProgram();gl.attachShader(pr,vs);gl.attachShader(pr,fs);gl.linkProgram(pr);gl.useProgram(pr);
+    var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    var al=gl.getAttribLocation(pr,"a");gl.enableVertexAttribArray(al);gl.vertexAttribPointer(al,2,gl.FLOAT,false,0,0);
+    var U={};["R","T","M","SC","PT"].forEach(function(k){U[k]=gl.getUniformLocation(pr,k)});
+    var mode=2,ptx=0,pty=0,tx=0,ty=0,last=0,t0=performance.now(),hidden=false;
+    function size(){var k=Math.min(window.devicePixelRatio||1,2)*.6;cv.width=Math.round(innerWidth*k);cv.height=Math.round(innerHeight*k);gl.viewport(0,0,cv.width,cv.height)}
+    size();addEventListener("resize",size);
+    addEventListener("pointermove",function(e){tx=(e.clientX/innerWidth-.5)*2;ty=-(e.clientY/innerHeight-.5)*2},{passive:true});
+    document.addEventListener("visibilitychange",function(){hidden=document.hidden});
+    var still=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function frame(now){if(!hidden&&(now-last>32||still)){last=now;ptx+=(tx-ptx)*.04;pty+=(ty-pty)*.04;
+      gl.uniform2f(U.R,cv.width,cv.height);gl.uniform1f(U.T,still?20.:(now-t0)/1000);gl.uniform1f(U.M,mode);
+      gl.uniform1f(U.SC,scrollY/innerHeight);gl.uniform2f(U.PT,ptx,pty);gl.drawArrays(gl.TRIANGLES,0,3)}
+      if(!still)requestAnimationFrame(frame)}
+    requestAnimationFrame(frame);
+    if(still)addEventListener("scroll",function(){requestAnimationFrame(frame)},{passive:true});
+    return{set:function(s){mode=s==="morning"?0:s==="dusk"?1:2;if(still)requestAnimationFrame(frame)}};
+  })();
   function slotOf(h){return h>=6&&h<16?"morning":h>=16&&h<20?"dusk":"night"}
   var q=(location.search.match(/slot=(morning|dusk|night)/)||[])[1];
   var slot=q||slotOf(new Date().getHours()),cur=SLOT[slot].first;
-  function applySlot(s){slot=s;root.dataset.slot=s;$("slotLabel").textContent=SLOT[s].label;
+  function applySlot(s){slot=s;root.dataset.slot=s;SKY.set(s);$("rdTitle").firstChild.nodeValue=s==="morning"?"今日台本":"今晚台本";$("slotLabel").textContent=SLOT[s].label;
     document.querySelectorAll(".slots button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.s===s)});
     if(au.paused&&!au.src){cur=SLOT[s].first;$("nowT").textContent=TR[cur][1]}
     var m=document.querySelector('meta[name="theme-color"]');m.content=getComputedStyle(root).getPropertyValue("--bg").trim()}
   applySlot(slot);
+  requestAnimationFrame(function(){setTimeout(function(){document.body.classList.add("ready")},60)});
   document.querySelectorAll(".slots button").forEach(function(b){b.addEventListener("click",function(){applySlot(b.dataset.s)})});
 
   function pad(n){return String(n).padStart(2,"0")}
@@ -182,12 +262,18 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;display
   au.addEventListener("ended",function(){load(cur+1);play()});
   $("ppBtn").addEventListener("click",function(){au.paused?play():au.pause()});
   $("nxBtn").addEventListener("click",function(){load(cur+1);play()});
-  var said=false;
+  /* 开播：傍晚/深夜播 Amber 本人的开场白（已和开场歌混好），字幕按说话时间出现；早间只出字幕 */
+  var said=false,CUE=[1.2,3.54,6.38];
   $("goBtn").addEventListener("click",function(){
     if(!au.paused){au.pause();return}
-    play();if(said)return;said=true;
-    var cap=$("caption");cap.innerHTML="";
-    SLOT[slot].lines.forEach(function(l,i){var p=document.createElement("p");p.textContent=l;cap.appendChild(p);setTimeout(function(){p.classList.add("on")},400+i*1500)});
+    if(said){play();return}
+    said=true;var S=SLOT[slot],cap=$("caption");cap.innerHTML="";
+    var ps=S.lines.map(function(l){var p=document.createElement("p");p.textContent=l;cap.appendChild(p);return p});
+    if(S.voice){cur=S.first;au.src="audio/"+TR[cur][0]+"_open.mp3";$("nowT").textContent=TR[cur][1]+" · 开场";
+      var cue=function(){ps.forEach(function(p,i){if(au.currentTime>=CUE[i])p.classList.add("on")});if(au.currentTime>CUE[2])au.removeEventListener("timeupdate",cue)};
+      au.addEventListener("timeupdate",cue);
+    }else{ps.forEach(function(p,i){setTimeout(function(){p.classList.add("on")},400+i*1500)})}
+    play();
   });
 
   /* 台本缩略图：和首页作品画同一套生成画 */

@@ -425,6 +425,7 @@ var _hmt = _hmt || [];
 </head>
 <body class="intro">
 <canvas id="sky" aria-hidden="true"></canvas>
+<a class="amber-site-top" href="https://amber319.com/?v=1125" style="position:absolute;top:calc(14px + env(safe-area-inset-top));left:16px;z-index:5;display:inline-block;font-size:12px;letter-spacing:.1em;color:inherit;opacity:.62;text-decoration:none;margin:0">← Amber 的个人网站</a>
 <button class="lang-link" id="langLink" type="button" onclick="setLang(EN ? 'zh' : 'en')">English</button>
 
 <section class="hero" id="hero">
@@ -486,11 +487,11 @@ var _hmt = _hmt || [];
   <div class="reading" id="readingContent"></div>
 </section>
 
+<div class="amber-more" style="max-width:560px;margin:28px auto 8px;padding:0 1.5rem;text-align:left;font-size:15px;line-height:1.5"><p style="font-size:12px;letter-spacing:.16em;opacity:.6;margin:0 0 10px">接着玩</p><a href="https://amber319.com/mbti/" style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 0;border-top:1px solid rgba(127,127,127,.28);color:inherit;text-decoration:none"><span>16型人格<span style="opacity:.55;font-size:.85em;margin-left:10px">看看最近的你是哪一型</span></span><span style="opacity:.55">→</span></a><a href="https://amber319.com/attachment/" style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 0;border-top:1px solid rgba(127,127,127,.28);color:inherit;text-decoration:none"><span>恋爱安全感说明书<span style="opacity:.55;font-size:.85em;margin-left:10px">你在爱里的“出厂设置”</span></span><span style="opacity:.55">→</span></a><a href="https://amber319.com/mind/" style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 0;border-top:1px solid rgba(127,127,127,.28);color:inherit;text-decoration:none"><span>心境自评<span style="opacity:.55;font-size:.85em;margin-left:10px">了解最近的状态，不是诊断</span></span><span style="opacity:.55">→</span></a><a href="https://amber319.com/radio/" style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 0;border-top:1px solid rgba(127,127,127,.28);color:inherit;text-decoration:none"><span>不按剧本听歌台<span style="opacity:.55;font-size:.85em;margin-left:10px">7 首原创音乐</span></span><span style="opacity:.55">→</span></a><a href="https://amber319.com/?v=1125" style="display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid rgba(127,127,127,.28);border-bottom:1px solid rgba(127,127,127,.28);color:inherit;text-decoration:none;font-weight:600"><span>Amber 的个人网站 · 全部作品</span><span>→</span></a></div>
 <footer class="footer">
   <p>Nocturne 夜曲塔罗 · 采用经典韦特塔罗（Rider-Waite-Smith）牌义</p>
   <p style="margin-top:0.5rem; font-size:0.85rem;">用于洞察与自我反思，答案始终在你自己手里。</p>
   <p style="margin-top:1.2rem; font-size:0.8rem; opacity:.8;">© 2026 Amber · 保留所有权利<br>欢迎分享；如需商用或改编，请先取得书面授权。</p>
-  <p style="margin-top:0.6rem; font-size:0.8rem; opacity:.8;"><a href="https://amber319.com/?v=1125" style="color:inherit;text-decoration:underline">Amber 的个人网站 →</a></p>
 </footer>
 <div class="toast" id="toast"></div>
 <div class="modal" id="groupModal" hidden onclick="if(event.target===this)this.hidden=true">
@@ -1169,6 +1170,13 @@ const STATIC_EN = [
   [".footer p", 0, "Nocturne Tarot · Classic Rider-Waite-Smith card meanings"],
   [".footer p", 1, "For insight and self-reflection. The answer is always in your own hands."],
   [".footer p", 2, "© 2026 Amber · All rights reserved<br>Feel free to share. For commercial use or adaptation, please get written permission first."],
+  [".amber-site-top", 0, "← Amber's site"],
+  [".amber-more p", 0, "Keep exploring"],
+  [".amber-more a", 0, "<span>16 Personalities<span style=\"opacity:.55;font-size:.85em;margin-left:10px\">Which type are you lately?</span></span><span style=\"opacity:.55\">→</span>"],
+  [".amber-more a", 1, "<span>Attachment Guide<span style=\"opacity:.55;font-size:.85em;margin-left:10px\">Your default settings in love</span></span><span style=\"opacity:.55\">→</span>"],
+  [".amber-more a", 2, "<span>Mood Check<span style=\"opacity:.55;font-size:.85em;margin-left:10px\">How you have been lately, not a diagnosis</span></span><span style=\"opacity:.55\">→</span>"],
+  [".amber-more a", 3, "<span>Not by the Script Radio<span style=\"opacity:.55;font-size:.85em;margin-left:10px\">7 original tracks</span></span><span style=\"opacity:.55\">→</span>"],
+  [".amber-more a", 4, "<span>Amber's site · all works</span><span>→</span>"],
   ["#groupModal p", 0, "Scan the QR code to join"],
   ["#groupModal .btn", 0, "Close"]
 ];
